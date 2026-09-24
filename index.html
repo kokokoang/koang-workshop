@@ -1,0 +1,2665 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Release Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+  /* ---------- tokens: light (bare :root defines the complete palette) ---------- */
+  :root {
+    --ground:        #f2f4f7;
+    --surface:       #ffffff;
+    --surface-sub:   #fafbfc;
+    --line:          #e2e6ed;
+    --line-soft:     #edf0f5;
+    --ink:           #1d2433;
+    --ink-2:         #4a5468;
+    --ink-3:         #78839a;
+    --focus:         #1d2433;
+
+    --gcbc:          #2563eb;
+    --gcbc-tint-bg:  #e2ecff;
+    --gcbc-tint-fg:  #1b4dc0;
+    --cp:            #e0700c;
+    --cp-tint-bg:    #ffeddb;
+    --cp-tint-fg:    #a95305;
+    --ccr:           #1c8c40;
+    --ccr-tint-bg:   #ddf2e3;
+    --ccr-tint-fg:   #12692e;
+
+    --ok-bg:         #dff3e4;
+    --ok-fg:         #12692e;
+    --warn-bg:       #fdefd0;
+    --warn-fg:       #8a5b06;
+
+    --st-todo-bg:    #eceff3;  --st-todo-fg:    #555f70;
+    --st-wip-bg:     #dff1fc;  --st-wip-fg:     #0668a3;
+    --st-review-bg:  #ece8fd;  --st-review-fg:  #5b34c9;
+    --st-fb-bg:      #ffe2e6;  --st-fb-fg:      #b4163a;
+    --st-late-bg:    #fde3e1;  --st-late-fg:    #b42318;
+    --st-live-bg:    #1c8c40;  --st-live-fg:    #ffffff;
+    --dot-ontrack:   #98a2b3;
+    --dot-atrisk:    #e8a008;
+    --dot-overdue:   #d92d20;
+    --dot-ready:     #1c9c48;
+    --dot-live:      #1c8c40;
+
+    --shadow-sm:     0 1px 2px rgba(29,36,51,.06), 0 1px 3px rgba(29,36,51,.05);
+    --shadow-lg:     0 12px 32px rgba(29,36,51,.16), 0 2px 8px rgba(29,36,51,.08);
+    --radius:        16px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:      #12141a;
+      --surface:     #1a1d25;
+      --surface-sub: #1e222b;
+      --line:        #2c313d;
+      --line-soft:   #242932;
+      --ink:         #e7eaf1;
+      --ink-2:       #b3bccd;
+      --ink-3:       #8a94a8;
+      --focus:       #e7eaf1;
+
+      --gcbc:        #5b8dfa;
+      --gcbc-tint-bg:#1e2c4c;
+      --gcbc-tint-fg:#adc6ff;
+      --cp:          #f2913c;
+      --cp-tint-bg:  #422a12;
+      --cp-tint-fg:  #ffcb96;
+      --ccr:         #45b466;
+      --ccr-tint-bg: #17361f;
+      --ccr-tint-fg: #93dca8;
+
+      --ok-bg:       #17361f;
+      --ok-fg:       #93dca8;
+      --warn-bg:     #3d2f0f;
+      --warn-fg:     #f0cb7c;
+
+    --st-todo-bg:  #2a2f3a;  --st-todo-fg:  #b3bccd;
+    --st-wip-bg:   #0f2d42;  --st-wip-fg:   #86cdf5;
+    --st-review-bg:#2b2452;  --st-review-fg:#c7b8ff;
+    --st-fb-bg:    #481624;  --st-fb-fg:    #ffa3b3;
+    --st-late-bg:  #4a1a16;  --st-late-fg:  #ffa39b;
+    --st-live-bg:  #45b466;  --st-live-fg:  #10131a;
+    --dot-ontrack: #7d879a;
+    --dot-atrisk:  #f2b53a;
+    --dot-overdue: #f2665b;
+    --dot-ready:   #4cc271;
+    --dot-live:    #45b466;
+
+      --st-todo-bg:  #2a2f3a;  --st-todo-fg:  #b3bccd;
+      --st-wip-bg:   #0f2d42;  --st-wip-fg:   #86cdf5;
+      --st-review-bg:#2b2452;  --st-review-fg:#c7b8ff;
+      --st-fb-bg:    #481624;  --st-fb-fg:    #ffa3b3;
+      --st-late-bg:  #4a1a16;  --st-late-fg:  #ffa39b;
+      --st-live-bg:  #45b466;  --st-live-fg:  #10131a;
+      --dot-ontrack: #7d879a;
+      --dot-atrisk:  #f2b53a;
+      --dot-overdue: #f2665b;
+      --dot-ready:   #4cc271;
+      --dot-live:    #45b466;
+
+      --shadow-sm:   0 1px 2px rgba(0,0,0,.45);
+      --shadow-lg:   0 14px 36px rgba(0,0,0,.6), 0 2px 8px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:      #12141a;
+    --surface:     #1a1d25;
+    --surface-sub: #1e222b;
+    --line:        #2c313d;
+    --line-soft:   #242932;
+    --ink:         #e7eaf1;
+    --ink-2:       #b3bccd;
+    --ink-3:       #8a94a8;
+    --focus:       #e7eaf1;
+
+    --gcbc:        #5b8dfa;
+    --gcbc-tint-bg:#1e2c4c;
+    --gcbc-tint-fg:#adc6ff;
+    --cp:          #f2913c;
+    --cp-tint-bg:  #422a12;
+    --cp-tint-fg:  #ffcb96;
+    --ccr:         #45b466;
+    --ccr-tint-bg: #17361f;
+    --ccr-tint-fg: #93dca8;
+
+    --ok-bg:       #17361f;
+    --ok-fg:       #93dca8;
+    --warn-bg:     #3d2f0f;
+    --warn-fg:     #f0cb7c;
+
+    --shadow-sm:   0 1px 2px rgba(0,0,0,.45);
+    --shadow-lg:   0 14px 36px rgba(0,0,0,.6), 0 2px 8px rgba(0,0,0,.4);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system,
+                 "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-inline: 16px;
+    padding-block: 28px 56px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  /* ---------- toolbar ---------- */
+  .toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    margin-bottom: 16px;
+  }
+  .nav { display: flex; align-items: center; gap: 6px; }
+
+  .pill {
+    font: inherit;
+    font-weight: 600;
+    color: var(--ink-2);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 7px 16px;
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .pill:hover { background: var(--surface-sub); color: var(--ink); }
+
+  .arrow {
+    width: 34px; height: 34px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink-2);
+    cursor: pointer;
+    padding: 0;
+    transition: background .15s ease, color .15s ease;
+  }
+  .arrow:hover { background: var(--line-soft); color: var(--ink); }
+  .arrow svg { width: 17px; height: 17px; display: block; }
+
+  h1.month {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin: 0;
+    min-width: 200px;
+  }
+  .summary {
+    order: 9;
+    width: 100%;
+    margin: -4px 0 0;
+    text-align: left;
+    color: var(--ink-2);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .summary b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- legend ---------- */
+  .legend {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin-bottom: 14px;
+  }
+  .legend-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 14px 6px 10px;
+    cursor: pointer;
+    transition: opacity .15s ease, border-color .15s ease;
+  }
+  .legend-pill[aria-pressed="false"] {
+    opacity: .45;
+    color: var(--ink-3);
+  }
+  .legend-pill[aria-pressed="false"] .sw { filter: grayscale(1); }
+  .sw-pair { display: inline-flex; gap: 3px; }
+  .sw { width: 13px; height: 13px; border-radius: 4px; display: block; }
+  .legend-note {
+    color: var(--ink-3);
+    font-size: 12px;
+    max-width: 46ch;
+  }
+
+  /* ---------- calendar shell ---------- */
+  .cal {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .dow {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    background: var(--surface-sub);
+    border-bottom: 1px solid var(--line);
+  }
+  .dow span {
+    padding: 9px 12px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .09em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+  .day {
+    border-right: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    min-height: 124px;
+    min-width: 0;
+    padding: 7px 7px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .day:nth-child(7n) { border-right: none; }
+  .grid .day:nth-last-child(-n+7) { border-bottom: none; }
+  .day.adjacent { background: var(--surface-sub); }
+  .day.adjacent .dnum { color: var(--ink-3); }
+  .day.adjacent .chip { opacity: .5; }
+
+  .dnum {
+    align-self: flex-start;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+    min-width: 25px;
+    height: 25px;
+    padding: 0 6px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    margin-bottom: 1px;
+  }
+  .day.today .dnum {
+    background: var(--ink);
+    color: var(--surface);
+    font-weight: 700;
+  }
+
+  /* ---------- chips ---------- */
+  .chip {
+    font: inherit;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: -.005em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    text-align: left;
+    padding: 4px 8px;
+    border-radius: 7px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform .12s ease, filter .12s ease;
+  }
+  .chip:hover { filter: brightness(.96); transform: translateY(-1px); }
+  .chip-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .count {
+    margin-left: auto;
+    flex: none;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 3px 5px;
+    border-radius: 5px;
+    background: rgba(255,255,255,.34);
+    font-variant-numeric: tabular-nums;
+  }
+  .chip.staging .count { background: rgba(0,0,0,.08); }
+  :root[data-theme="dark"] .chip.staging .count { background: rgba(255,255,255,.1); }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .chip.staging .count { background: rgba(255,255,255,.1); }
+  }
+
+  .chip.gcbc.prod    { background: var(--gcbc); color: #fff; }
+  .chip.cp.prod      { background: var(--cp);   color: #fff; }
+  .chip.ccr.prod     { background: var(--ccr);  color: #fff; }
+  .chip.gcbc.staging { background: var(--gcbc-tint-bg); color: var(--gcbc-tint-fg); }
+  .chip.cp.staging   { background: var(--cp-tint-bg);   color: var(--cp-tint-fg); }
+  .chip.ccr.staging  { background: var(--ccr-tint-bg);  color: var(--ccr-tint-fg); }
+  :root[data-theme="dark"] .chip.prod { color: #10131a; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .chip.prod { color: #10131a; }
+  }
+
+  /* ---------- selected chip ---------- */
+  .chip[aria-expanded="true"] {
+    box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ink);
+  }
+
+  /* ---------- right-side drawer ---------- */
+  .drawer {
+    position: fixed;
+    z-index: 60;
+    top: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: min(420px, calc(100vw - 24px));
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateX(calc(100% + 24px));
+    visibility: hidden;
+    transition: transform .22s ease, visibility 0s linear .22s;
+  }
+  .drawer.open {
+    transform: none;
+    visibility: visible;
+    transition: transform .22s ease, visibility 0s;
+  }
+  .drawer-body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .drawer-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink-3);
+    cursor: pointer;
+  }
+  .drawer-close:hover { background: var(--line-soft); color: var(--ink); }
+  .drawer-close svg { width: 18px; height: 18px; display: block; }
+
+  .tip-head {
+    position: relative;
+    flex: none;
+    display: flex;
+    gap: 12px;
+    padding: 18px 56px 16px 18px;
+    border-bottom: 1px solid var(--line-soft);
+    background: var(--surface-sub);
+  }
+  .accent { width: 4px; border-radius: 3px; flex: none; }
+  .accent.gcbc { background: var(--gcbc); }
+  .accent.cp   { background: var(--cp); }
+  .accent.ccr  { background: var(--ccr); }
+  .tip-proj { font-size: 18px; font-weight: 700; letter-spacing: -.015em; }
+  .tip-env  { font-size: 13px; font-weight: 600; margin-top: 1px; }
+  .tip-env.gcbc { color: var(--gcbc); }
+  .tip-env.cp   { color: var(--cp); }
+  .tip-env.ccr  { color: var(--ccr); }
+  .tip-meta { font-size: 12.5px; color: var(--ink-3); margin-top: 6px; }
+
+  .tip-list {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .tip-list li {
+    padding: 12px 18px;
+    display: grid;
+    gap: 6px;
+  }
+  .tip-list li + li { border-top: 1px solid var(--line-soft); }
+  .tip-item { font-size: 14px; font-weight: 600; line-height: 1.4; }
+  .tip-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    font-size: 11.5px;
+    color: var(--ink-3);
+  }
+  .badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 2.5px 7px;
+    border-radius: 5px;
+  }
+  /* two-part status badge: KEY | VALUE */
+  .sb {
+    display: inline-flex;
+    align-items: stretch;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .sb .k { padding: 4px 6px; background: var(--line); color: var(--ink-2); }
+  .sb .v { padding: 4px 7px; }
+  .v.todo     { background: var(--st-todo-bg);   color: var(--st-todo-fg); }
+  .v.wip      { background: var(--st-wip-bg);    color: var(--st-wip-fg); }
+  .v.qa, .v.uat { background: var(--st-review-bg); color: var(--st-review-fg); }
+  .v.feedback { background: var(--st-fb-bg);     color: var(--st-fb-fg); }
+  .v.done     { background: var(--ok-bg);        color: var(--ok-fg); }
+  .v.overdue  { background: var(--st-late-bg);   color: var(--st-late-fg); }
+  .v.live     { background: var(--st-live-bg);   color: var(--st-live-fg); }
+
+  /* event readiness tag */
+  .tip-head .tag { background: var(--surface); border: 1px solid var(--line); }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 3px 9px 3px 7px;
+    border-radius: 999px;
+    background: var(--line-soft);
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; display: inline-block; }
+  .dot.ontrack  { background: var(--dot-ontrack); }
+  .dot.atrisk   { background: var(--dot-atrisk); }
+  .dot.overdue  { background: var(--dot-overdue); }
+  .dot.ready    { background: transparent; box-shadow: inset 0 0 0 2px var(--dot-ready); }
+  .dot.deployed, .dot.live { background: var(--dot-live); }
+
+  .tip-head > div { flex: 1; min-width: 0; }
+  .readiness { margin-top: 10px; display: grid; gap: 7px; }
+  .readiness-row { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--ink-2); flex-wrap: wrap; }
+  .readiness-row b { color: var(--ink); }
+  .bar { height: 5px; border-radius: 3px; background: var(--line); overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 3px; }
+  .bar i.ontrack  { background: var(--dot-ontrack); }
+  .bar i.atrisk   { background: var(--dot-atrisk); }
+  .bar i.overdue  { background: var(--dot-overdue); }
+  .bar i.ready, .bar i.deployed, .bar i.live { background: var(--dot-ready); }
+
+  /* readiness indicator on calendar chips */
+  .rd {
+    margin-left: auto;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 3px 6px 3px 5px;
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .rd .dot { width: 7px; height: 7px; }
+
+  .state-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin: -4px 0 14px; font-size: 12px; color: var(--ink-3); }
+  .state-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .summary .risk { color: var(--st-late-fg); }
+  .tip-row .other { font-variant-numeric: tabular-nums; }
+  .tip-row .other b { color: var(--ink-2); font-weight: 600; }
+
+  .tip-foot {
+    flex: none;
+    padding: 10px 18px 12px;
+    border-top: 1px solid var(--line-soft);
+    background: var(--surface-sub);
+    font-size: 11px;
+    color: var(--ink-3);
+  }
+
+  /* ---------- mobile agenda ---------- */
+  .agenda { display: none; margin-top: 22px; }
+
+  /* ---------- edit mode ---------- */
+  .pill.edit-toggle { display: inline-flex; align-items: center; gap: 7px; }
+  .pill.edit-toggle svg { width: 14px; height: 14px; }
+  .pill.edit-toggle[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .pill.primary { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .pill:disabled { opacity: .45; cursor: default; }
+
+  .editbar[hidden] { display: none; }
+  /* actions sit on the left so the side panel never covers them */
+  .editbar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px 16px;
+    margin: -4px 0 14px;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+  }
+  .editbar-hint { font-size: 12.5px; color: var(--ink-2); }
+  .editbar-actions { display: flex; gap: 8px; }
+  /* change list: its own card below the calendar / list */
+  .changes-panel {
+    margin-top: 18px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+  }
+  .changes-panel[hidden] { display: none; }
+  .changes-panel h2 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .changes-panel h2 span { color: var(--ink); }
+  .changes-panel .editbar-hint { display: block; margin: 0 0 10px; }
+  .changes-panel .changelist:not(:empty) { margin-bottom: 12px; }
+  .changes-panel .editbar-actions { flex-wrap: wrap; }
+  .changelist { margin: 0; padding-left: 20px; display: grid; gap: 5px; }
+  .changelist li { font-size: 12.5px; color: var(--ink-2); padding-left: 2px; }
+  .changelist li::marker { color: var(--ink-3); font-size: 11px; }
+  .changelist li b { color: var(--ink); }
+  .changelist .merged { color: var(--ink-3); }
+
+  body.edit-on .chip { cursor: grab; }
+  body.edit-on .chip:active { cursor: grabbing; }
+  .chip.dragging { opacity: .4; }
+  .day.drop-ok { background: var(--line-soft); box-shadow: inset 0 0 0 2px var(--ink-3); }
+
+  /* ---------- selection + move form in the panel ---------- */
+  .tip-list li.pickable { display: grid; grid-template-columns: 20px minmax(0, 1fr); column-gap: 10px; align-items: start; }
+  .tip-list li.pickable > .pick { grid-row: 1 / span 5; margin-top: 2px; }
+  .pick { width: 16px; height: 16px; accent-color: var(--ink); cursor: pointer; }
+  .tip-list li.picked { background: var(--line-soft); }
+
+  .movebar {
+    flex: none;
+    border-top: 1px solid var(--line);
+    background: var(--surface-sub);
+    padding: 12px 18px 14px;
+    display: grid;
+    gap: 8px;
+  }
+  .mb-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--ink-2); }
+  .mb-all { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; font-weight: 600; }
+  .mb-row { display: flex; align-items: center; gap: 10px; }
+  .mb-row label { font-size: 12.5px; font-weight: 700; width: 74px; flex: none; }
+  .date-field {
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .date-field.blank { color: var(--ink-3); font-weight: 500; }
+  .date-field:hover { border-color: var(--ink-3); }
+  .date-field[aria-expanded="true"] { border-color: var(--ink); box-shadow: 0 0 0 2px var(--line-soft); }
+  .date-clear {
+    font: inherit;
+    font-size: 16px;
+    line-height: 1;
+    flex: none;
+    width: 26px;
+    height: 26px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink-3);
+    cursor: pointer;
+  }
+  .date-clear:hover { background: var(--line); color: var(--ink); }
+
+  /* date picker popover */
+  .movebar { position: relative; }
+  .dpick {
+    position: absolute;
+    right: 18px;
+    bottom: calc(100% - 6px);
+    z-index: 5;
+    width: 262px;
+    padding: 10px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+  }
+  .dpick[hidden] { display: none; }
+  .dp-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .dp-head .m { font-size: 13px; font-weight: 700; }
+  .dp-nav {
+    font: inherit;
+    width: 26px; height: 26px;
+    display: grid; place-items: center;
+    border: 0; border-radius: 50%;
+    background: transparent; color: var(--ink-2); cursor: pointer;
+    font-size: 15px;
+  }
+  .dp-nav:hover { background: var(--line-soft); color: var(--ink); }
+  .dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .dp-grid .dw { font-size: 10px; font-weight: 700; color: var(--ink-3); text-align: center; padding-bottom: 4px; }
+  .dp-day {
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    height: 30px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .dp-day:hover { background: var(--line-soft); }
+  .dp-day.adj { color: var(--ink-3); font-weight: 500; }
+  .dp-day.today { box-shadow: inset 0 0 0 1.5px var(--ink-3); }
+  .dp-day.sel { background: var(--ink); color: var(--surface); }
+  .dp-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; font-size: 11.5px; color: var(--ink-3); }
+  .dp-foot button {
+    font: inherit; font-size: 11.5px; font-weight: 700;
+    border: 1px solid var(--line); border-radius: 999px;
+    background: var(--surface); color: var(--ink);
+    padding: 4px 10px; cursor: pointer;
+  }
+  .mb-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px; }
+  .mb-note { margin: 0; font-size: 11.5px; color: var(--ink-3); }
+  .mb-note.warn { color: var(--st-late-fg); font-weight: 600; }
+
+  .chip.ghost {
+    background: transparent !important;
+    color: var(--ink) !important;
+    border: 1.5px dashed var(--ink-3);
+    font-style: italic;
+  }
+  .chip.ghost .rd { background: transparent; }
+
+  /* ---------- Env List view ---------- */
+  .envlist { display: none; margin-top: 4px; }
+  .envlist[hidden] { display: none; }
+  .page.view-env .cal, .page.view-env .agenda { display: none; }
+  .page.view-env .envlist { display: grid; gap: 14px; }
+  @media (min-width: 1000px) {
+    .page.view-env .envlist { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+  }
+  .env-col {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .env-col > h2 {
+    margin: 0;
+    padding: 12px 15px;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .env-col > h2 .n { margin-left: auto; font-size: 12px; color: inherit; opacity: .7; letter-spacing: 0; }
+  .env-col.prod > h2    { background: var(--ok-bg);        color: var(--ok-fg); }
+  .env-col.staging > h2 { background: var(--st-review-bg); color: var(--st-review-fg); }
+  .env-col.wip > h2     { background: var(--st-wip-bg);    color: var(--st-wip-fg); }
+  .env-proj { padding: 10px 15px 12px; border-top: 1px solid var(--line-soft); }
+  .env-proj:first-of-type { border-top: 0; }
+  .env-proj h3 { margin: 0 0 8px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 7px; }
+  .env-proj h3 .sw { width: 10px; height: 10px; border-radius: 3px; }
+  .env-items { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+  .env-items li { display: grid; gap: 4px; }
+  .env-nm { font-size: 12.5px; font-weight: 600; line-height: 1.35; }
+  .env-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 8px; font-size: 11.5px; color: var(--ink-3); }
+  .env-note { margin: 0; padding: 9px 15px 0; font-size: 11.5px; color: var(--ink-3); }
+  .env-empty { padding: 14px 15px; font-size: 12.5px; color: var(--ink-3); }
+  .tagline { color: var(--ink-3); font-weight: 500; }
+  .pill.pdf { display: inline-flex; align-items: center; gap: 7px; }
+  .pill.pdf[hidden] { display: none; }
+  .pill.pdf svg { width: 14px; height: 14px; }
+
+  /* ---------- printed report ---------- */
+  #printDoc { display: none; }
+  @media print {
+    html, body { background: #fff !important; }
+    body > *:not(#printDoc) { display: none !important; }
+    #printDoc { display: block; color: #000; font-size: 11pt; line-height: 1.45; }
+    #printDoc h1 { font-size: 16pt; margin: 0 0 2pt; }
+    #printDoc .pd-sub { font-size: 10pt; color: #444; margin: 0 0 16pt; }
+    #printDoc h2 { font-size: 13pt; margin: 16pt 0 4pt; page-break-after: avoid; }
+    #printDoc h3 { font-size: 11.5pt; margin: 10pt 0 2pt; page-break-after: avoid; }
+    #printDoc h4 { font-size: 11pt; font-weight: 600; margin: 7pt 0 2pt; page-break-after: avoid; }
+    #printDoc p.none { font-style: italic; color: #444; margin: 2pt 0 0; }
+    #printDoc ul { margin: 2pt 0 6pt; padding-left: 20pt; }
+    #printDoc li { margin: 1pt 0; page-break-inside: avoid; }
+    #printDoc .tagline { font-size: 9.5pt; color: #555; }
+    @page { margin: 16mm; }
+  }
+
+  /* ---------- tracker fields ---------- */
+  .v.pending { background: var(--st-todo-bg); color: var(--st-todo-fg); box-shadow: inset 0 0 0 1px var(--st-todo-fg); }
+  .v.hold    { background: var(--ink-2); color: var(--surface); }
+  .rid {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .03em;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .tip-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+  .tip-meta2 { display: flex; flex-wrap: wrap; gap: 4px; font-size: 11.5px; color: var(--ink-3); }
+  .tip-meta2 .sep { opacity: .6; }
+
+  .phase-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: -6px 0 14px; }
+  .phase-filter[hidden] { display: none; }
+  .pf-label { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-right: 2px; }
+  .phase-pill {
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .phase-pill[aria-pressed="false"] { opacity: .45; text-decoration: line-through; }
+
+  /* ---------- editable status badges (edit mode) ---------- */
+  button.sb {
+    font: inherit;
+    font-size: 10px;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+  }
+  button.sb .v::after { content: " \25BE"; font-size: 9px; opacity: .75; }
+  button.sb:hover { box-shadow: 0 0 0 1.5px var(--ink-3); }
+  button.sb[aria-expanded="true"] { box-shadow: 0 0 0 2px var(--ink); }
+  button.sb:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .v.none { background: var(--line-soft); color: var(--ink-3); }
+
+  .status-menu {
+    position: fixed;
+    z-index: 95;
+    min-width: 170px;
+    padding: 6px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+  }
+  .status-menu[hidden] { display: none; }
+  .status-menu .sm-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding: 4px 8px 6px;
+  }
+  .status-menu button {
+    font: inherit;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 6px 8px;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    text-align: left;
+  }
+  .status-menu button:hover, .status-menu button:focus-visible { background: var(--line-soft); outline: none; }
+  .status-menu .tick { font-size: 12px; font-weight: 700; color: var(--ink); }
+  .status-menu .opt {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 4px 7px;
+    border-radius: 5px;
+  }
+
+  /* ---------- snackbar ---------- */
+  .snackbar {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    transform: translate(-50%, 14px);
+    z-index: 90;
+    max-width: min(560px, calc(100vw - 32px));
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: var(--ink);
+    color: var(--surface);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+  }
+  .snackbar.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition: opacity .18s ease, transform .18s ease, visibility 0s; }
+  .snackbar.error { background: var(--st-late-fg); color: #fff; }
+  .snackbar.ok { background: var(--dot-live); color: #fff; }
+
+  /* ---------- view toggle ---------- */
+  .toolbar .view-toggle { margin-left: auto; }
+  .view-toggle {
+    display: inline-flex;
+    padding: 3px;
+    gap: 2px;
+    background: var(--line-soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+  }
+  .view-toggle button {
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 13px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-3);
+    cursor: pointer;
+  }
+  .view-toggle button:hover { color: var(--ink); }
+  .view-toggle button[aria-pressed="true"] {
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+  }
+  .view-toggle svg { width: 14px; height: 14px; }
+
+  /* ---------- list view ---------- */
+  .page.view-list .cal { display: none; }
+  .page.view-list .agenda { display: block; margin-top: 0; }
+  .ag-date .today-label {
+    display: inline-block;
+    margin-left: 6px;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--surface);
+    vertical-align: 1px;
+  }
+  .ag-day.past .ag-date { color: var(--ink-3); }
+  .agenda h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 10px;
+  }
+  .ag-day { margin-bottom: 18px; }
+  .ag-date {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    margin: 0 0 8px 2px;
+  }
+  .ag-date .wd { color: var(--ink-3); font-weight: 600; }
+  .ag-groups { display: grid; gap: 10px; }
+  .ag-group {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 13px 15px 4px;
+    box-shadow: var(--shadow-sm);
+  }
+  .ag-top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-bottom: 6px; }
+  .ag-head {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 6px;
+  }
+  .ag-head.gcbc.prod    { background: var(--gcbc); color: #fff; }
+  .ag-head.cp.prod      { background: var(--cp);   color: #fff; }
+  .ag-head.ccr.prod     { background: var(--ccr);  color: #fff; }
+  .ag-head.gcbc.staging { background: var(--gcbc-tint-bg); color: var(--gcbc-tint-fg); }
+  .ag-head.cp.staging   { background: var(--cp-tint-bg);   color: var(--cp-tint-fg); }
+  .ag-head.ccr.staging  { background: var(--ccr-tint-bg);  color: var(--ccr-tint-fg); }
+  :root[data-theme="dark"] .ag-head.prod { color: #10131a; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .ag-head.prod { color: #10131a; }
+  }
+  .ag-count { font-size: 11.5px; color: var(--ink-3); }
+
+  /* item rows: stacked on small screens, aligned columns in desktop list view */
+  .ag-items { list-style: none; margin: 0; padding: 0; }
+  .lr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px 8px;
+    padding: 9px 0;
+    border-top: 1px solid var(--line-soft);
+  }
+  .lr .nm { flex-basis: 100%; font-size: 12.5px; font-weight: 600; line-height: 1.35; }
+  .lr .c { font-size: 11.5px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .lr .c.blank, .lr .c.spacer { display: none; }
+  .lr .c.date b { color: var(--ink-2); font-weight: 600; }
+  .lr-head { display: none; }
+
+  @media (min-width: 1000px) {
+    .page.view-list .ag-day {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    .page.view-list .ag-date { margin: 13px 0 0; font-size: 16px; line-height: 1.3; }
+    .page.view-list .ag-date .wd { display: block; font-size: 13px; font-weight: 500; }
+    .page.view-list .ag-date .today-label { margin: 6px 0 0; }
+    .page.view-list .ag-group { padding: 14px 18px 6px; }
+    .page.view-list .ag-top { margin-bottom: 8px; }
+
+    .page.view-list .lr,
+    .page.view-list .lr-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 96px 130px 120px 84px 104px;
+      column-gap: 14px;
+      align-items: center;
+    }
+    .page.view-list .lr .c.spacer { display: block; }
+    .page.view-list .lr-head {
+      padding: 4px 0 6px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .page.view-list .lr { padding: 8px 0; }
+    .page.view-list .lr .nm { font-size: 13px; }
+    .page.view-list .lr .c { align-self: center; }
+    .page.view-list .lr .c.blank { display: block; width: 10px; height: 2px; border-radius: 1px; background: var(--line); }
+    .page.view-list .lr .c.date .lbl { display: none; }
+    .page.view-list .lr .sb .k { display: none; }
+    .page.view-list .lr .sb .v { border-radius: 5px; }
+    .page.view-list .lr .c.pic { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  }
+  .empty {
+    color: var(--ink-3);
+    font-size: 13px;
+    padding: 18px 2px;
+  }
+
+  .pill.load { display: inline-flex; align-items: center; gap: 7px; }
+  .pill.load svg { width: 15px; height: 15px; }
+  .empty-state {
+    margin-bottom: 14px;
+    padding: 14px 16px;
+    border: 1.5px dashed var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--ink-2);
+    font-size: 13px;
+  }
+  .empty-state strong { color: var(--ink); margin-right: 4px; }
+  .dropzone {
+    position: fixed; inset: 0; z-index: 80;
+    display: none; place-items: center;
+    background: rgba(18, 20, 26, .55);
+    padding: 24px;
+  }
+  .dropzone.on { display: grid; }
+  .dropzone div {
+    border: 2px dashed #fff; border-radius: 18px;
+    padding: 36px 44px; color: #fff; font-size: 17px; font-weight: 700;
+    text-align: center;
+  }
+  .foot.error { color: var(--warn-fg); font-weight: 600; }
+
+  .notice {
+    margin-top: 16px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    background: var(--warn-bg);
+    color: var(--warn-fg);
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+
+  .foot {
+    margin-top: 18px;
+    color: var(--ink-3);
+    font-size: 11.5px;
+  }
+
+  @media (max-width: 720px) {
+    .page { padding-block: 20px 40px; }
+    h1.month { font-size: 18px; min-width: 0; }
+    .summary { margin-left: 0; width: 100%; text-align: left; order: 9; }
+    .toolbar .view-toggle { margin-left: 0; }
+    .legend-note { font-size: 11.5px; }
+    .dow span { padding: 7px 4px; font-size: 9px; letter-spacing: .05em; }
+    .day { min-height: 68px; padding: 4px 3px 6px; gap: 3px; }
+    .dnum { font-size: 11px; min-width: 21px; height: 21px; padding: 0 3px; }
+    /* chips collapse to thin colour bars */
+    .chip {
+      height: 7px;
+      padding: 0;
+      border-radius: 3px;
+      gap: 0;
+    }
+    .chip:hover { transform: none; }
+    .chip-label, .count, .rd { display: none; }
+    .agenda { display: block; }
+    /* drawer becomes a bottom sheet */
+    .drawer {
+      top: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-height: 85vh;
+      border-radius: 16px 16px 0 0;
+      transform: translateY(100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+    .chip:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="toolbar">
+    <button class="pill" id="todayBtn" type="button">Today</button>
+    <div class="nav">
+      <button class="arrow" id="prevBtn" type="button" aria-label="Previous month">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button class="arrow" id="nextBtn" type="button" aria-label="Next month">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+    <h1 class="month" id="monthTitle">&nbsp;</h1>
+    <p class="summary" id="summary">&nbsp;</p>
+    <button class="pill edit-toggle" id="editBtn" type="button" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>Edit mode
+    </button>
+    <div class="view-toggle" role="group" aria-label="View">
+      <button type="button" data-view="calendar" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="16" y1="2" x2="16" y2="6"></line></svg>Calendar
+      </button>
+      <button type="button" data-view="list" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="9" y1="6" x2="21" y2="6"></line><line x1="9" y1="12" x2="21" y2="12"></line><line x1="9" y1="18" x2="21" y2="18"></line><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle></svg>List
+      </button>
+      <button type="button" data-view="env" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="1.5"></rect><rect x="3" y="14" width="18" height="6" rx="1.5"></rect></svg>Env List
+      </button>
+    </div>
+    <button class="pill pdf" id="pdfBtn" type="button" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6"></path><rect x="6" y="14" width="12" height="7"></rect><path d="M6 18H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2"></path></svg>Download PDF
+    </button>
+    <button class="pill load" id="loadBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line>
+      </svg>Load data
+    </button>
+    <input type="file" id="fileInput" accept=".json,application/json" hidden>
+  </div>
+
+  <div class="empty-state" id="emptyState" hidden>
+    <strong>No release data loaded.</strong>
+    Click <b>Load data</b> or drag a <b>.json</b> file onto this page. Nothing is kept between sessions, so load the file each time you open the page.
+  </div>
+
+  <div class="legend" id="legend"></div>
+  <div class="phase-filter" id="phaseFilter" hidden></div>
+
+
+  <div class="cal">
+    <div class="dow" aria-hidden="true">
+      <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span>
+      <span>Fri</span><span>Sat</span><span>Sun</span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div id="notice"></div>
+
+  <section class="agenda" id="agenda">
+    <h2>Deployments this month</h2>
+    <div id="agendaBody"></div>
+  </section>
+
+  <section class="envlist" id="envList" hidden></section>
+
+  <section class="changes-panel" id="changesPanel" hidden>
+    <h2>Changes <span id="changesCount"></span></h2>
+    <p class="editbar-hint" id="editHint">Drag a deployment chip to another day to move its date.</p>
+    <ol class="changelist" id="changelist"></ol>
+    <div class="editbar-actions">
+      <button class="pill" id="undoBtn" type="button" disabled>Undo</button>
+      <button class="pill" id="resetBtn" type="button" disabled>Reset</button>
+      <button class="pill" id="copyBtn" type="button" disabled>Copy JSON</button>
+      <button class="pill primary" id="downloadBtn" type="button" disabled>Save JSON</button>
+    </div>
+  </section>
+
+  <p class="foot" id="dataInfo"></p>
+</div>
+
+<div id="printDoc" aria-hidden="true"></div>
+
+<div class="status-menu" id="statusMenu" role="menu" hidden></div>
+
+<div class="snackbar" id="snackbar" role="status" aria-live="polite"></div>
+
+<div class="dropzone" id="dropzone" aria-hidden="true"><div>Drop the .json file to update the calendar</div></div>
+
+<aside class="drawer" id="drawer" role="dialog" aria-labelledby="drawerTitle" aria-hidden="true">
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<script>
+/* ============================================================================
+   DATA — loaded at runtime from a .json file (button or drag & drop).
+   Accepted shapes:  [ {row}, ... ]   or   { "updated": "YYYY-MM-DD", "releases": [ {row}, ... ] }
+   Row fields: project, item, status, staging, prod, pic
+   (column names like "Staging", "Prod", "PC PIC" from the Outline table also work)
+   status = development status in the dev environment (not deployment state).
+   Dates are YYYY-MM-DD; "" means not yet scheduled for that environment.
+   ========================================================================== */
+let RELEASES = [];   // filled from the loaded .json file
+
+/* -------------------------------------------------------------------------- */
+
+const PROJECTS = {
+  "GCBC":             { key: "gcbc", short: "GCBC", full: "GCBC",             order: 0 },
+  "COUNTRY PLATFORM": { key: "cp",   short: "CP",   full: "Country Platform", order: 1 },
+  "CCR":              { key: "ccr",  short: "CCR",  full: "CCR",              order: 2 }
+};
+const ORDER = ["gcbc", "cp", "ccr"];
+const ENVS = {
+  staging: { label: "Staging", full: "Staging environment", rank: 0 },
+  prod:    { label: "Prod",    full: "Production environment", rank: 1 }
+};
+
+const MONTHS = ["January","February","March","April","May","June","July",
+                "August","September","October","November","December"];
+const MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const WEEKDAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+
+function esc(value) {
+  return String(value === undefined || value === null ? "" : value)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+const ISO = /^(\d{4})-(\d{2})-(\d{2})$/;
+function parseISO(value) {
+  const raw = String(value === undefined || value === null ? "" : value).trim();
+  if (!raw) return { ok: true, iso: "" };                 // not scheduled — skip, no error
+  const m = ISO.exec(raw);
+  if (!m) return { ok: false, iso: "" };
+  const y = +m[1], mo = +m[2], d = +m[3];
+  const dt = new Date(y, mo - 1, d);
+  if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) {
+    return { ok: false, iso: "" };
+  }
+  return { ok: true, iso: raw };
+}
+function toKey(date) {
+  return date.getFullYear() + "-" +
+    String(date.getMonth() + 1).padStart(2, "0") + "-" +
+    String(date.getDate()).padStart(2, "0");
+}
+function fromKey(iso) {
+  const m = ISO.exec(iso);
+  return new Date(+m[1], +m[2] - 1, +m[3]);
+}
+function longDate(iso) {
+  const d = fromKey(iso);
+  return WEEKDAYS[(d.getDay() + 6) % 7] + ", " + d.getDate() + " " +
+         MONTHS[d.getMonth()] + " " + d.getFullYear();
+}
+function shortDate(iso) {
+  const d = fromKey(iso);
+  return d.getDate() + " " + MONTHS_SHORT[d.getMonth()] + " " + d.getFullYear();
+}
+
+/* ---- build events: one per date + project + environment ---- */
+const problems = [];
+const events = new Map();   // "iso|projKey|env" -> event
+const byDate = new Map();   // iso -> [event, ...]
+
+const FIELD_ALIASES = {
+  id: "id", rowid: "id",
+  phase: "phase",
+  project: "project", platform: "project",
+  item: "item", feature: "item",
+  description: "description",
+  design: "design", designstatus: "design",
+  start: "start", startdate: "start",
+  end: "end", enddate: "end",
+  proddeploymentdate: "prod",
+  dev: "dev", devstatus: "dev", status: "legacyStatus",
+  stag: "stag", stagstatus: "stag", stagingstatus: "stag",
+  live: "live", prodlive: "live", deployed: "live", prodstatus: "live", prodlivestatus: "live",
+  staging: "staging", stagingdate: "staging",
+  prod: "prod", production: "prod", proddate: "prod",
+  pic: "pic", pcpic: "pic", owner: "pic"
+};
+function normalizeRow(raw) {
+  const row = { extra: {} };
+  if (!raw || typeof raw !== "object") return row;
+  Object.keys(raw).forEach(k => {
+    const field = FIELD_ALIASES[k.toLowerCase().replace(/[^a-z]/g, "")];
+    if (field) { if (row[field] === undefined) row[field] = raw[k]; }
+    else row.extra[k] = raw[k];                     // passed through untouched on save
+  });
+  return row;
+}
+
+const DESIGN_VALUES = { TODO: "todo", MOCKUPWIP: "mockup", MOCKUP: "mockup", WIP: "mockup",
+  INREVIEW: "review", REVIEW: "review", PENDING: "pending", HOLD: "hold", ONHOLD: "hold", DONE: "done" };
+const DESIGN_LABEL = { todo: "To Do", mockup: "Mockup WIP", review: "In Review", pending: "Pending", hold: "Hold", done: "Done" };
+const DESIGN_CLASS = { todo: "todo", mockup: "wip", review: "qa", pending: "pending", hold: "hold", done: "done" };
+
+const DEV_VALUES  = { TODO: "todo", WIP: "wip", INPROGRESS: "wip", QA: "qa", ONREVIEW: "qa", REVIEW: "qa", INREVIEW: "qa", DONE: "done" };
+const STAG_VALUES = { UAT: "uat", ONREVIEW: "uat", REVIEW: "uat", CLIENTREVIEW: "uat", FEEDBACK: "feedback", DONE: "done" };
+const STATUS_LABEL = { todo: "To do", wip: "WIP", qa: "QA", uat: "UAT", feedback: "Feedback", done: "Done" };
+const statusKey = v => String(v === undefined || v === null ? "" : v).toUpperCase().replace(/[^A-Z]/g, "");
+function parseLive(v) {
+  if (v === true) return true;
+  return /^(true|yes|y|x|1|live|deployed|done|✓|✔|☑)$/i.test(String(v === undefined || v === null ? "" : v).trim());
+}
+
+let ROWS = [];        // canonical working copy; drag & drop edits this
+let ORIGINAL = [];    // copy of ROWS as loaded, for Reset
+
+function buildData(rows) {
+  problems.length = 0;
+  ROWS = [];
+
+  rows.map(normalizeRow).forEach((row, i) => {
+    const label = row.item ? row.item : "row " + (i + 1);
+    const meta = PROJECTS[String(row.project || "").trim().toUpperCase()];
+    if (!meta) {
+      problems.push('Unknown platform "' + (row.project || "") + '" on "' + label + '" — kept in the data but not shown.');
+    }
+    const projLookup = String(row.project || "").trim().toUpperCase();
+    const st = parseISO(row.start);
+    const en = parseISO(row.end);
+    if (!st.ok) problems.push('Unreadable Start Date "' + row.start + '" on "' + label + '".');
+    if (!en.ok) problems.push('Unreadable End Date "' + row.end + '" on "' + label + '".');
+    let design = "";
+    if (statusKey(row.design)) {
+      design = DESIGN_VALUES[statusKey(row.design)] || "";
+      if (!design) problems.push('Unknown Design Status "' + row.design + '" on "' + label + '" (ignored).');
+    }
+    const s = parseISO(row.staging);
+    const p = parseISO(row.prod);
+    if (!s.ok) problems.push('Unreadable Staging date "' + row.staging + '" on "' + label + '".');
+    if (!p.ok) problems.push('Unreadable Prod date "' + row.prod + '" on "' + label + '".');
+
+    const devRaw = row.dev !== undefined && String(row.dev).trim() !== "" ? row.dev : row.legacyStatus;
+    let dev = DEV_VALUES[statusKey(devRaw)];
+    if (!dev) {
+      if (statusKey(devRaw)) problems.push('Unknown Dev status "' + devRaw + '" on "' + label + '" (treated as To do).');
+      dev = "todo";
+    }
+    let stag = "";
+    if (statusKey(row.stag)) {
+      stag = STAG_VALUES[statusKey(row.stag)] || "";
+      if (!stag) problems.push('Unknown Stag status "' + row.stag + '" on "' + label + '" (ignored).');
+    }
+    ROWS.push({
+      id: String(row.id === undefined || row.id === null ? "" : row.id).trim(),
+      phase: String(row.phase || "").trim(),
+      description: String(row.description || "").trim(),
+      design: design,
+      start: st.iso,
+      end: en.iso,
+      extra: row.extra || {},
+      project: String(row.project || "").trim(),
+      projLookup: projLookup,
+      item: String(row.item || "").trim(),
+      dev: dev,
+      stag: stag,
+      live: parseLive(row.live),
+      pic: String(row.pic || "").trim(),
+      staging: s.iso,
+      prod: p.iso
+    });
+  });
+
+  ORIGINAL = ROWS.map(r => Object.assign({}, r));
+  hiddenPhases.clear();
+  if (typeof renderPhaseFilter === "function") renderPhaseFilter();
+  rebuildEvents();
+
+  const box = document.getElementById("notice");
+  if (problems.length) {
+    box.className = "notice";
+    box.innerHTML = "Could not place " + problems.length +
+      (problems.length === 1 ? " value" : " values") + ": " + problems.map(esc).join(" ");
+  } else {
+    box.className = "";
+    box.innerHTML = "";
+  }
+}
+
+/* rebuilt after every edit: events are derived from ROWS, never edited directly */
+const hiddenPhases = new Set();
+const phaseKey = r => r.phase || "__none__";
+
+function rebuildEvents() {
+  events.clear();
+  byDate.clear();
+
+  ROWS.forEach((r, idx) => {
+    const meta = PROJECTS[r.projLookup];
+    if (!meta) return;
+    if (hiddenPhases.has(phaseKey(r))) return;
+    const entry = Object.assign({ idx: idx }, r);
+    [["staging", r.staging], ["prod", r.prod]].forEach(([env, iso]) => {
+      if (!iso) return;
+      const key = iso + "|" + meta.key + "|" + env;
+      if (!events.has(key)) events.set(key, { iso: iso, env: env, proj: meta, items: [] });
+      events.get(key).items.push(entry);
+    });
+  });
+
+  events.forEach(ev => {
+    if (!byDate.has(ev.iso)) byDate.set(ev.iso, []);
+    byDate.get(ev.iso).push(ev);
+  });
+  byDate.forEach(list => {
+    list.sort((a, b) => ENVS[a.env].rank - ENVS[b.env].rank || a.proj.order - b.proj.order);
+  });
+}
+
+/* ---- state ---- */
+const today = new Date();
+const todayKey = toKey(today);
+let view = new Date(today.getFullYear(), today.getMonth(), 1);
+const hidden = new Set();                                 // project keys filtered out
+
+/* ---- legend ---- */
+const legend = document.getElementById("legend");
+legend.innerHTML = ORDER.map(key => {
+  const meta = Object.values(PROJECTS).find(p => p.key === key);
+  return '<button type="button" class="legend-pill" data-proj="' + esc(key) + '" aria-pressed="true">' +
+         '<span class="sw-pair" aria-hidden="true">' +
+           '<span class="sw" style="background:var(--' + key + '-tint-bg)"></span>' +
+           '<span class="sw" style="background:var(--' + key + ')"></span>' +
+         '</span>' + esc(meta.full) + '</button>';
+}).join("") +
+'<span class="legend-note">Lighter chip = Staging, solid chip = Production. ' +
+'Click a project to show or hide it.</span>';
+
+legend.insertAdjacentHTML("afterend",
+  '<div class="state-legend">' +
+    '<span><i class="dot ontrack"></i>On track</span>' +
+    '<span><i class="dot atrisk"></i>At risk (not ready, 3 working days or less)</span>' +
+    '<span><i class="dot overdue"></i>Overdue</span>' +
+    '<span><i class="dot ready"></i>Ready</span>' +
+    '<span><i class="dot live"></i>Deployed / Live</span>' +
+  '</div>');
+
+legend.querySelectorAll(".legend-pill").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const key = btn.dataset.proj;
+    if (hidden.has(key)) { hidden.delete(key); btn.setAttribute("aria-pressed", "true"); }
+    else { hidden.add(key); btn.setAttribute("aria-pressed", "false"); }
+    render();
+  });
+});
+
+/* ---- render ---- */
+const grid = document.getElementById("grid");
+const agendaBody = document.getElementById("agendaBody");
+
+function visibleFor(iso) {
+  return (byDate.get(iso) || []).filter(ev => !hidden.has(ev.proj.key));
+}
+
+/* ---- readiness ----
+   Staging event: item ready = Dev DONE; shipped = has a Stag status.
+   Prod event:    item ready = Dev DONE and Stag DONE; shipped = marked live. */
+const STATE_LABEL = { ontrack: "On track", atrisk: "At risk", overdue: "Overdue", ready: "Ready", deployed: "Deployed", live: "Live" };
+const RISK_DAYS = 3;
+
+function workingDaysUntil(iso) {
+  const end = fromKey(iso);
+  const d = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  let n = 0;
+  while (d < end) {
+    d.setDate(d.getDate() + 1);
+    const wd = d.getDay();
+    if (wd !== 0 && wd !== 6) n++;
+  }
+  return n;
+}
+function itemShipped(env, it) { return env === "staging" ? !!it.stag : it.live; }
+function itemReady(env, it) {
+  if (itemShipped(env, it)) return true;
+  return env === "staging" ? it.dev === "done" : (it.dev === "done" && it.stag === "done");
+}
+function eventStatus(ev) {
+  const total = ev.items.length;
+  const shipped = ev.items.filter(it => itemShipped(ev.env, it)).length;
+  const ready = ev.items.filter(it => itemReady(ev.env, it)).length;
+  let state;
+  if (shipped === total) state = ev.env === "prod" ? "live" : "deployed";
+  else if (ev.iso < todayKey) state = "overdue";
+  else if (ready === total) state = "ready";
+  else if (workingDaysUntil(ev.iso) <= RISK_DAYS) state = "atrisk";
+  else state = "ontrack";
+  const pastOrShipped = state === "live" || state === "deployed" || state === "overdue";
+  return {
+    state: state, total: total, shipped: shipped, ready: ready,
+    done: pastOrShipped ? shipped : ready,
+    doneWord: pastOrShipped ? (ev.env === "prod" ? "live" : "on staging") : "ready"
+  };
+}
+
+function chipHTML(ev) {
+  const label = ev.proj.short + " " + ENVS[ev.env].label;
+  const st = eventStatus(ev);
+  const aria = label + ", " + STATE_LABEL[st.state] + ", " + st.done + " of " + st.total + " " + st.doneWord + ", " + longDate(ev.iso);
+  return '<button type="button" class="chip ' + ev.proj.key + ' ' + ev.env + '" ' +
+         (editMode ? 'draggable="true" ' : '') +
+         'data-ev="' + esc(ev.iso + "|" + ev.proj.key + "|" + ev.env) + '" ' +
+         'aria-label="' + esc(aria) + '" aria-controls="drawer" aria-expanded="false">' +
+         '<span class="chip-label">' + esc(label) + '</span>' +
+         '<span class="rd" title="' + esc(STATE_LABEL[st.state]) + '"><i class="dot ' + st.state + '"></i>' +
+           st.done + '/' + st.total + '</span>' +
+         '</button>';
+}
+
+function ghostHTML(iso) {
+  if (!preview) return "";
+  return ["staging", "prod"].map(env => {
+    if (preview[env] !== iso) return "";
+    return '<span class="chip ghost ' + preview.proj.key + ' ' + env + '">' +
+      '<span class="chip-label">' + esc(preview.proj.short + " " + ENVS[env].label) + '</span>' +
+      '<span class="rd">' + preview.count + '</span></span>';
+  }).join("");
+}
+
+function render() {
+  const year = view.getFullYear(), month = view.getMonth();
+  document.getElementById("monthTitle").textContent = MONTHS[month] + " " + year;
+
+  const first = new Date(year, month, 1);
+  const offset = (first.getDay() + 6) % 7;                // Monday-first
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const cells = Math.ceil((offset + daysInMonth) / 7) * 7;
+
+  let html = "";
+  let stagingCount = 0, prodCount = 0, riskCount = 0, overdueCount = 0;
+  const monthDays = [];
+
+  for (let i = 0; i < cells; i++) {
+    const d = new Date(year, month, 1 - offset + i);
+    const iso = toKey(d);
+    const adjacent = d.getMonth() !== month;
+    const evs = visibleFor(iso);
+
+    if (!adjacent) {
+      evs.forEach(ev => {
+        if (ev.env === "staging") stagingCount++; else prodCount++;
+        const state = eventStatus(ev).state;
+        if (state === "atrisk") riskCount++;
+        if (state === "overdue") overdueCount++;
+      });
+      if (evs.length) monthDays.push({ iso: iso, evs: evs });
+    }
+
+    html += '<div class="day' + (adjacent ? " adjacent" : "") +
+            (iso === todayKey ? " today" : "") + '" data-iso="' + iso + '">' +
+            '<div class="dnum">' + d.getDate() + '</div>' +
+            evs.map(chipHTML).join("") +
+            ghostHTML(iso) +
+            '</div>';
+  }
+  grid.innerHTML = html;
+
+  const plural = (n, w) => n + " " + w + (n === 1 ? "" : "s");
+  document.getElementById("summary").innerHTML =
+    "<b>" + plural(stagingCount, "staging deployment") + "</b> and <b>" +
+    plural(prodCount, "production release") + "</b> this month" +
+    (riskCount || overdueCount
+      ? ' <span class="risk">(' + [riskCount ? riskCount + " at risk" : "", overdueCount ? overdueCount + " overdue" : ""].filter(Boolean).join(", ") + ')</span>'
+      : "");
+
+  /* mobile agenda */
+  if (!monthDays.length) {
+    agendaBody.innerHTML = '<p class="empty">No deployments scheduled this month for the selected projects.</p>';
+  } else {
+    agendaBody.innerHTML = monthDays.map(day => {
+      const d = fromKey(day.iso);
+      return '<div class="ag-day' + (day.iso < todayKey ? " past" : "") + '">' +
+        '<div class="ag-date"><span class="wd">' + esc(WEEKDAYS[(d.getDay() + 6) % 7]) + '</span> ' +
+        esc(d.getDate() + " " + MONTHS[d.getMonth()]) +
+        (day.iso === todayKey ? ' <span class="today-label">Today</span>' : '') + '</div>' +
+        '<div class="ag-groups">' +
+        day.evs.map(ev => {
+          const cls = ev.proj.key + " " + ev.env;
+          const st = eventStatus(ev);
+          return '<div class="ag-group env-' + ev.env + '">' +
+            '<div class="ag-top">' +
+              '<span class="ag-head ' + cls + '">' + esc(ev.proj.short + " " + ENVS[ev.env].label) + '</span>' +
+              stateTagHTML(st) +
+              '<span class="ag-count">' + st.done + ' of ' + st.total + ' ' + esc(st.doneWord) + '</span>' +
+            '</div>' +
+            '<ul class="ag-items">' + listHeadHTML(ev) + ev.items.map(it => listRowHTML(ev, it)).join("") +
+            '</ul></div>';
+        }).join("") +
+      '</div></div>';
+    }).join("");
+  }
+
+  // keep the panel open across redraws (date preview jumps months); close it if its event is gone
+  if (openKey && events.has(openKey)) markChips(); else closeDrawer(false);
+  if (typeof renderEnvList === "function" && typeof viewMode !== "undefined" && viewMode === "env") renderEnvList();
+  if (typeof refreshEditBar === "function") refreshEditBar();
+}
+
+function badgeHTML(key, value, cls) {
+  return '<span class="sb"><span class="k">' + esc(key) + '</span><span class="v ' + cls + '">' + esc(value) + '</span></span>';
+}
+function stateTagHTML(st) {
+  return '<span class="tag"><i class="dot ' + st.state + '"></i>' + esc(STATE_LABEL[st.state]) + '</span>';
+}
+function itemBadges(ev, it) {
+  const out = { dev: badgeHTML("Dev", STATUS_LABEL[it.dev], it.dev), stag: "", prod: "" };
+  // Stag: shown once deployed; flagged if the staging date has passed without it
+  if (it.stag) out.stag = badgeHTML("Stag", STATUS_LABEL[it.stag], it.stag);
+  else if (it.staging && it.staging < todayKey) out.stag = badgeHTML("Stag", "Overdue", "overdue");
+  // Prod: only for production deployments
+  if (ev.env === "prod") {
+    if (it.live) out.prod = badgeHTML("Prod", "Live ✓", "live");
+    else if (it.prod && it.prod < todayKey) out.prod = badgeHTML("Prod", "Overdue", "overdue");
+  }
+  return out;
+}
+function listHeadHTML(ev) {
+  const other = ev.env === "staging" ? "prod" : "staging";
+  return '<li class="lr-head" aria-hidden="true"><span>Item</span><span>Dev</span><span>Stag</span>' +
+    '<span>' + (ev.env === "prod" ? 'Prod' : '') + '</span>' +
+    '<span>PIC</span><span>' + esc(ENVS[other].label) + ' date</span></li>';
+}
+function listRowHTML(ev, it) {
+  const b = itemBadges(ev, it);
+  const other = ev.env === "staging" ? "prod" : "staging";
+  const otherIso = other === "prod" ? it.prod : it.staging;
+  const cell = (cls, html) => '<span class="c ' + cls + (html ? '' : ' blank') + '">' + (html || '') + '</span>';
+  const date = '<span class="lbl">' + esc(ENVS[other].label) + ' </span>' +
+    (otherIso ? '<b>' + esc(shortDate(otherIso)) + '</b>' : 'not scheduled');
+  return '<li class="lr"><span class="nm">' + (it.id ? '<span class="rid">' + esc(it.id) + '</span>' : '') + esc(it.item) + '</span>' +
+    cell("dev", b.dev) + cell("stag", b.stag) +
+    (ev.env === "prod" ? cell("prod", b.prod) : '<span class="c spacer" aria-hidden="true"></span>') +
+    cell("pic", esc(it.pic)) + cell("date", date) + '</li>';
+}
+/* status options offered by the dropdown, per field */
+const STATUS_OPTIONS = {
+  design: { title: "Design status", opts: [["", "Not set"], ["todo", "To Do"], ["mockup", "Mockup WIP"], ["review", "In Review"],
+                                           ["pending", "Pending"], ["hold", "Hold"], ["done", "Done"]] },
+  dev:  { title: "Dev status",     opts: [["todo", "To do"], ["wip", "WIP"], ["qa", "QA"], ["done", "Done"]] },
+  stag: { title: "Staging status", opts: [["", "Not on staging"], ["uat", "UAT"], ["feedback", "Feedback"], ["done", "Done"]] },
+  live: { title: "Prod status",    opts: [[false, "Not live"], [true, "Live"]] }
+};
+
+function editableBadgeHTML(idx, field, key, value, cls) {
+  return '<button type="button" class="sb" data-idx="' + idx + '" data-field="' + field + '" ' +
+    'aria-haspopup="menu" aria-expanded="false" aria-label="Change ' + esc(key) + ' status, now ' + esc(value) + '">' +
+    '<span class="k">' + esc(key) + '</span><span class="v ' + cls + '">' + esc(value) + '</span></button>';
+}
+
+function editableBadges(ev, it) {
+  let html = it.design
+    ? editableBadgeHTML(it.idx, "design", "Design", DESIGN_LABEL[it.design], DESIGN_CLASS[it.design])
+    : editableBadgeHTML(it.idx, "design", "Design", "—", "none");
+  html += editableBadgeHTML(it.idx, "dev", "Dev", STATUS_LABEL[it.dev], it.dev);
+  if (it.stag) html += editableBadgeHTML(it.idx, "stag", "Stag", STATUS_LABEL[it.stag], it.stag);
+  else if (it.staging && it.staging < todayKey) html += editableBadgeHTML(it.idx, "stag", "Stag", "Overdue", "overdue");
+  else html += editableBadgeHTML(it.idx, "stag", "Stag", "—", "none");
+  if (ev.env === "prod") {
+    if (it.live) html += editableBadgeHTML(it.idx, "live", "Prod", "Live ✓", "live");
+    else if (it.prod && it.prod < todayKey) html += editableBadgeHTML(it.idx, "live", "Prod", "Overdue", "overdue");
+    else html += editableBadgeHTML(it.idx, "live", "Prod", "—", "none");
+  }
+  return html;
+}
+
+function designBadgeHTML(it) {
+  return it.design ? badgeHTML("Design", DESIGN_LABEL[it.design], DESIGN_CLASS[it.design]) : "";
+}
+function itemMetaHTML(it) {
+  const parts = [];
+  if (it.phase) parts.push('<span>' + esc(it.phase) + '</span>');
+  if (it.start || it.end) parts.push('<span>Dev ' + esc(it.start ? shortDate(it.start) : "?") + ' – ' + esc(it.end ? shortDate(it.end) : "?") + '</span>');
+  return parts.length ? '<span class="tip-meta2">' + parts.join('<span class="sep">·</span>') + '</span>' : '';
+}
+
+function itemRowHTML(ev, it) {
+  const b = itemBadges(ev, it);
+  const html = editMode ? editableBadges(ev, it) : designBadgeHTML(it) + b.dev + b.stag + b.prod;
+  return '<span class="tip-row">' + html +
+    '<span>' + esc(it.pic) + '</span>' +
+    '<span class="other">' + otherEnvText(ev.env, it) + '</span>' +
+    '</span>';
+}
+
+function otherEnvText(env, it) {
+  const other = env === "staging" ? "prod" : "staging";
+  const iso = other === "prod" ? it.prod : it.staging;
+  const name = ENVS[other].label;
+  return iso
+    ? esc(name) + " <b>" + esc(shortDate(iso)) + "</b>"
+    : esc(name) + " not scheduled";
+}
+
+/* ---- drawer (opens on click, stays open while scrolling) ---- */
+const drawer = document.getElementById("drawer");
+const drawerBody = document.getElementById("drawerBody");
+let openKey = null, returnFocus = null;
+
+const CLOSE_ICON =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
+  'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+  '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+
+function fillDrawer(ev) {
+  const count = ev.items.length + (ev.items.length === 1 ? " item" : " items");
+  const st = eventStatus(ev);
+  const rule = ev.env === "prod"
+    ? "Ready for Prod = Dev DONE + Stag DONE."
+    : "Ready for Staging = Dev DONE.";
+  drawerBody.innerHTML =
+    '<div class="tip-head">' +
+      '<span class="accent ' + ev.proj.key + '" aria-hidden="true"></span>' +
+      '<div><div class="tip-proj" id="drawerTitle">' + esc(ev.proj.full) + '</div>' +
+      '<div class="tip-env ' + ev.proj.key + '">' + esc(ENVS[ev.env].full) + '</div>' +
+      '<div class="tip-meta">' + esc(longDate(ev.iso)) + ' · ' + esc(count) + '</div>' +
+      '<div class="readiness">' +
+        '<div class="readiness-row">' + stateTagHTML(st) +
+          '<span><b>' + st.done + ' of ' + st.total + '</b> ' + esc(st.doneWord) + '</span></div>' +
+        '<div class="bar" aria-hidden="true"><i class="' + st.state + '" style="width:' +
+          Math.round(st.done / st.total * 100) + '%"></i></div>' +
+      '</div></div>' +
+      '<button type="button" class="drawer-close" aria-label="Close panel">' + CLOSE_ICON + '</button>' +
+    '</div>' +
+    '<ul class="tip-list">' + ev.items.map(it =>
+      '<li' + (editMode ? ' class="pickable' + (selected.has(it.idx) ? ' picked' : '') + '"' : '') + '>' +
+      (editMode
+        ? '<input type="checkbox" class="pick" data-idx="' + it.idx + '"' + (selected.has(it.idx) ? ' checked' : '') +
+          ' aria-label="Select ' + esc(it.item) + '">'
+        : '') +
+      '<span class="tip-item">' + (it.id ? '<span class="rid">' + esc(it.id) + '</span>' : '') + esc(it.item) + '</span>' +
+      (it.description ? '<span class="tip-desc">' + esc(it.description) + '</span>' : '') +
+      itemRowHTML(ev, it) + itemMetaHTML(it) + '</li>').join("") +
+    '</ul>' +
+    '<div class="tip-foot">' + esc(rule) + ' At risk = not ready with ' + RISK_DAYS + ' working days or less to go.</div>' +
+    (editMode ? moveBarHTML(ev) : '');
+
+  if (editMode) wireMoveBar(ev);
+}
+
+/* ---- move / split form (edit mode only) ---- */
+function moveBarHTML(ev) {
+  const all = ev.items.length && ev.items.every(it => selected.has(it.idx));
+  return '<div class="movebar">' +
+    '<div class="mb-top">' +
+      '<label class="mb-all"><input type="checkbox" class="pick" id="mbAll"' + (all ? ' checked' : '') + '>Select all</label>' +
+      '<span id="mbCount">' + selected.size + ' of ' + ev.items.length + ' selected</span>' +
+    '</div>' +
+    dateFieldHTML("staging", "mbStag", "Stag Date") +
+    dateFieldHTML("prod", "mbProd", "Prod Date") +
+    '<div class="dpick" id="dpick" hidden></div>' +
+    '<div class="mb-actions">' +
+      '<p class="mb-note" id="mbNote"></p>' +
+      '<button type="button" class="pill primary" id="mbConfirm" disabled>Confirm</button>' +
+    '</div>' +
+  '</div>';
+}
+
+function dateFieldHTML(field, id, label) {
+  const iso = moveDates[field];
+  return '<div class="mb-row"><label for="' + id + '">' + esc(label) + '</label>' +
+    '<button type="button" class="date-field' + (iso ? '' : ' blank') + '" id="' + id + '" ' +
+      'data-field="' + field + '" aria-haspopup="dialog" aria-expanded="false">' +
+      (iso ? esc(shortDate(iso)) : 'Select date') + '</button>' +
+    (iso ? '<button type="button" class="date-clear" data-clear="' + field + '" aria-label="Clear ' + esc(label) + '">×</button>' : '') +
+    '</div>';
+}
+
+/* ---- date picker popover ---- */
+let dpField = null, dpView = null;
+
+function openPicker(field, ev) {
+  dpField = field;
+  const iso = moveDates[field] || (ev ? ev.iso : todayKey);
+  const d = fromKey(iso);
+  dpView = new Date(d.getFullYear(), d.getMonth(), 1);
+  drawPicker(ev);
+}
+function closePicker() {
+  dpField = null;
+  const box = drawer.querySelector("#dpick");
+  if (box) box.hidden = true;
+  drawer.querySelectorAll(".date-field").forEach(b => b.setAttribute("aria-expanded", "false"));
+}
+function drawPicker(ev) {
+  const box = drawer.querySelector("#dpick");
+  if (!box || !dpField) return;
+  const year = dpView.getFullYear(), month = dpView.getMonth();
+  const offset = (new Date(year, month, 1).getDay() + 6) % 7;
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const cells = Math.ceil((offset + daysInMonth) / 7) * 7;
+  const sel = moveDates[dpField];
+
+  let days = "";
+  for (let i = 0; i < cells; i++) {
+    const d = new Date(year, month, 1 - offset + i);
+    const iso = toKey(d);
+    days += '<button type="button" class="dp-day' +
+      (d.getMonth() === month ? '' : ' adj') +
+      (iso === todayKey ? ' today' : '') +
+      (iso === sel ? ' sel' : '') +
+      '" data-iso="' + iso + '">' + d.getDate() + '</button>';
+  }
+
+  box.innerHTML =
+    '<div class="dp-head">' +
+      '<button type="button" class="dp-nav" data-step="-1" aria-label="Previous month">&#8249;</button>' +
+      '<span class="m">' + MONTHS[month] + ' ' + year + '</span>' +
+      '<button type="button" class="dp-nav" data-step="1" aria-label="Next month">&#8250;</button>' +
+    '</div>' +
+    '<div class="dp-grid">' +
+      ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map(w => '<span class="dw">' + w + '</span>').join("") +
+      days +
+    '</div>' +
+    '<div class="dp-foot"><span>' + (sel ? esc(shortDate(sel)) : "No date picked") + '</span>' +
+      '<button type="button" data-pick-today="1">Today</button></div>';
+  box.hidden = false;
+
+  // clicks inside the popover must not reach the outside-click handler: re-rendering
+  // detaches the clicked node, so the handler can no longer tell it came from in here
+  box.querySelectorAll(".dp-nav").forEach(b => b.addEventListener("click", e => {
+    e.stopPropagation();
+    dpView = new Date(dpView.getFullYear(), dpView.getMonth() + Number(b.dataset.step), 1);
+    drawPicker(ev);
+  }));
+  box.querySelectorAll(".dp-day").forEach(b => b.addEventListener("click", e => {
+    e.stopPropagation();
+    pickDate(b.dataset.iso, ev);
+  }));
+  box.querySelector("[data-pick-today]").addEventListener("click", e => {
+    e.stopPropagation();
+    pickDate(todayKey, ev);
+  });
+
+  const field = drawer.querySelector('.date-field[data-field="' + dpField + '"]');
+  if (field) field.setAttribute("aria-expanded", "true");
+}
+/* one listener for the whole page: close the popover on a click outside it */
+document.addEventListener("click", e => {
+  if (!dpField) return;
+  const path = typeof e.composedPath === "function" ? e.composedPath() : [];
+  const box = drawer.querySelector("#dpick");
+  const inside = (box && (path.includes(box) || box.contains(e.target))) ||
+                 (e.target.closest && e.target.closest(".date-field"));
+  if (!inside) closePicker();
+});
+
+function pickDate(iso, ev) {
+  const field = dpField;
+  moveDates[field] = iso;
+  const d = fromKey(iso);                       // main calendar follows the picked date
+  view = new Date(d.getFullYear(), d.getMonth(), 1);
+  fillDrawer(ev);                               // rebuilds the fields (and empties the popover)
+  dpField = field;                              // the popover stays open until a click outside it
+  dpView = new Date(d.getFullYear(), d.getMonth(), 1);
+  drawPicker(ev);
+  updatePreview(ev);
+}
+
+function wireMoveBar(ev) {
+  const allBox = drawer.querySelector("#mbAll");
+
+  drawer.querySelectorAll(".tip-list .pick").forEach(box => {
+    box.addEventListener("change", () => {
+      const idx = Number(box.dataset.idx);
+      if (box.checked) selected.add(idx); else selected.delete(idx);
+      box.closest("li").classList.toggle("picked", box.checked);
+      syncMoveBar(ev);
+    });
+  });
+  allBox.addEventListener("change", () => {
+    ev.items.forEach(it => { if (allBox.checked) selected.add(it.idx); else selected.delete(it.idx); });
+    fillDrawer(ev);
+    updatePreview(ev);
+  });
+  drawer.querySelectorAll(".date-field").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      if (dpField === btn.dataset.field) closePicker();
+      else openPicker(btn.dataset.field, ev);
+    });
+  });
+  drawer.querySelectorAll(".date-clear").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      const field = dpField;
+      moveDates[btn.dataset.clear] = "";
+      fillDrawer(ev);
+      if (field) { dpField = field; drawPicker(ev); }   // keep the popover open if it was
+      updatePreview(ev);
+    });
+  });
+
+  drawer.querySelector("#mbConfirm").addEventListener("click", () => applyMove(ev));
+  syncMoveBar(ev);
+}
+
+function syncMoveBar(ev) {
+  const note = drawer.querySelector("#mbNote");
+  const confirm = drawer.querySelector("#mbConfirm");
+  const countEl = drawer.querySelector("#mbCount");
+  if (!note || !confirm) return;
+  countEl.textContent = selected.size + " of " + ev.items.length + " selected";
+  const hasDate = !!(moveDates.staging || moveDates.prod);
+  confirm.disabled = !selected.size || !hasDate;
+  note.className = "mb-note";
+  note.textContent = !selected.size
+    ? "Tick the items to move."
+    : (!hasDate ? "Pick a date to move them to." : "Moving " + selected.size +
+        (selected.size === 1 ? " item" : " items") + " out of this deployment.");
+}
+
+function updatePreview(ev) {
+  preview = selected.size && (moveDates.staging || moveDates.prod)
+    ? { proj: ev.proj, staging: moveDates.staging, prod: moveDates.prod, count: selected.size }
+    : null;
+  render();
+  syncMoveBar(ev);
+}
+
+function applyMove(ev) {
+  const stagIso = moveDates.staging, prodIso = moveDates.prod;
+  const idxs = ev.items.filter(it => selected.has(it.idx)).map(it => it.idx);
+  if (!idxs.length || (!stagIso && !prodIso)) return;
+
+  for (const idx of idxs) {                                   // staging must not land after prod
+    const row = ROWS[idx];
+    const newStag = stagIso || row.staging;
+    const newProd = prodIso || row.prod;
+    if (newStag && newProd && newStag > newProd) {
+      snack('Cannot move: "' + row.item + '" would be on staging (' + shortDate(newStag) +
+            ') after its production date (' + shortDate(newProd) + '). Nothing changed.', "error");
+      return;
+    }
+  }
+
+  let merged = false;
+  const undo = [];
+  idxs.forEach(idx => {
+    [["staging", stagIso], ["prod", prodIso]].forEach(([field, iso]) => {
+      if (!iso || ROWS[idx][field] === iso) return;
+      if (events.has(iso + "|" + ev.proj.key + "|" + field)) merged = true;
+      undo.push({ idx: idx, field: field, from: ROWS[idx][field] });
+      ROWS[idx][field] = iso;
+    });
+  });
+
+  if (!undo.length) {
+    snack("Those items are already on that date. Nothing changed.");
+    return;
+  }
+
+  const parts = [];
+  if (stagIso) parts.push("Staging &rarr; <b>" + esc(shortDate(stagIso)) + "</b>");
+  if (prodIso) parts.push("Prod &rarr; <b>" + esc(shortDate(prodIso)) + "</b>");
+  changes.push({
+    desc: '<b>' + esc(ev.proj.short) + '</b> ' + idxs.length + ' of ' + ev.items.length +
+          ' items · ' + parts.join(", "),
+    merged: merged,
+    undo: undo
+  });
+
+  clearMoveState();
+  rebuildEvents();
+  closeDrawer(false);
+  render();
+  snack(idxs.length + (idxs.length === 1 ? " item" : " items") + " moved" +
+    (merged ? " and merged into an existing deployment." : "."), merged ? "ok" : null);
+}
+
+function clearMoveState() {
+  dpField = null;
+  selected.clear();
+  moveDates.staging = "";
+  moveDates.prod = "";
+  preview = null;
+}
+
+function markChips() {
+  grid.querySelectorAll(".chip").forEach(c =>
+    c.setAttribute("aria-expanded", c.dataset.ev === openKey ? "true" : "false"));
+}
+
+function openDrawer(chip) {
+  const ev = events.get(chip.dataset.ev);
+  if (!ev) return;
+  openKey = chip.dataset.ev;
+  returnFocus = chip;
+  fillDrawer(ev);
+  drawer.classList.add("open");
+  document.body.classList.add("drawer-open");
+  drawer.setAttribute("aria-hidden", "false");
+  markChips();
+  const close = drawer.querySelector(".drawer-close");
+  if (close) close.focus({ preventScroll: true });
+}
+
+function closeDrawer(restoreFocus) {
+  if (!openKey) return;
+  openKey = null;
+  if (typeof clearMoveState === "function") clearMoveState();
+  if (typeof closeStatusMenu === "function") closeStatusMenu();
+  drawer.classList.remove("open");
+  document.body.classList.remove("drawer-open");
+  drawer.setAttribute("aria-hidden", "true");
+  markChips();
+  if (restoreFocus && returnFocus && document.contains(returnFocus)) returnFocus.focus();
+  returnFocus = null;
+}
+
+grid.addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  if (chip.dataset.ev === openKey) closeDrawer(false);
+  else openDrawer(chip);
+});
+drawer.addEventListener("click", e => {
+  if (e.target.closest(".drawer-close")) closeDrawer(true);
+});
+document.addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  if (dpField) { closePicker(); return; }
+  if (openKey) closeDrawer(true);
+});
+document.addEventListener("click", e => {
+  if (!openKey) return;
+  // use the dispatch path: re-rendering can detach the clicked node before this runs
+  const path = typeof e.composedPath === "function" ? e.composedPath() : [];
+  if (path.includes(drawer) || drawer.contains(e.target)) return;
+  if (e.target.closest && e.target.closest(".chip")) return;
+  closeDrawer(false);
+});
+
+/* ---- phase filter (built from the loaded data) ---- */
+function renderPhaseFilter() {
+  const box = document.getElementById("phaseFilter");
+  const phases = [];
+  ROWS.forEach(r => { const k = phaseKey(r); if (!phases.includes(k)) phases.push(k); });
+  phases.sort((a, b) => a === "__none__" ? 1 : b === "__none__" ? -1 : a.localeCompare(b));
+  box.hidden = phases.length === 0;
+  box.innerHTML = '<span class="pf-label">Phase</span>' + phases.map(k =>
+    '<button type="button" class="phase-pill" data-phase="' + esc(k) + '" aria-pressed="' + !hiddenPhases.has(k) + '">' +
+    esc(k === "__none__" ? "No phase" : k) + '</button>').join("");
+  box.querySelectorAll(".phase-pill").forEach(btn => btn.addEventListener("click", () => {
+    const k = btn.dataset.phase;
+    if (hiddenPhases.has(k)) hiddenPhases.delete(k); else hiddenPhases.add(k);
+    btn.setAttribute("aria-pressed", String(!hiddenPhases.has(k)));
+    rebuildEvents();
+    render();
+  }));
+}
+
+/* ---- data loading (button, drag & drop, remembered copy) ---- */
+const STORE_KEY = "release-calendar:data";
+const dataInfo = document.getElementById("dataInfo");
+
+function extractRows(parsed) {
+  if (Array.isArray(parsed)) return { rows: parsed, updated: "" };
+  if (parsed && Array.isArray(parsed.releases)) return { rows: parsed.releases, updated: parsed.updated || "" };
+  throw new Error('Expected a list of rows, or an object with a "releases" list.');
+}
+
+function applyData(text, meta, remember) {
+  let result;
+  try {
+    result = extractRows(JSON.parse(text));
+  } catch (err) {
+    dataInfo.className = "foot error";
+    dataInfo.textContent = 'Could not read "' + meta.name + '": ' +
+      (err instanceof SyntaxError ? "the file is not valid JSON." : err.message) +
+      (RELEASES.length ? " The previous data is still shown." : "");
+    return false;
+  }
+  RELEASES = result.rows;
+  buildData(RELEASES);
+  document.getElementById("emptyState").hidden = RELEASES.length > 0;
+  dataInfo.className = "foot";
+  dataInfo.textContent = "Data: " + meta.name + " (" + RELEASES.length + " rows)" +
+    (result.updated ? ", updated " + result.updated : "") +
+    ", loaded " + new Date(meta.loadedAt).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" }) + ".";
+  render();
+  return true;
+}
+
+function readFile(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => applyData(String(reader.result), { name: file.name, loadedAt: Date.now() }, true);
+  reader.onerror = () => {
+    dataInfo.className = "foot error";
+    dataInfo.textContent = 'Could not open "' + file.name + '".';
+  };
+  reader.readAsText(file);
+}
+
+const fileInput = document.getElementById("fileInput");
+document.getElementById("loadBtn").addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", () => { readFile(fileInput.files[0]); fileInput.value = ""; });
+
+const dropzone = document.getElementById("dropzone");
+let dragDepth = 0;
+const hasFiles = e => e.dataTransfer && Array.from(e.dataTransfer.types || []).includes("Files");
+window.addEventListener("dragenter", e => { if (!hasFiles(e)) return; e.preventDefault(); dragDepth++; dropzone.classList.add("on"); });
+window.addEventListener("dragover", e => { if (hasFiles(e)) e.preventDefault(); });
+window.addEventListener("dragleave", e => { if (!hasFiles(e)) return; dragDepth = Math.max(0, dragDepth - 1); if (!dragDepth) dropzone.classList.remove("on"); });
+window.addEventListener("drop", e => {
+  if (!hasFiles(e)) return;
+  e.preventDefault();
+  dragDepth = 0;
+  dropzone.classList.remove("on");
+  readFile(e.dataTransfer.files[0]);
+});
+
+function initData() {
+  // the page always opens empty: nothing is kept between sessions
+  try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+  buildData([]);
+  document.getElementById("emptyState").hidden = false;
+  dataInfo.textContent = "";
+  render();
+}
+
+/* ---- snackbar ---- */
+const snackbar = document.getElementById("snackbar");
+let snackTimer = null;
+function snack(message, kind) {
+  snackbar.textContent = message;
+  snackbar.className = "snackbar show" + (kind ? " " + kind : "");
+  clearTimeout(snackTimer);
+  snackTimer = setTimeout(() => { snackbar.className = "snackbar"; }, 5000);
+}
+
+/* ---- edit mode: drag a chip to another day to move that date ---- */
+let editMode = false;
+const selected = new Set();                       // item row indexes ticked in the panel
+const moveDates = { staging: "", prod: "" };      // values of the two date fields
+let preview = null;                               // ghost chips for the picked dates
+const changes = [];   // { desc, merged, undo: [{ idx, field, from }] }
+const editbar = document.getElementById("changesPanel");   // edit tools live at the bottom
+const changelist = document.getElementById("changelist");
+const undoBtn = document.getElementById("undoBtn");
+const resetBtn = document.getElementById("resetBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+const editBtn = document.getElementById("editBtn");
+
+function setEditMode(on) {
+  editMode = on;
+  closeStatusMenu();
+  clearMoveState();
+  if (openKey) { const ev = events.get(openKey); if (ev) fillDrawer(ev); }
+  document.body.classList.toggle("edit-on", on);
+  editBtn.setAttribute("aria-pressed", on ? "true" : "false");
+  editbar.hidden = !on;
+  render();
+}
+editBtn.addEventListener("click", () => setEditMode(!editMode));
+
+function refreshEditBar() {
+  const n = changes.length;
+  document.getElementById("editHint").textContent = n
+    ? n + (n === 1 ? " change" : " changes") + " not in Outline yet — save the JSON, then update the table."
+    : "Drag a deployment chip to another day to move its date.";
+  changelist.innerHTML = changes.map(c =>
+    '<li>' + c.desc + (c.merged ? ' <span class="merged">(merged)</span>' : '') + '</li>').join("");
+  undoBtn.disabled = resetBtn.disabled = downloadBtn.disabled = copyBtn.disabled = n === 0;
+  document.getElementById("changesPanel").hidden = !editMode;
+  document.getElementById("changesCount").textContent = n ? "(" + n + ")" : "";
+}
+
+function moveEvent(ev, toIso) {
+  const field = ev.env === "staging" ? "staging" : "prod";
+  if (toIso === ev.iso) return;
+
+  // order check: staging must not land after prod, prod must not land before staging
+  for (const it of ev.items) {
+    if (field === "staging" && it.prod && toIso > it.prod) {
+      snack('Cannot move: "' + it.item + '" would be on staging after its production date (' + shortDate(it.prod) + '). Nothing changed.', "error");
+      return;
+    }
+    if (field === "prod" && it.staging && toIso < it.staging) {
+      snack('Cannot move: "' + it.item + '" would go to production before its staging date (' + shortDate(it.staging) + '). Nothing changed.', "error");
+      return;
+    }
+  }
+
+  const merged = events.has(toIso + "|" + ev.proj.key + "|" + ev.env);
+  const undo = ev.items.map(it => ({ idx: it.idx, field: field, from: ROWS[it.idx][field] }));
+  undo.forEach(u => { ROWS[u.idx][field] = toIso; });
+
+  const label = ev.proj.short + " " + ENVS[ev.env].label;
+  changes.push({
+    desc: '<b>' + esc(label) + '</b> ' + esc(shortDate(ev.iso)) + ' &rarr; <b>' + esc(shortDate(toIso)) + '</b>' +
+          ' (' + ev.items.length + (ev.items.length === 1 ? " item" : " items") + ')',
+    merged: merged,
+    undo: undo
+  });
+
+  rebuildEvents();
+  render();
+  snack(merged
+    ? "Merged into " + label + " on " + shortDate(toIso) + "."
+    : label + " moved to " + shortDate(toIso) + ".", merged ? "ok" : null);
+}
+
+undoBtn.addEventListener("click", () => {
+  const last = changes.pop();
+  if (!last) return;
+  clearMoveState();
+  last.undo.forEach(u => { ROWS[u.idx][u.field] = u.from; });
+  rebuildEvents();
+  render();
+  { const ev = openKey && events.get(openKey); if (ev) fillDrawer(ev); }
+  snack("Last change undone." + (changes.length ? " " + changes.length + " left." : ""));
+});
+
+resetBtn.addEventListener("click", () => {
+  ROWS = ORIGINAL.map(r => Object.assign({}, r));
+  changes.length = 0;
+  clearMoveState();
+  rebuildEvents();
+  render();
+  { const ev = openKey && events.get(openKey); if (ev) fillDrawer(ev); }
+  snack("All changes reset to the loaded file.");
+});
+
+const copyBtn = document.getElementById("copyBtn");
+
+// Save JSON uses the project tracker's column names, in the tracker's order
+function exportText() {
+  const data = {
+    updated: toKey(new Date()),
+    releases: ROWS.map(r => Object.assign({
+      "ID": r.id,
+      "Phase": r.phase,
+      "Platform": r.project,
+      "Feature": r.item,
+      "Description": r.description,
+      "Design Status": r.design ? DESIGN_LABEL[r.design] : "",
+      "Dev Status": STATUS_LABEL[r.dev].toUpperCase(),
+      "Start Date": r.start,
+      "End Date": r.end,
+      "Staging": r.staging,
+      "Staging Status": r.stag ? STATUS_LABEL[r.stag].toUpperCase() : "",
+      "Prod Deployment Date": r.prod,
+      "Prod Status": r.live,
+      "PIC": r.pic
+    }, r.extra || {}))
+  };
+  return JSON.stringify(data, null, 2);
+}
+
+// release-data-YYYY-MM-DD-HHMMSS.json (local time)
+function exportFileName() {
+  const n = new Date();
+  return "release-data-" + toKey(n) + "-" +
+    pad2(n.getHours()) + pad2(n.getMinutes()) + pad2(n.getSeconds()) + ".json";
+}
+function pad2(v) { return String(v).padStart(2, "0"); }
+
+downloadBtn.addEventListener("click", async () => {
+  const text = exportText();
+  const name = exportFileName();
+
+  // 1) Chrome / Edge: a real "Save as" dialog, so you choose the folder
+  if (typeof window.showSaveFilePicker === "function") {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: name,
+        types: [{ description: "JSON file", accept: { "application/json": [".json"] } }]
+      });
+      const writable = await handle.createWritable();
+      await writable.write(text);
+      await writable.close();
+      snack('Saved as "' + handle.name + '" in the folder you chose. Now apply the same changes in Outline.', "ok");
+      return;
+    } catch (err) {
+      if (err && err.name === "AbortError") { snack("Save cancelled. Nothing was written."); return; }
+      // blocked (e.g. inside a sandboxed preview): fall through to a normal download
+    }
+  }
+
+  // 2) Other browsers: a normal download into the browser's Downloads folder
+  try {
+    const blob = new Blob([text], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    snack('Downloaded "' + name + '" to your browser\'s Downloads folder. If nothing appeared, use Copy JSON.', "ok");
+  } catch (err) {
+    snack("This browser blocked the download. Use Copy JSON and paste it into a .json file.", "error");
+  }
+});
+
+// 3) Fallback that always works: copy the JSON to the clipboard
+copyBtn.addEventListener("click", async () => {
+  const text = exportText();
+  let ok = false;
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      ok = true;
+    }
+  } catch (e) { ok = false; }
+  if (!ok) {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    ta.remove();
+  }
+  snack(ok
+    ? "JSON copied. Paste it into a new file named " + exportFileName() + "."
+    : "Could not copy automatically. Try Save JSON instead.", ok ? "ok" : "error");
+});
+
+/* drag & drop on the calendar grid */
+let dragKey = null;
+grid.addEventListener("dragstart", e => {
+  const chip = e.target.closest(".chip");
+  if (!editMode || !chip) return;
+  dragKey = chip.dataset.ev;
+  chip.classList.add("dragging");
+  e.dataTransfer.effectAllowed = "move";
+  e.dataTransfer.setData("text/plain", dragKey);
+});
+grid.addEventListener("dragend", () => {
+  dragKey = null;
+  grid.querySelectorAll(".dragging").forEach(c => c.classList.remove("dragging"));
+  grid.querySelectorAll(".drop-ok").forEach(c => c.classList.remove("drop-ok"));
+});
+grid.addEventListener("dragover", e => {
+  if (!dragKey) return;
+  const day = e.target.closest(".day");
+  if (!day) return;
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+  grid.querySelectorAll(".drop-ok").forEach(c => c.classList.remove("drop-ok"));
+  day.classList.add("drop-ok");
+});
+grid.addEventListener("drop", e => {
+  const day = e.target.closest(".day");
+  if (!dragKey || !day) return;
+  e.preventDefault();
+  const ev = events.get(dragKey);
+  dragKey = null;
+  if (ev) moveEvent(ev, day.dataset.iso);
+});
+
+/* ---- status dropdown on panel badges (edit mode) ---- */
+const statusMenu = document.getElementById("statusMenu");
+let menuFor = null;   // { idx, field, button }
+
+function optionClass(field, value) {
+  if (field === "live") return value ? "live" : "none";
+  if (field === "design") return value ? DESIGN_CLASS[value] : "none";
+  return value || "none";
+}
+
+function openStatusMenu(btn) {
+  const idx = Number(btn.dataset.idx), field = btn.dataset.field;
+  const conf = STATUS_OPTIONS[field];
+  const current = ROWS[idx][field];
+  closeStatusMenu();
+  menuFor = { idx: idx, field: field, button: btn };
+  btn.setAttribute("aria-expanded", "true");
+
+  statusMenu.innerHTML = '<div class="sm-title">' + esc(conf.title) + '</div>' +
+    conf.opts.map((o, i) =>
+      '<button type="button" role="menuitemradio" aria-checked="' + (o[0] === current) + '" data-opt="' + i + '">' +
+        '<span class="opt v ' + optionClass(field, o[0]) + '">' + esc(o[1]) + '</span>' +
+        '<span class="tick">' + (o[0] === current ? "✓" : "") + '</span>' +
+      '</button>').join("");
+  statusMenu.hidden = false;
+
+  // place under the badge, flipped/nudged to stay on screen
+  const r = btn.getBoundingClientRect();
+  const mw = statusMenu.offsetWidth, mh = statusMenu.offsetHeight;
+  let left = Math.min(r.left, window.innerWidth - mw - 10);
+  let top = r.bottom + 6;
+  if (top + mh > window.innerHeight - 10) top = r.top - mh - 6;
+  statusMenu.style.left = Math.max(10, left) + "px";
+  statusMenu.style.top = Math.max(10, top) + "px";
+
+  statusMenu.querySelectorAll("button").forEach(b => b.addEventListener("click", e => {
+    e.stopPropagation();
+    const opt = conf.opts[Number(b.dataset.opt)];
+    const target = menuFor;
+    closeStatusMenu();
+    setStatus(target.idx, target.field, opt[0], opt[1]);
+  }));
+  const first = statusMenu.querySelector('[aria-checked="true"]') || statusMenu.querySelector("button");
+  if (first) first.focus({ preventScroll: true });
+}
+
+function closeStatusMenu() {
+  if (!menuFor) return;
+  if (menuFor.button && document.contains(menuFor.button)) menuFor.button.setAttribute("aria-expanded", "false");
+  menuFor = null;
+  statusMenu.hidden = true;
+}
+
+function setStatus(idx, field, value, label) {
+  const row = ROWS[idx];
+  const from = row[field];
+  if (from === value) return;
+  row[field] = value;
+
+  const fieldName = { design: "Design", dev: "Dev", stag: "Stag", live: "Prod" }[field];
+  const proj = PROJECTS[row.projLookup];
+  changes.push({
+    desc: '<b>' + esc(proj ? proj.short : row.project) + '</b> "' + esc(row.item) + '" · ' +
+          fieldName + ' &rarr; <b>' + esc(label.replace(" ✓", "")) + '</b>',
+    merged: false,
+    undo: [{ idx: idx, field: field, from: from }]
+  });
+
+  const list = drawer.querySelector(".tip-list");
+  const scroll = list ? list.scrollTop : 0;
+  rebuildEvents();
+  render();
+  const ev = openKey && events.get(openKey);
+  if (ev) {
+    fillDrawer(ev);
+    const fresh = drawer.querySelector(".tip-list");
+    if (fresh) fresh.scrollTop = scroll;
+  }
+  snack(fieldName + ' status of "' + row.item + '" set to ' + label.replace(" ✓", "") + ".");
+}
+
+// badges are re-rendered often, so listen once on the panel
+drawer.addEventListener("click", e => {
+  const btn = e.target.closest && e.target.closest("button.sb[data-field]");
+  if (!btn || !editMode) return;
+  e.stopPropagation();
+  if (menuFor && menuFor.button === btn) closeStatusMenu();
+  else openStatusMenu(btn);
+});
+statusMenu.addEventListener("click", e => e.stopPropagation());
+document.addEventListener("click", () => closeStatusMenu());
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && menuFor) {
+    const btn = menuFor.button;
+    closeStatusMenu();
+    if (btn && document.contains(btn)) btn.focus();
+    e.stopImmediatePropagation();
+  }
+}, true);
+window.addEventListener("resize", closeStatusMenu);
+drawer.addEventListener("scroll", closeStatusMenu, true);
+
+/* ---- Env List: every item grouped by the environment it sits in ---- */
+function envBuckets() {
+  const buckets = { prod: [], staging: [], wip: [] };
+  ROWS.forEach(r => {
+    const meta = PROJECTS[r.projLookup];
+    if (!meta || hidden.has(meta.key) || hiddenPhases.has(phaseKey(r))) return;
+    if (r.live) buckets.prod.push(r);
+    else if (r.stag) buckets.staging.push(r);
+    else buckets.wip.push(r);
+  });
+  return buckets;
+}
+
+const ENV_COLS = [
+  { key: "prod",    title: "On production", date: r => r.prod,    empty: "Nothing deployed to production yet." },
+  { key: "staging", title: "On staging",    date: r => r.staging, empty: "Nothing on staging right now." },
+  { key: "wip",     title: "In progress / To do", date: r => r.end, empty: "Nothing in progress.",
+    note: "Not on staging or production yet." }
+];
+
+function envItemHTML(colKey, r) {
+  const iso = ENV_COLS.find(c => c.key === colKey).date(r);
+  const bits = [];
+  if (colKey === "prod") bits.push('<span class="sb"><span class="v live">Live ✓</span></span>');
+  if (colKey === "staging" && r.stag) bits.push('<span class="sb"><span class="v ' + r.stag + '">' + esc(STATUS_LABEL[r.stag]) + '</span></span>');
+  if (colKey === "wip") bits.push('<span class="sb"><span class="v ' + r.dev + '">' + esc(STATUS_LABEL[r.dev]) + '</span></span>');
+  if (iso) bits.push('<span>' + esc(colKey === "wip" ? "Due " + shortDate(iso) : shortDate(iso)) + '</span>');
+  if (r.pic) bits.push('<span>' + esc(r.pic) + '</span>');
+  return '<li><span class="env-nm">' + (r.id ? '<span class="rid">' + esc(r.id) + '</span>' : '') + esc(r.item) + '</span>' +
+    '<span class="env-sub">' + bits.join("") + '</span></li>';
+}
+
+function renderEnvList() {
+  const box = document.getElementById("envList");
+  const buckets = envBuckets();
+  box.innerHTML = ENV_COLS.map(col => {
+    const rows = buckets[col.key];
+    const byProj = ORDER.map(key => {
+      const meta = Object.values(PROJECTS).find(p => p.key === key);
+      const items = rows.filter(r => PROJECTS[r.projLookup] && PROJECTS[r.projLookup].key === key);
+      if (!items.length) return "";
+      items.sort((a, b) => (col.date(b) || "").localeCompare(col.date(a) || ""));
+      return '<div class="env-proj"><h3><span class="sw" style="background:var(--' + key + ')"></span>' +
+        esc(meta.full) + ' <span class="tagline">(' + items.length + ')</span></h3>' +
+        '<ul class="env-items">' + items.map(r => envItemHTML(col.key, r)).join("") + '</ul></div>';
+    }).join("");
+    return '<section class="env-col ' + col.key + '"><h2>' + esc(col.title) +
+      '<span class="n">' + rows.length + '</span></h2>' +
+      (col.note ? '<p class="env-note">' + esc(col.note) + '</p>' : '') +
+      (byProj || '<p class="env-empty">' + esc(col.empty) + '</p>') + '</section>';
+  }).join("");
+}
+
+/* ---- printable report (Download PDF) ---- */
+function printDocHTML() {
+  const year = view.getFullYear(), month = view.getMonth();
+  const monthName = MONTHS[month] + " " + year;
+  const buckets = envBuckets();
+  const inMonth = ev => {
+    const d = fromKey(ev.iso);
+    return d.getFullYear() === year && d.getMonth() === month;
+  };
+
+  const projSections = ORDER.map(key => {
+    const meta = Object.values(PROJECTS).find(p => p.key === key);
+    if (hidden.has(key)) return "";
+    let html = '<h2>' + esc(meta.full) + '</h2>';
+    let any = false;
+
+    ["prod", "staging"].forEach(env => {
+      const evs = [];
+      events.forEach(ev => { if (ev.proj.key === key && ev.env === env && inMonth(ev)) evs.push(ev); });
+      if (!evs.length) return;
+      any = true;
+      evs.sort((a, b) => a.iso.localeCompare(b.iso));
+      html += '<h3>Deployment to ' + (env === "prod" ? "Prod" : "Staging") + '</h3>';
+      evs.forEach(ev => {
+        html += '<h4>' + esc(longDate(ev.iso).replace(/^[A-Za-z]+, /, "")) + '</h4><ul>' +
+          ev.items.map(it => '<li>' + esc(it.item) + '</li>').join("") + '</ul>';
+      });
+    });
+
+    if (!any) html += '<p class="none">Currently there is no deployment scheduled in ' + esc(monthName) + '.</p>';
+
+    const onStaging = buckets.staging.filter(r => PROJECTS[r.projLookup] && PROJECTS[r.projLookup].key === key);
+    if (onStaging.length) {
+      html += '<h3>Available on staging</h3><ul>' +
+        onStaging.map(r => '<li>' + esc(r.item) + (r.stag ? ' <span class="tagline">(' + esc(STATUS_LABEL[r.stag]) + ')</span>' : '') + '</li>').join("") +
+        '</ul>';
+    }
+    return html;
+  }).join("");
+
+  return '<h1>Release report — ' + esc(monthName) + '</h1>' +
+    '<p class="pd-sub">Generated ' + esc(longDate(todayKey)) + '</p>' + projSections;
+}
+
+document.getElementById("pdfBtn").addEventListener("click", () => {
+  document.getElementById("printDoc").innerHTML = printDocHTML();
+  const title = document.title;
+  document.title = "release-report-" + toKey(view).slice(0, 7);   // suggested PDF file name
+  window.print();
+  setTimeout(() => { document.title = title; }, 500);
+});
+
+/* ---- view toggle (calendar / list / env), remembered per browser ---- */
+const VIEW_KEY = "release-calendar:view";
+const pageEl = document.querySelector(".page");
+const viewButtons = document.querySelectorAll(".view-toggle button");
+let viewMode = "calendar";
+function setView(mode, remember) {
+  viewMode = mode;
+  pageEl.classList.toggle("view-list", mode === "list");
+  pageEl.classList.toggle("view-env", mode === "env");
+  document.getElementById("envList").hidden = mode !== "env";
+  document.getElementById("pdfBtn").hidden = mode === "calendar";
+  viewButtons.forEach(b => b.setAttribute("aria-pressed", b.dataset.view === mode ? "true" : "false"));
+  if (typeof closeDrawer === "function") closeDrawer(false);
+  if (mode === "env") renderEnvList();
+  if (remember) { try { localStorage.setItem(VIEW_KEY, mode); } catch (e) {} }
+}
+viewButtons.forEach(b => b.addEventListener("click", () => setView(b.dataset.view, true)));
+try {
+  const saved = localStorage.getItem(VIEW_KEY);
+  if (saved === "list" || saved === "env") setView(saved, false);
+} catch (e) {}
+
+/* ---- navigation ---- */
+document.getElementById("prevBtn").addEventListener("click", () => {
+  view = new Date(view.getFullYear(), view.getMonth() - 1, 1);
+  render();
+});
+document.getElementById("nextBtn").addEventListener("click", () => {
+  view = new Date(view.getFullYear(), view.getMonth() + 1, 1);
+  render();
+});
+document.getElementById("todayBtn").addEventListener("click", () => {
+  view = new Date(today.getFullYear(), today.getMonth(), 1);
+  render();
+});
+initData();
+</script>
+
+</body></html>
