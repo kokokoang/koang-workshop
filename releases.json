@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-23",
+  "updated": "2026-09-27",
   "releases": [
     {
       "ID": "GCBC-001",
@@ -29,7 +29,7 @@
       "End Date": "",
       "Staging": "2026-10-09",
       "Staging Status": "",
-      "Prod Deployment Date": "2026-10-16",
+      "Prod Deployment Date": "2026-10-13",
       "Prod Status": false,
       "PIC": "Eriko"
     },
@@ -43,8 +43,8 @@
       "Dev Status": "DONE",
       "Start Date": "",
       "End Date": "",
-      "Staging": "2026-09-25",
-      "Staging Status": "FEEDBACK",
+      "Staging": "2026-09-23",
+      "Staging Status": "UAT",
       "Prod Deployment Date": "2026-09-30",
       "Prod Status": false,
       "PIC": "Adhine"
@@ -56,13 +56,13 @@
       "Feature": "Save as Draft (incl. bug fixes)",
       "Description": "",
       "Design Status": "",
-      "Dev Status": "WIP",
+      "Dev Status": "DONE",
       "Start Date": "",
       "End Date": "",
       "Staging": "2026-09-23",
-      "Staging Status": "",
+      "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-24",
-      "Prod Status": false,
+      "Prod Status": true,
       "PIC": "Eriko"
     },
     {
@@ -72,13 +72,13 @@
       "Feature": "SEO Optimization Part 2",
       "Description": "",
       "Design Status": "Done",
-      "Dev Status": "WIP",
+      "Dev Status": "DONE",
       "Start Date": "",
       "End Date": "",
-      "Staging": "2026-09-25",
-      "Staging Status": "",
-      "Prod Deployment Date": "2026-10-09",
-      "Prod Status": false,
+      "Staging": "2026-09-23",
+      "Staging Status": "DONE",
+      "Prod Deployment Date": "2026-09-24",
+      "Prod Status": true,
       "PIC": "Eriko"
     },
     {
@@ -91,7 +91,7 @@
       "Dev Status": "WIP",
       "Start Date": "",
       "End Date": "",
-      "Staging": "2026-10-06",
+      "Staging": "2026-10-05",
       "Staging Status": "",
       "Prod Deployment Date": "2026-10-09",
       "Prod Status": false,
@@ -188,9 +188,9 @@
       "Start Date": "",
       "End Date": "",
       "Staging": "2026-09-16",
-      "Staging Status": "UAT",
-      "Prod Deployment Date": "2026-09-30",
-      "Prod Status": false,
+      "Staging Status": "DONE",
+      "Prod Deployment Date": "2026-09-23",
+      "Prod Status": true,
       "PIC": "Adhine"
     },
     {
@@ -232,11 +232,11 @@
       "Feature": "Sec Landing page (Home) new layout + Payload update",
       "Description": "",
       "Design Status": "Done",
-      "Dev Status": "WIP",
+      "Dev Status": "DONE",
       "Start Date": "",
       "End Date": "",
       "Staging": "2026-09-24",
-      "Staging Status": "",
+      "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-30",
       "Prod Status": false,
       "PIC": "Adhine"
@@ -253,7 +253,7 @@
       "End Date": "",
       "Staging": "2026-10-05",
       "Staging Status": "",
-      "Prod Deployment Date": "2026-10-16",
+      "Prod Deployment Date": "2026-10-13",
       "Prod Status": false,
       "PIC": "Adhine"
     },
@@ -429,7 +429,7 @@
       "End Date": "",
       "Staging": "2026-10-05",
       "Staging Status": "",
-      "Prod Deployment Date": "2026-10-16",
+      "Prod Deployment Date": "2026-10-13",
       "Prod Status": false,
       "PIC": "Eriko"
     },
@@ -440,14 +440,30 @@
       "Feature": "AI Overview (+ summarizer)",
       "Description": "",
       "Design Status": "Done",
-      "Dev Status": "QA",
+      "Dev Status": "DONE",
       "Start Date": "",
       "End Date": "",
       "Staging": "2026-09-23",
-      "Staging Status": "",
-      "Prod Deployment Date": "2026-10-16",
+      "Staging Status": "DONE",
+      "Prod Deployment Date": "2026-10-13",
       "Prod Status": false,
       "PIC": "Eriko"
+    },
+    {
+      "ID": "CCR-003",
+      "Phase": "",
+      "Platform": "CCR",
+      "Feature": "September 2026 Feedback",
+      "Description": "",
+      "Design Status": "",
+      "Dev Status": "TO DO",
+      "Start Date": "",
+      "End Date": "",
+      "Staging": "2026-10-02",
+      "Staging Status": "",
+      "Prod Deployment Date": "2026-10-08",
+      "Prod Status": false,
+      "PIC": ""
     }
   ]
 }
