@@ -731,6 +731,69 @@
   }
   .chip.ghost .rd { background: transparent; }
 
+  /* ---------- create item modal ---------- */
+  .pill.create { display: inline-flex; align-items: center; gap: 6px; }
+  .pill.create svg { width: 14px; height: 14px; }
+
+  .modal-back {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(18, 20, 26, .45);
+  }
+  .modal-back[hidden] { display: none; }
+  .modal {
+    position: relative;
+    width: min(440px, 100%);
+    max-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    overflow: visible;
+  }
+  .modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 16px 4px 18px;
+  }
+  .modal-head h2 { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -.015em; }
+  .modal-head .drawer-close { position: static; }
+  .modal-body { padding: 8px 18px 4px; display: grid; gap: 12px; }
+  .f-row { display: flex; align-items: center; gap: 12px; }
+  .f-row label { flex: none; width: 122px; font-size: 12.5px; font-weight: 700; }
+  .f-row input[type="text"], .f-row select {
+    font: inherit;
+    font-size: 13px;
+    flex: 1;
+    min-width: 0;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+  }
+  .f-row input[type="text"]:focus, .f-row select:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 2px var(--line-soft); }
+  .f-row input.invalid { border-color: var(--st-late-fg); }
+  .f-row .date-clear[hidden] { display: none; }
+  .ci-msg { margin: 0 0 6px; font-size: 11.5px; color: var(--ink-3); }
+  .ci-msg.error { color: var(--st-late-fg); font-weight: 600; }
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 10px 18px 16px;
+  }
+  #ciPick { position: static; width: auto; margin: -2px 0 0; box-shadow: none; }
+  .modal-body { max-height: calc(100vh - 150px); overflow-y: auto; }
+
   /* ---------- Env List view ---------- */
   .envlist { display: none; margin-top: 4px; }
   .envlist[hidden] { display: none; }
@@ -1189,6 +1252,9 @@
     <button class="pill pdf" id="pdfBtn" type="button" hidden>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6"></path><rect x="6" y="14" width="12" height="7"></rect><path d="M6 18H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2"></path></svg>Download PDF
     </button>
+    <button class="pill create" id="createBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Create Item
+    </button>
     <button class="pill load" id="loadBtn" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1201,7 +1267,7 @@
 
   <div class="empty-state" id="emptyState" hidden>
     <strong>No release data loaded.</strong>
-    Click <b>Load data</b> or drag a <b>.json</b> file onto this page. Nothing is kept between sessions, so load the file each time you open the page.
+    <span id="emptyNote">Click <b>Load data</b> or drag a <b>.json</b> file onto this page.</span>
   </div>
 
   <div class="legend" id="legend"></div>
@@ -1238,6 +1304,47 @@
   </section>
 
   <p class="foot" id="dataInfo"></p>
+</div>
+
+<div class="modal-back" id="createModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ciTitle">
+    <div class="modal-head">
+      <h2 id="ciTitle">Create item</h2>
+      <button type="button" class="drawer-close" id="ciClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="f-row">
+        <label for="ciName">Item name</label>
+        <input type="text" id="ciName" placeholder="e.g. Insight Page" autocomplete="off" maxlength="160">
+      </div>
+      <div class="f-row">
+        <label for="ciProject">Project</label>
+        <select id="ciProject">
+          <option value="GCBC">GCBC</option>
+          <option value="COUNTRY PLATFORM">CP — Country Platform</option>
+          <option value="CCR">CCR</option>
+        </select>
+      </div>
+      <div class="f-row">
+        <label for="ciStaging">Staging date</label>
+        <button type="button" class="date-field blank" id="ciStaging" data-ci="staging" aria-haspopup="dialog" aria-expanded="false">Select date</button>
+        <button type="button" class="date-clear" data-ciclear="staging" aria-label="Clear staging date" hidden>×</button>
+      </div>
+      <div class="f-row">
+        <label for="ciProd">Production date</label>
+        <button type="button" class="date-field blank" id="ciProd" data-ci="prod" aria-haspopup="dialog" aria-expanded="false">Select date</button>
+        <button type="button" class="date-clear" data-ciclear="prod" aria-label="Clear production date" hidden>×</button>
+      </div>
+      <div class="dpick" id="ciPick" hidden></div>
+      <p class="ci-msg" id="ciMsg">The new item starts with no statuses — set Dev, Stag and Prod afterwards in Edit mode.</p>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="pill" id="ciCancel">Cancel</button>
+      <button type="button" class="pill primary" id="ciCreate">Create item</button>
+    </div>
+  </div>
 </div>
 
 <div id="printDoc" aria-hidden="true"></div>
@@ -2112,7 +2219,8 @@ function renderPhaseFilter() {
   }));
 }
 
-/* ---- data loading (button, drag & drop, remembered copy) ---- */
+/* ---- data loading (published file, button, drag & drop) ---- */
+const DATA_URL = "releases.json";          // file published next to this page
 const STORE_KEY = "release-calendar:data";
 const dataInfo = document.getElementById("dataInfo");
 
@@ -2137,7 +2245,8 @@ function applyData(text, meta, remember) {
   buildData(RELEASES);
   document.getElementById("emptyState").hidden = RELEASES.length > 0;
   dataInfo.className = "foot";
-  dataInfo.textContent = "Data: " + meta.name + " (" + RELEASES.length + " rows)" +
+  dataInfo.textContent = "Data: " + meta.name + (meta.source === "site" ? " (from the site)" : "") +
+    " — " + RELEASES.length + " rows" +
     (result.updated ? ", updated " + result.updated : "") +
     ", loaded " + new Date(meta.loadedAt).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" }) + ".";
   render();
@@ -2173,13 +2282,45 @@ window.addEventListener("drop", e => {
   readFile(e.dataTransfer.files[0]);
 });
 
+/* Served over http(s): read the published releases.json on open, so nobody has to
+   click Load data. Opened straight from disk (file://) a browser refuses to fetch a
+   sibling file, so that case skips the attempt and behaves exactly as before. */
+const canFetchSite = /^https?:$/.test(location.protocol);
+
+function setEmptyNote(html) {
+  const el = document.getElementById("emptyNote");
+  if (el) el.innerHTML = html;
+}
+
+async function loadFromSite() {
+  if (!canFetchSite) return false;
+  try {
+    const res = await fetch(DATA_URL + "?v=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) return false;
+    const text = await res.text();
+    try { JSON.parse(text); } catch (e) { return false; }   // a 404 page, not our data
+    return applyData(text, { name: DATA_URL, loadedAt: Date.now(), source: "site" }, false);
+  } catch (e) {
+    return false;                                            // offline, blocked, or not published
+  }
+}
+
 function initData() {
-  // the page always opens empty: nothing is kept between sessions
+  // nothing is kept between sessions; the published file is the only automatic source
   try { localStorage.removeItem(STORE_KEY); } catch (e) {}
   buildData([]);
   document.getElementById("emptyState").hidden = false;
   dataInfo.textContent = "";
+  if (canFetchSite) setEmptyNote("Loading <b>" + esc(DATA_URL) + "</b>&hellip;");
   render();
+
+  loadFromSite().then(ok => {
+    if (ok) return;
+    setEmptyNote(canFetchSite
+      ? "Could not read <b>" + esc(DATA_URL) + "</b> from this site. Click <b>Load data</b> or drag a <b>.json</b> file onto this page."
+      : "Click <b>Load data</b> or drag a <b>.json</b> file onto this page.");
+    render();
+  });
 }
 
 /* ---- snackbar ---- */
@@ -2269,7 +2410,9 @@ undoBtn.addEventListener("click", () => {
   if (!last) return;
   clearMoveState();
   last.undo.forEach(u => { ROWS[u.idx][u.field] = u.from; });
+  if (last.created !== undefined) ROWS.splice(last.created, 1);   // created rows are always last
   rebuildEvents();
+  renderPhaseFilter();
   render();
   { const ev = openKey && events.get(openKey); if (ev) fillDrawer(ev); }
   snack("Last change undone." + (changes.length ? " " + changes.length + " left." : ""));
@@ -2623,6 +2766,218 @@ document.getElementById("pdfBtn").addEventListener("click", () => {
   window.print();
   setTimeout(() => { document.title = title; }, 500);
 });
+
+/* ---- create item ---- */
+const ciModal = document.getElementById("createModal");
+const ciName = document.getElementById("ciName");
+const ciProject = document.getElementById("ciProject");
+const ciMsg = document.getElementById("ciMsg");
+const ciPick = document.getElementById("ciPick");
+const ciDates = { staging: "", prod: "" };
+let ciField = null, ciView = null;
+const CI_HINT = "The new item starts with no statuses — set Dev, Stag and Prod afterwards in Edit mode.";
+
+function nextItemId(lookup) {
+  const meta = PROJECTS[lookup];
+  if (!meta) return "";
+  const prefix = meta.short.toUpperCase();
+  let max = 0;
+  ROWS.forEach(r => {
+    const m = /^([A-Z]+)-(\d+)$/.exec(String(r.id || "").trim().toUpperCase());
+    if (m && m[1] === prefix) max = Math.max(max, Number(m[2]));
+  });
+  return prefix + "-" + String(max + 1).padStart(3, "0");
+}
+
+function ciSetField(field, iso) {
+  ciDates[field] = iso;
+  const btn = document.querySelector('.date-field[data-ci="' + field + '"]');
+  const clear = document.querySelector('[data-ciclear="' + field + '"]');
+  btn.textContent = iso ? shortDate(iso) : "Select date";
+  btn.classList.toggle("blank", !iso);
+  clear.hidden = !iso;
+}
+
+function ciClosePicker() {
+  ciField = null;
+  ciPick.hidden = true;
+  document.querySelectorAll("#createModal .date-field").forEach(b => b.setAttribute("aria-expanded", "false"));
+}
+
+function ciDrawPicker() {
+  if (!ciField) return;
+  const year = ciView.getFullYear(), month = ciView.getMonth();
+  const offset = (new Date(year, month, 1).getDay() + 6) % 7;
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const cells = Math.ceil((offset + daysInMonth) / 7) * 7;
+  const sel = ciDates[ciField];
+
+  let days = "";
+  for (let i = 0; i < cells; i++) {
+    const d = new Date(year, month, 1 - offset + i);
+    const iso = toKey(d);
+    days += '<button type="button" class="dp-day' +
+      (d.getMonth() === month ? '' : ' adj') +
+      (iso === todayKey ? ' today' : '') +
+      (iso === sel ? ' sel' : '') +
+      '" data-iso="' + iso + '">' + d.getDate() + '</button>';
+  }
+
+  ciPick.innerHTML =
+    '<div class="dp-head">' +
+      '<button type="button" class="dp-nav" data-step="-1" aria-label="Previous month">&#8249;</button>' +
+      '<span class="m">' + MONTHS[month] + ' ' + year + '</span>' +
+      '<button type="button" class="dp-nav" data-step="1" aria-label="Next month">&#8250;</button>' +
+    '</div>' +
+    '<div class="dp-grid">' +
+      ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map(w => '<span class="dw">' + w + '</span>').join("") +
+      days +
+    '</div>' +
+    '<div class="dp-foot"><span>' + (sel ? esc(shortDate(sel)) : "No date picked") + '</span>' +
+      '<button type="button" data-pick-today="1">Today</button></div>';
+  ciPick.hidden = false;
+
+  ciPick.querySelectorAll(".dp-nav").forEach(b => b.addEventListener("click", e => {
+    e.stopPropagation();
+    ciView = new Date(ciView.getFullYear(), ciView.getMonth() + Number(b.dataset.step), 1);
+    ciDrawPicker();
+  }));
+  ciPick.querySelectorAll(".dp-day").forEach(b => b.addEventListener("click", e => {
+    e.stopPropagation();
+    ciSetField(ciField, b.dataset.iso);          // picker stays open until a click outside
+    const d = fromKey(b.dataset.iso);
+    ciView = new Date(d.getFullYear(), d.getMonth(), 1);
+    ciDrawPicker();
+    ciValidate();
+  }));
+  ciPick.querySelector("[data-pick-today]").addEventListener("click", e => {
+    e.stopPropagation();
+    ciSetField(ciField, todayKey);
+    const d = fromKey(todayKey);
+    ciView = new Date(d.getFullYear(), d.getMonth(), 1);
+    ciDrawPicker();
+    ciValidate();
+  });
+  const btn = document.querySelector('.date-field[data-ci="' + ciField + '"]');
+  if (btn) btn.setAttribute("aria-expanded", "true");
+}
+
+function ciValidate(showAll) {
+  const name = ciName.value.trim();
+  let error = "";
+  if (ciDates.staging && ciDates.prod && ciDates.staging > ciDates.prod) {
+    error = "The staging date is after the production date.";
+  } else if (showAll && !name) {
+    error = "Enter an item name.";
+  } else if (showAll && !ciDates.staging && !ciDates.prod) {
+    error = "Pick a staging date, a production date, or both.";
+  }
+  ciMsg.textContent = error || CI_HINT;
+  ciMsg.className = "ci-msg" + (error ? " error" : "");
+  ciName.classList.toggle("invalid", !!(showAll && !name));
+  return !error;
+}
+
+function openCreate() {
+  ciName.value = "";
+  ciProject.value = "GCBC";
+  ciSetField("staging", "");
+  ciSetField("prod", "");
+  ciClosePicker();
+  ciValidate();
+  ciModal.hidden = false;
+  ciName.focus();
+}
+function closeCreate() {
+  ciClosePicker();
+  ciModal.hidden = true;
+}
+
+function createItem() {
+  const name = ciName.value.trim();
+  if (!ciValidate(true)) return;
+  const lookup = ciProject.value;
+  const meta = PROJECTS[lookup];
+  const row = {
+    id: nextItemId(lookup),
+    phase: "",
+    description: "",
+    design: "",
+    start: "",
+    end: "",
+    extra: {},
+    project: meta.full,
+    projLookup: lookup,
+    item: name,
+    dev: "todo",
+    stag: "",
+    live: false,
+    pic: "",
+    staging: ciDates.staging,
+    prod: ciDates.prod
+  };
+  const idx = ROWS.length;
+  ROWS.push(row);
+
+  const when = [];
+  if (row.staging) when.push("Staging <b>" + esc(shortDate(row.staging)) + "</b>");
+  if (row.prod) when.push("Prod <b>" + esc(shortDate(row.prod)) + "</b>");
+  changes.push({
+    desc: 'Added <b>' + esc(meta.short) + '</b> "' + esc(name) + '" (' + esc(row.id) + ') · ' + when.join(", "),
+    merged: false,
+    created: idx,
+    undo: []
+  });
+
+  closeCreate();
+  if (!editMode) setEditMode(true);            // so the change list and Save JSON are in reach
+  const focusIso = row.staging || row.prod;
+  if (focusIso) {
+    const d = fromKey(focusIso);
+    view = new Date(d.getFullYear(), d.getMonth(), 1);
+  }
+  rebuildEvents();
+  renderPhaseFilter();
+  render();
+  snack('"' + name + '" added as ' + row.id + ". Save the JSON, then add the row in Outline.", "ok");
+}
+
+document.getElementById("createBtn").addEventListener("click", openCreate);
+document.getElementById("ciCancel").addEventListener("click", closeCreate);
+document.getElementById("ciClose").addEventListener("click", closeCreate);
+document.getElementById("ciCreate").addEventListener("click", createItem);
+ciName.addEventListener("input", () => ciValidate());
+ciName.addEventListener("keydown", e => { if (e.key === "Enter") createItem(); });
+ciModal.addEventListener("click", e => {
+  if (e.target === ciModal) { closeCreate(); return; }
+  const path = typeof e.composedPath === "function" ? e.composedPath() : [];
+  if (ciField && !path.includes(ciPick) && !ciPick.contains(e.target) && !e.target.closest(".date-field")) ciClosePicker();
+});
+document.querySelectorAll("#createModal .date-field").forEach(btn => {
+  btn.addEventListener("click", e => {
+    e.stopPropagation();
+    const field = btn.dataset.ci;
+    if (ciField === field) { ciClosePicker(); return; }
+    ciField = field;
+    const d = fromKey(ciDates[field] || todayKey);
+    ciView = new Date(d.getFullYear(), d.getMonth(), 1);
+    ciDrawPicker();
+  });
+});
+document.querySelectorAll("#createModal [data-ciclear]").forEach(btn => {
+  btn.addEventListener("click", e => {
+    e.stopPropagation();
+    ciSetField(btn.dataset.ciclear, "");
+    if (ciField) ciDrawPicker();
+    ciValidate();
+  });
+});
+document.addEventListener("keydown", e => {
+  if (e.key !== "Escape" || ciModal.hidden) return;
+  if (ciField) { ciClosePicker(); return; }
+  closeCreate();
+  e.stopImmediatePropagation();
+}, true);
 
 /* ---- view toggle (calendar / list / env), remembered per browser ---- */
 const VIEW_KEY = "release-calendar:view";
