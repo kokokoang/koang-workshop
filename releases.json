@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27",
+  "updated": "2026-09-28",
   "releases": [
     {
       "ID": "GCBC-001",
@@ -29,7 +29,7 @@
       "End Date": "",
       "Staging": "2026-10-09",
       "Staging Status": "",
-      "Prod Deployment Date": "2026-10-13",
+      "Prod Deployment Date": "2026-10-12",
       "Prod Status": false,
       "PIC": "Eriko"
     },
@@ -462,6 +462,22 @@
       "Staging": "2026-10-02",
       "Staging Status": "",
       "Prod Deployment Date": "2026-10-08",
+      "Prod Status": false,
+      "PIC": ""
+    },
+    {
+      "ID": "GCBC-007",
+      "Phase": "",
+      "Platform": "GCBC",
+      "Feature": "Insight Page",
+      "Description": "",
+      "Design Status": "In Review",
+      "Dev Status": "WIP",
+      "Start Date": "",
+      "End Date": "",
+      "Staging": "2026-10-05",
+      "Staging Status": "",
+      "Prod Deployment Date": "2026-10-12",
       "Prod Status": false,
       "PIC": ""
     }
