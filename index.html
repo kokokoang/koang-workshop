@@ -719,7 +719,10 @@
     background: var(--surface); color: var(--ink);
     padding: 4px 10px; cursor: pointer;
   }
-  .mb-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px; }
+  .mb-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px; flex-wrap: wrap; }
+  .mb-btns { display: inline-flex; gap: 8px; margin-left: auto; }
+  .pill.danger { color: var(--st-late-fg); border-color: var(--st-late-bg); background: var(--st-late-bg); }
+  .pill.danger:hover:not(:disabled) { border-color: var(--st-late-fg); }
   .mb-note { margin: 0; font-size: 11.5px; color: var(--ink-3); }
   .mb-note.warn { color: var(--st-late-fg); font-weight: 600; }
 
@@ -793,6 +796,168 @@
   }
   #ciPick { position: static; width: auto; margin: -2px 0 0; box-shadow: none; }
   .modal-body { max-height: calc(100vh - 150px); overflow-y: auto; }
+
+  /* ---------- unscheduled tray ---------- */
+  .tray {
+    margin: 0 0 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .tray[hidden] { display: none; }
+  .page.view-list .tray, .page.view-env .tray { display: none; }
+  .tray-head { display: flex; align-items: center; gap: 12px; padding: 10px 14px; flex-wrap: wrap; }
+  .tray-toggle {
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+  .tray-toggle:hover { color: var(--ink); }
+  .tray-toggle svg { width: 15px; height: 15px; transition: transform .15s ease; }
+  .tray-toggle[aria-expanded="false"] svg { transform: rotate(-90deg); }
+  .tray-count {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0;
+    min-width: 20px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--surface);
+  }
+  .tray-hint { font-size: 11.5px; color: var(--ink-3); }
+  .tray-tabs { flex: none; }
+  .tray-tabs button { font-size: 12px; padding: 4px 11px; gap: 7px; }
+  .tray-tabs .n {
+    font-size: 10.5px;
+    font-weight: 700;
+    min-width: 17px;
+    padding: 1px 5px;
+    border-radius: 999px;
+    background: var(--line);
+    color: var(--ink-2);
+    text-align: center;
+  }
+  .tray-tabs button[aria-pressed="true"] .n { background: var(--ink); color: var(--surface); }
+  .tray-tabs button.has-chase[aria-pressed="false"] .n { background: var(--st-late-bg); color: var(--st-late-fg); }
+
+  .tray-body { padding: 0 14px 12px; display: grid; gap: 10px; max-height: 300px; overflow-y: auto; }
+  .tray-note { margin: 0; font-size: 11.5px; color: var(--ink-3); }
+  .tray-note b { color: var(--st-late-fg); font-weight: 700; }
+  .tray-section { display: grid; gap: 8px; }
+  .tray-sec-head {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .tray-sec-n {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0;
+    min-width: 18px;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: var(--line);
+    color: var(--ink-2);
+    text-align: center;
+  }
+  .tray-sec-note {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink-3);
+  }
+  .tray-when { flex: none; font-size: 11px; font-weight: 500; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .tray-item.chase { border-color: var(--st-late-fg); }
+  .tray-item.chase .rid { color: var(--st-late-fg); }
+  .tray[data-open="false"] .tray-body { display: none; }
+  .tray-group {
+    display: grid;
+    grid-template-columns: 132px minmax(0, 1fr);
+    gap: 6px 10px;
+    align-items: start;
+  }
+  .tray-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding-top: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .tray-label .sw { flex: none; margin-top: 2px; }
+  .tray-items { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
+  @media (max-width: 640px) {
+    .tray-group { grid-template-columns: minmax(0, 1fr); }
+    .tray-label { padding-top: 0; }
+  }
+  .tray-label .sw { width: 10px; height: 10px; border-radius: 3px; }
+  .tray-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    max-width: 320px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--surface-sub);
+    color: var(--ink);
+  }
+  body.edit-on .tray-item { cursor: grab; border-style: dashed; }
+  body.edit-on .tray-item:active { cursor: grabbing; }
+  .tray-item.dragging { opacity: .4; }
+  .tray-item .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tray-tag {
+    flex: none;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--st-todo-bg);
+    color: var(--st-todo-fg);
+  }
+  .tray-tag.needs-prod { background: var(--st-wip-bg);  color: var(--st-wip-fg); }
+  .tray-tag.chase      { background: var(--st-late-bg); color: var(--st-late-fg); }
+  .tray-empty { font-size: 12.5px; color: var(--ink-3); padding: 2px 0 4px; }
+
+  /* production date not set yet, marked on the staging chip */
+  .tbd {
+    flex: none;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    padding: 2px 4px;
+    border-radius: 3px;
+    background: rgba(0,0,0,.10);
+  }
+  .chip.prod .tbd { background: rgba(255,255,255,.28); }
+  .tbd.chase { background: var(--st-late-bg); color: var(--st-late-fg); }
+  .summary .unsched { color: var(--ink-2); }
 
   /* ---------- Env List view ---------- */
   .envlist { display: none; margin-top: 4px; }
@@ -1274,6 +1439,18 @@
   <div class="phase-filter" id="phaseFilter" hidden></div>
 
 
+  <section class="tray" id="tray" hidden>
+    <div class="tray-head">
+      <button type="button" class="tray-toggle" id="trayToggle" aria-expanded="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        Unscheduled <span class="tray-count" id="trayCount">0</span>
+      </button>
+      <div class="view-toggle tray-tabs" id="trayTabs" role="group" aria-label="Unscheduled category"></div>
+      <span class="tray-hint" id="trayHint"></span>
+    </div>
+    <div class="tray-body" id="trayBody"></div>
+  </section>
+
   <div class="cal">
     <div class="dow" aria-hidden="true">
       <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span>
@@ -1667,11 +1844,17 @@ function chipHTML(ev) {
   const label = ev.proj.short + " " + ENVS[ev.env].label;
   const st = eventStatus(ev);
   const aria = label + ", " + STATE_LABEL[st.state] + ", " + st.done + " of " + st.total + " " + st.doneWord + ", " + longDate(ev.iso);
+  // a staging deployment whose items have no production date yet is not fully planned
+  const noProd = ev.env === "staging" ? ev.items.filter(it => !it.prod) : [];
+  const chase = noProd.some(needsProdChase);
   return '<button type="button" class="chip ' + ev.proj.key + ' ' + ev.env + '" ' +
          (editMode ? 'draggable="true" ' : '') +
          'data-ev="' + esc(ev.iso + "|" + ev.proj.key + "|" + ev.env) + '" ' +
          'aria-label="' + esc(aria) + '" aria-controls="drawer" aria-expanded="false">' +
          '<span class="chip-label">' + esc(label) + '</span>' +
+         (chase
+           ? '<span class="tbd chase" title="Approved on staging with no production date">TBD</span>'
+           : '') +
          '<span class="rd" title="' + esc(STATE_LABEL[st.state]) + '"><i class="dot ' + st.state + '"></i>' +
            st.done + '/' + st.total + '</span>' +
          '</button>';
@@ -1731,6 +1914,9 @@ function render() {
     plural(prodCount, "production release") + "</b> this month" +
     (riskCount || overdueCount
       ? ' <span class="risk">(' + [riskCount ? riskCount + " at risk" : "", overdueCount ? overdueCount + " overdue" : ""].filter(Boolean).join(", ") + ')</span>'
+      : "") +
+    (typeof unscheduledRows === "function" && unscheduledRows().length
+      ? ' <span class="unsched">&middot; ' + unscheduledRows().length + ' unscheduled</span>'
       : "");
 
   /* mobile agenda */
@@ -1763,6 +1949,7 @@ function render() {
   // keep the panel open across redraws (date preview jumps months); close it if its event is gone
   if (openKey && events.has(openKey)) markChips(); else closeDrawer(false);
   if (typeof renderEnvList === "function" && typeof viewMode !== "undefined" && viewMode === "env") renderEnvList();
+  if (typeof renderTray === "function") renderTray();
   if (typeof refreshEditBar === "function") refreshEditBar();
 }
 
@@ -1920,7 +2107,10 @@ function moveBarHTML(ev) {
     '<div class="dpick" id="dpick" hidden></div>' +
     '<div class="mb-actions">' +
       '<p class="mb-note" id="mbNote"></p>' +
-      '<button type="button" class="pill primary" id="mbConfirm" disabled>Confirm</button>' +
+      '<span class="mb-btns">' +
+        '<button type="button" class="pill danger" id="mbClear" disabled>Unschedule</button>' +
+        '<button type="button" class="pill primary" id="mbConfirm" disabled>Confirm</button>' +
+      '</span>' +
     '</div>' +
   '</div>';
 }
@@ -2061,6 +2251,7 @@ function wireMoveBar(ev) {
   });
 
   drawer.querySelector("#mbConfirm").addEventListener("click", () => applyMove(ev));
+  drawer.querySelector("#mbClear").addEventListener("click", () => clearDates(ev));
   syncMoveBar(ev);
 }
 
@@ -2071,12 +2262,24 @@ function syncMoveBar(ev) {
   if (!note || !confirm) return;
   countEl.textContent = selected.size + " of " + ev.items.length + " selected";
   const hasDate = !!(moveDates.staging || moveDates.prod);
+  const clearBtn = drawer.querySelector("#mbClear");
   confirm.disabled = !selected.size || !hasDate;
-  note.className = "mb-note";
+  if (clearBtn) clearBtn.disabled = !selected.size;
+
+  // clearing a staging date takes the production date with it, because
+  // production is only reachable through staging
+  const cascade = ev.env === "staging" &&
+    ev.items.some(it => selected.has(it.idx) && it.prod);
+
+  note.className = "mb-note" + (cascade ? " warn" : "");
   note.textContent = !selected.size
-    ? "Tick the items to move."
-    : (!hasDate ? "Pick a date to move them to." : "Moving " + selected.size +
-        (selected.size === 1 ? " item" : " items") + " out of this deployment.");
+    ? "Tick the items to move or unschedule."
+    : (cascade
+        ? "Unscheduling clears the production date too."
+        : (!hasDate
+            ? "Pick a date to move them to, or unschedule them."
+            : "Moving " + selected.size + (selected.size === 1 ? " item" : " items") +
+              " out of this deployment."));
 }
 
 function updatePreview(ev) {
@@ -2096,6 +2299,10 @@ function applyMove(ev) {
     const row = ROWS[idx];
     const newStag = stagIso || row.staging;
     const newProd = prodIso || row.prod;
+    if (newProd && !newStag) {
+      snack('Cannot move: "' + row.item + '" would have a production date with no staging date. Give it a staging date first.', "error");
+      return;
+    }
     if (newStag && newProd && newStag > newProd) {
       snack('Cannot move: "' + row.item + '" would be on staging (' + shortDate(newStag) +
             ') after its production date (' + shortDate(newProd) + '). Nothing changed.', "error");
@@ -2135,6 +2342,56 @@ function applyMove(ev) {
   render();
   snack(idxs.length + (idxs.length === 1 ? " item" : " items") + " moved" +
     (merged ? " and merged into an existing deployment." : "."), merged ? "ok" : null);
+}
+
+/* Remove the ticked items from this deployment by clearing its date. Clearing a
+   staging date also clears the production date, so the data can never hold a
+   production date with no staging date. */
+function clearDates(ev) {
+  const idxs = ev.items.filter(it => selected.has(it.idx)).map(it => it.idx);
+  if (!idxs.length) return;
+
+  const undo = [];
+  let cascaded = 0;
+  idxs.forEach(idx => {
+    const row = ROWS[idx];
+    if (row[ev.env]) {
+      undo.push({ idx: idx, field: ev.env, from: row[ev.env] });
+      row[ev.env] = "";
+    }
+    if (ev.env === "staging" && row.prod) {
+      undo.push({ idx: idx, field: "prod", from: row.prod });
+      row.prod = "";
+      cascaded++;
+    }
+    // nothing can be live without a production date
+    if (!row.prod && row.live) {
+      undo.push({ idx: idx, field: "live", from: true });
+      row.live = false;
+    }
+  });
+
+  if (!undo.length) {
+    snack("Those items have no date to clear.");
+    return;
+  }
+
+  const label = ev.proj.short + " " + ENVS[ev.env].label;
+  changes.push({
+    desc: 'Unscheduled <b>' + esc(label) + '</b> ' + esc(shortDate(ev.iso)) +
+          ' (' + idxs.length + (idxs.length === 1 ? " item" : " items") + ')' +
+          (cascaded ? ' <span class="merged">(prod date cleared too)</span>' : ''),
+    merged: false,
+    undo: undo
+  });
+
+  clearMoveState();
+  rebuildEvents();
+  closeDrawer(false);
+  render();
+  snack(idxs.length + (idxs.length === 1 ? " item" : " items") + " unscheduled" +
+    (cascaded ? ", production date cleared as well." : ".") +
+    " They are in the Unscheduled tray.", "ok");
 }
 
 function clearMoveState() {
@@ -2553,12 +2810,61 @@ grid.addEventListener("dragover", e => {
 });
 grid.addEventListener("drop", e => {
   const day = e.target.closest(".day");
-  if (!dragKey || !day) return;
+  if (!day) return;
+  if (dragTrayIdx !== null) {
+    e.preventDefault();
+    const idx = dragTrayIdx;
+    dragTrayIdx = null;
+    scheduleFromTray(idx, day.dataset.iso);
+    return;
+  }
+  if (!dragKey) return;
   e.preventDefault();
   const ev = events.get(dragKey);
   dragKey = null;
   if (ev) moveEvent(ev, day.dataset.iso);
 });
+
+/* tray items drag onto the grid the same way chips do */
+let dragTrayIdx = null;
+const trayEl = document.getElementById("tray");
+trayEl.addEventListener("dragstart", e => {
+  const item = e.target.closest(".tray-item");
+  if (!editMode || !item) return;
+  dragTrayIdx = Number(item.dataset.idx);
+  item.classList.add("dragging");
+  e.dataTransfer.effectAllowed = "move";
+  e.dataTransfer.setData("text/plain", item.dataset.idx);
+});
+trayEl.addEventListener("dragend", () => {
+  dragTrayIdx = null;
+  trayEl.querySelectorAll(".dragging").forEach(c => c.classList.remove("dragging"));
+  grid.querySelectorAll(".drop-ok").forEach(c => c.classList.remove("drop-ok"));
+});
+grid.addEventListener("dragover", e => {
+  if (dragTrayIdx === null) return;
+  const day = e.target.closest(".day");
+  if (!day) return;
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+  grid.querySelectorAll(".drop-ok").forEach(c => c.classList.remove("drop-ok"));
+  day.classList.add("drop-ok");
+});
+
+const TRAY_KEY = "release-calendar:tray";
+document.getElementById("trayToggle").addEventListener("click", () => {
+  const btn = document.getElementById("trayToggle");
+  const open = btn.getAttribute("aria-expanded") !== "true";
+  btn.setAttribute("aria-expanded", String(open));
+  trayEl.dataset.open = String(open);
+  try { localStorage.setItem(TRAY_KEY, open ? "open" : "closed"); } catch (e) {}
+});
+try {
+  if (localStorage.getItem(TRAY_KEY) === "closed") {
+    document.getElementById("trayToggle").setAttribute("aria-expanded", "false");
+    trayEl.dataset.open = "false";
+  }
+} catch (e) {}
 
 /* ---- status dropdown on panel badges (edit mode) ---- */
 const statusMenu = document.getElementById("statusMenu");
@@ -2661,6 +2967,157 @@ document.addEventListener("keydown", e => {
 }, true);
 window.addEventListener("resize", closeStatusMenu);
 drawer.addEventListener("scroll", closeStatusMenu, true);
+
+/* ---- scheduling state, derived from the dates rather than stored ----
+   backlog   no dates at all
+   partial   one of the two dates missing
+   scheduled both set
+   A prod date with no staging date is not a valid state: production is only
+   reachable through staging, so a same-day hotfix is entered as both dates. */
+function scheduleState(r) {
+  if (!r.staging && !r.prod) return "backlog";
+  if (!r.staging || !r.prod) return "partial";
+  return "scheduled";
+}
+// approved on staging with no production date is the one that needs chasing
+function needsProdChase(r) { return r.stag === "done" && !r.prod; }
+
+function unscheduledRows() {
+  const out = [];
+  ROWS.forEach((r, idx) => {
+    const meta = PROJECTS[r.projLookup];
+    if (!meta || hidden.has(meta.key) || hiddenPhases.has(phaseKey(r))) return;
+    if (scheduleState(r) === "scheduled") return;
+    out.push(Object.assign({ idx: idx }, r));
+  });
+  return out;
+}
+
+/* Which tray section a row belongs to. The section header carries the meaning,
+   so items no longer need a tag of their own — except in "needs fixing", where
+   two different problems share the section. */
+function traySection(r) {
+  if (r.live || (r.prod && !r.staging)) return "broken";
+  if (scheduleState(r) === "backlog") return "backlog";
+  return "noprod";
+}
+function brokenTag(r) {
+  return r.live ? "Live, date missing" : "No staging date";
+}
+
+const TRAY_SECTIONS = [
+  { key: "backlog", title: "Backlog",      note: "Nothing planned yet." },
+  { key: "noprod",  title: "No prod date", note: "On staging, production date not set." },
+  { key: "broken",  title: "Needs fixing", note: "These break the staging-then-production rule." }
+];
+
+const TRAY_TAB_KEY = "release-calendar:tray-tab";
+let trayTab = "backlog";
+try { trayTab = localStorage.getItem(TRAY_TAB_KEY) || "backlog"; } catch (e) {}
+
+function renderTray() {
+  const tray = document.getElementById("tray");
+  const rows = unscheduledRows();
+  tray.hidden = rows.length === 0;
+  if (!rows.length) return;
+
+  document.getElementById("trayCount").textContent = rows.length;
+  document.getElementById("trayHint").textContent = editMode
+    ? "Drag an item onto a day to give it a date."
+    : "Turn on Edit mode to drag these onto a date.";
+
+  // one tab per non-empty section; the tab strip replaces the stacked headers
+  const buckets = {};
+  TRAY_SECTIONS.forEach(sec => { buckets[sec.key] = rows.filter(r => traySection(r) === sec.key); });
+  const available = TRAY_SECTIONS.filter(sec => buckets[sec.key].length);
+  if (!available.some(sec => sec.key === trayTab)) trayTab = available[0].key;
+
+  document.getElementById("trayTabs").innerHTML = available.map(sec => {
+    const chase = buckets[sec.key].some(needsProdChase);
+    return '<button type="button" data-tab="' + sec.key + '"' +
+      (chase ? ' class="has-chase"' : '') +
+      ' aria-pressed="' + (sec.key === trayTab) + '">' + esc(sec.title) +
+      '<span class="n">' + buckets[sec.key].length + '</span></button>';
+  }).join("");
+  document.getElementById("trayTabs").querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      trayTab = btn.dataset.tab;
+      try { localStorage.setItem(TRAY_TAB_KEY, trayTab); } catch (e) {}
+      renderTray();
+    });
+  });
+
+  document.getElementById("trayBody").innerHTML = available.filter(sec => sec.key === trayTab).map(sec => {
+    const inSection = buckets[sec.key];
+    const chaseCount = inSection.filter(needsProdChase).length;
+
+    const groups = ORDER.map(key => {
+      const meta = Object.values(PROJECTS).find(p => p.key === key);
+      const items = inSection.filter(r => PROJECTS[r.projLookup].key === key);
+      if (!items.length) return "";
+      // client-approved ones first, then oldest, so what needs chasing floats up
+      items.sort((a, b) => (needsProdChase(b) ? 1 : 0) - (needsProdChase(a) ? 1 : 0) || a.idx - b.idx);
+      return '<div class="tray-group">' +
+        '<span class="tray-label"><span class="sw" style="background:var(--' + key + ')"></span>' +
+        esc(meta.full) + '</span>' +
+        '<div class="tray-items">' +
+        items.map(r => {
+          const sched = r.staging ? "Staging " + shortDate(r.staging)
+                      : r.prod ? "Prod " + shortDate(r.prod) : "no dates yet";
+          return '<span class="tray-item' + (needsProdChase(r) ? ' chase' : '') + '" data-idx="' + r.idx + '"' +
+            (editMode ? ' draggable="true"' : '') +
+            ' title="' + esc(r.item + " — " + sched + (needsProdChase(r) ? " — approved by the client" : "")) + '">' +
+            (r.id ? '<span class="rid">' + esc(r.id) + '</span>' : '') +
+            '<span class="nm">' + esc(r.item) + '</span>' +
+            (sec.key === "noprod" && r.staging
+              ? '<span class="tray-when">' + esc(shortDate(r.staging)) + '</span>' : '') +
+            (sec.key === "broken"
+              ? '<span class="tray-tag chase">' + esc(brokenTag(r)) + '</span>' : '') +
+            '</span>';
+        }).join("") +
+        '</div></div>';
+    }).join("");
+
+    return '<section class="tray-section">' +
+      '<p class="tray-note">' + esc(sec.note) +
+        (chaseCount
+          ? ' <b>' + chaseCount + (chaseCount === 1 ? ' is' : ' are') +
+            ' approved by the client</b> and outlined in red — those need a date most.'
+          : '') +
+      '</p>' + groups + '</section>';
+  }).join("");
+}
+
+/* give an undated item a date by dropping it on a day */
+function scheduleFromTray(idx, iso) {
+  const r = ROWS[idx];
+  const field = !r.staging ? "staging" : "prod";
+
+  if (field === "staging" && r.prod && iso > r.prod) {
+    snack('Cannot schedule: "' + r.item + '" would be on staging after its production date (' + shortDate(r.prod) + '). Nothing changed.', "error");
+    return;
+  }
+  if (field === "prod" && r.staging && iso < r.staging) {
+    snack('Cannot schedule: "' + r.item + '" would go to production before its staging date (' + shortDate(r.staging) + '). Nothing changed.', "error");
+    return;
+  }
+
+  ROWS[idx][field] = iso;
+  const label = field === "staging" ? "Staging" : "Prod";
+  changes.push({
+    desc: 'Scheduled <b>' + esc(PROJECTS[r.projLookup].short) + '</b> "' + esc(r.item) + '" · ' +
+          label + ' &rarr; <b>' + esc(shortDate(iso)) + '</b>',
+    merged: false,
+    undo: [{ idx: idx, field: field, from: "" }]
+  });
+
+  rebuildEvents();
+  render();
+  snack('"' + r.item + '" scheduled — ' + label + " " + shortDate(iso) +
+    (scheduleState(ROWS[idx]) === "partial"
+      ? ". Still needs a " + (ROWS[idx].staging ? "production" : "staging") + " date."
+      : "."), "ok");
+}
 
 /* ---- Env List: every item grouped by the environment it sits in ---- */
 function envBuckets() {
@@ -2775,7 +3232,7 @@ const ciMsg = document.getElementById("ciMsg");
 const ciPick = document.getElementById("ciPick");
 const ciDates = { staging: "", prod: "" };
 let ciField = null, ciView = null;
-const CI_HINT = "The new item starts with no statuses — set Dev, Stag and Prod afterwards in Edit mode.";
+const CI_HINT = "Leave both dates empty to park it in the backlog. Statuses are set afterwards in Edit mode.";
 
 function nextItemId(lookup) {
   const meta = PROJECTS[lookup];
@@ -2867,10 +3324,10 @@ function ciValidate(showAll) {
   let error = "";
   if (ciDates.staging && ciDates.prod && ciDates.staging > ciDates.prod) {
     error = "The staging date is after the production date.";
+  } else if (ciDates.prod && !ciDates.staging) {
+    error = "A production date needs a staging date too — production is only reachable through staging.";
   } else if (showAll && !name) {
     error = "Enter an item name.";
-  } else if (showAll && !ciDates.staging && !ciDates.prod) {
-    error = "Pick a staging date, a production date, or both.";
   }
   ciMsg.textContent = error || CI_HINT;
   ciMsg.className = "ci-msg" + (error ? " error" : "");
@@ -2931,7 +3388,7 @@ function createItem() {
 
   closeCreate();
   if (!editMode) setEditMode(true);            // so the change list and Save JSON are in reach
-  const focusIso = row.staging || row.prod;
+  const focusIso = row.staging || row.prod || "";
   if (focusIso) {
     const d = fromKey(focusIso);
     view = new Date(d.getFullYear(), d.getMonth(), 1);
@@ -2939,7 +3396,9 @@ function createItem() {
   rebuildEvents();
   renderPhaseFilter();
   render();
-  snack('"' + name + '" added as ' + row.id + ". Save the JSON, then add the row in Outline.", "ok");
+  snack('"' + name + '" added as ' + row.id +
+    (scheduleState(row) === "backlog" ? " — parked in the backlog, no dates yet." : ".") +
+    " Save the JSON, then add the row in Outline.", "ok");
 }
 
 document.getElementById("createBtn").addEventListener("click", openCreate);
