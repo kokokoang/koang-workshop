@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30",
+  "updated": "2026-10-02",
   "releases": [
     {
       "ID": "GCBC-001",
@@ -622,6 +622,38 @@
       "Staging": "",
       "Staging Status": "",
       "Prod Deployment Date": "",
+      "Prod Status": false,
+      "PIC": ""
+    },
+    {
+      "ID": "CP-024",
+      "Phase": "",
+      "Platform": "Country Platform",
+      "Feature": "About Us standalone page",
+      "Description": "",
+      "Design Status": "To Do",
+      "Dev Status": "TO DO",
+      "Start Date": "",
+      "End Date": "",
+      "Staging": "2026-10-15",
+      "Staging Status": "",
+      "Prod Deployment Date": "",
+      "Prod Status": false,
+      "PIC": ""
+    },
+    {
+      "ID": "CP-025",
+      "Phase": "",
+      "Platform": "Country Platform",
+      "Feature": "Events page copy fix",
+      "Description": "",
+      "Design Status": "",
+      "Dev Status": "TO DO",
+      "Start Date": "",
+      "End Date": "",
+      "Staging": "2026-10-05",
+      "Staging Status": "",
+      "Prod Deployment Date": "2026-10-06",
       "Prod Status": false,
       "PIC": ""
     }
