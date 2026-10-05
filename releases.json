@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02",
+  "updated": "2026-10-05",
   "releases": [
     {
       "ID": "GCBC-001",
@@ -43,9 +43,9 @@
       "Dev Status": "DONE",
       "Start Date": "",
       "End Date": "",
-      "Staging": "2026-10-05",
+      "Staging": "2026-10-01",
       "Staging Status": "FEEDBACK",
-      "Prod Deployment Date": "",
+      "Prod Deployment Date": "2026-10-05",
       "Prod Status": false,
       "PIC": "Adhine"
     },
@@ -109,7 +109,7 @@
       "End Date": "",
       "Staging": "2026-09-18",
       "Staging Status": "DONE",
-      "Prod Deployment Date": "",
+      "Prod Deployment Date": "2026-10-05",
       "Prod Status": false,
       "PIC": "Adhine"
     },
@@ -125,7 +125,7 @@
       "End Date": "",
       "Staging": "2026-09-18",
       "Staging Status": "DONE",
-      "Prod Deployment Date": "",
+      "Prod Deployment Date": "2026-10-05",
       "Prod Status": false,
       "PIC": "Adhine"
     },
@@ -459,9 +459,9 @@
       "Dev Status": "DONE",
       "Start Date": "",
       "End Date": "",
-      "Staging": "2026-09-30",
+      "Staging": "2026-10-05",
       "Staging Status": "DONE",
-      "Prod Deployment Date": "",
+      "Prod Deployment Date": "2026-10-05",
       "Prod Status": false,
       "PIC": ""
     },
@@ -491,9 +491,9 @@
       "Dev Status": "TO DO",
       "Start Date": "",
       "End Date": "",
-      "Staging": "2026-10-08",
+      "Staging": "2026-10-09",
       "Staging Status": "",
-      "Prod Deployment Date": "2026-10-13",
+      "Prod Deployment Date": "2026-10-14",
       "Prod Status": false,
       "PIC": ""
     },
