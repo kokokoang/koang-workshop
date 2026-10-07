@@ -493,7 +493,7 @@
       "End Date": "",
       "Staging": "2026-10-09",
       "Staging Status": "",
-      "Prod Deployment Date": "2026-10-14",
+      "Prod Deployment Date": "",
       "Prod Status": false,
       "PIC": ""
     },
@@ -503,7 +503,7 @@
       "Platform": "Country Platform",
       "Feature": "KP Country Summary Table",
       "Description": "",
-      "Design Status": "Mockup WIP",
+      "Design Status": "Done",
       "Dev Status": "QA",
       "Start Date": "",
       "End Date": "",
@@ -670,6 +670,22 @@
       "Staging": "2026-10-09",
       "Staging Status": "",
       "Prod Deployment Date": "2026-10-14",
+      "Prod Status": false,
+      "PIC": ""
+    },
+    {
+      "ID": "CCR-006",
+      "Phase": "",
+      "Platform": "CCR",
+      "Feature": "October 2026 Feedback",
+      "Description": "",
+      "Design Status": "",
+      "Dev Status": "TO DO",
+      "Start Date": "",
+      "End Date": "",
+      "Staging": "",
+      "Staging Status": "",
+      "Prod Deployment Date": "",
       "Prod Status": false,
       "PIC": ""
     }
