@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08",
+  "updated": "2026-10-12",
   "releases": [
     {
       "ID": "GCBC-001",
@@ -15,7 +15,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-14",
       "Prod Status": true,
-      "PIC": "Eriko"
+      "PIC": "Eriko",
+      "Notes": ""
     },
     {
       "ID": "GCBC-002",
@@ -31,7 +32,8 @@
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": "Eriko"
+      "PIC": "Eriko",
+      "Notes": ""
     },
     {
       "ID": "GCBC-003",
@@ -47,7 +49,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-10-05",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "GCBC-004",
@@ -63,7 +66,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-24",
       "Prod Status": true,
-      "PIC": "Eriko"
+      "PIC": "Eriko",
+      "Notes": ""
     },
     {
       "ID": "GCBC-005",
@@ -79,7 +83,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-24",
       "Prod Status": true,
-      "PIC": "Eriko"
+      "PIC": "Eriko",
+      "Notes": ""
     },
     {
       "ID": "GCBC-006",
@@ -95,7 +100,8 @@
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": "Eriko"
+      "PIC": "Eriko",
+      "Notes": ""
     },
     {
       "ID": "CCR-001",
@@ -111,7 +117,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-10-06",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CCR-002",
@@ -127,7 +134,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-10-06",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-001",
@@ -143,7 +151,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-17",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-002",
@@ -159,7 +168,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-17",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-003",
@@ -175,7 +185,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-17",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-004",
@@ -191,7 +202,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-23",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-005",
@@ -207,7 +219,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-21",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-006",
@@ -223,7 +236,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-21",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-007",
@@ -239,7 +253,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-30",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-008",
@@ -255,7 +270,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-009",
@@ -271,7 +287,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-21",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-010",
@@ -287,7 +304,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-21",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-011",
@@ -303,7 +321,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-21",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-012",
@@ -319,7 +338,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-21",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-013",
@@ -335,7 +355,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-21",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-014",
@@ -351,7 +372,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-21",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-015",
@@ -367,7 +389,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-21",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-016",
@@ -383,7 +406,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-21",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-017",
@@ -399,7 +423,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-21",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-018",
@@ -415,7 +440,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-09-21",
       "Prod Status": true,
-      "PIC": "Adhine"
+      "PIC": "Adhine",
+      "Notes": ""
     },
     {
       "ID": "CP-019",
@@ -431,7 +457,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": "Eriko"
+      "PIC": "Eriko",
+      "Notes": ""
     },
     {
       "ID": "CP-020",
@@ -447,7 +474,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": "Eriko"
+      "PIC": "Eriko",
+      "Notes": ""
     },
     {
       "ID": "CCR-003",
@@ -463,7 +491,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "2026-10-06",
       "Prod Status": true,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "GCBC-007",
@@ -479,7 +508,8 @@
       "Staging Status": "UAT",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "CCR-004",
@@ -487,15 +517,16 @@
       "Platform": "CCR",
       "Feature": "September 2026 Feedback Part 2",
       "Description": "",
-      "Design Status": "",
-      "Dev Status": "TO DO",
+      "Design Status": "Mockup WIP",
+      "Dev Status": "WIP",
       "Start Date": "",
       "End Date": "",
-      "Staging": "2026-10-09",
+      "Staging": "2026-10-14",
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "CP-021",
@@ -511,7 +542,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "GCBC-008",
@@ -527,7 +559,8 @@
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "GCBC-009",
@@ -543,7 +576,8 @@
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "GCBC-010",
@@ -559,7 +593,8 @@
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "GCBC-011",
@@ -575,7 +610,8 @@
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "CP-022",
@@ -591,7 +627,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "CP-023",
@@ -607,7 +644,8 @@
       "Staging Status": "DONE",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "CCR-005",
@@ -623,7 +661,8 @@
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "CP-024",
@@ -639,7 +678,8 @@
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "CP-025",
@@ -653,9 +693,10 @@
       "End Date": "",
       "Staging": "2026-10-08",
       "Staging Status": "DONE",
-      "Prod Deployment Date": "2026-10-12",
+      "Prod Deployment Date": "2026-10-13",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "GCBC-012",
@@ -671,7 +712,8 @@
       "Staging Status": "",
       "Prod Deployment Date": "2026-10-14",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "CCR-006",
@@ -687,23 +729,25 @@
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "CCR-007",
       "Phase": "",
       "Platform": "CCR",
-      "Feature": "October 2026 Feedback",
+      "Feature": "October 2026 Feedback (High Prio)",
       "Description": "",
-      "Design Status": "",
-      "Dev Status": "TO DO",
+      "Design Status": "Mockup WIP",
+      "Dev Status": "WIP",
       "Start Date": "",
       "End Date": "",
       "Staging": "2026-10-14",
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "CCR-008",
@@ -715,11 +759,12 @@
       "Dev Status": "TO DO",
       "Start Date": "",
       "End Date": "",
-      "Staging": "2026-10-21",
+      "Staging": "2026-10-23",
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     },
     {
       "ID": "CCR-009",
@@ -731,11 +776,12 @@
       "Dev Status": "TO DO",
       "Start Date": "",
       "End Date": "",
-      "Staging": "2026-10-21",
+      "Staging": "2026-10-23",
       "Staging Status": "",
       "Prod Deployment Date": "",
       "Prod Status": false,
-      "PIC": ""
+      "PIC": "",
+      "Notes": ""
     }
   ]
 }
