@@ -619,24 +619,7 @@
   .chip.dragging { opacity: .4; }
   .day.drop-ok { background: var(--line-soft); box-shadow: inset 0 0 0 2px var(--ink-3); }
 
-  /* ---------- selection + move form in the panel ---------- */
-  .tip-list li.pickable { display: grid; grid-template-columns: 20px minmax(0, 1fr); column-gap: 10px; align-items: start; }
-  .tip-list li.pickable > .pick { grid-row: 1 / span 5; margin-top: 2px; }
-  .pick { width: 16px; height: 16px; accent-color: var(--ink); cursor: pointer; }
-  .tip-list li.picked { background: var(--line-soft); }
-
-  .movebar {
-    flex: none;
-    border-top: 1px solid var(--line);
-    background: var(--surface-sub);
-    padding: 12px 18px 14px;
-    display: grid;
-    gap: 8px;
-  }
-  .mb-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--ink-2); }
-  .mb-all { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; font-weight: 600; }
-  .mb-row { display: flex; align-items: center; gap: 10px; }
-  .mb-row label { font-size: 12.5px; font-weight: 700; width: 74px; flex: none; }
+  /* ---------- date fields + picker ---------- */
   .date-field {
     font: inherit;
     font-size: 13px;
@@ -670,7 +653,6 @@
   .date-clear:hover { background: var(--line); color: var(--ink); }
 
   /* date picker popover */
-  .movebar { position: relative; }
   .dpick {
     position: absolute;
     right: 18px;
@@ -719,20 +701,8 @@
     background: var(--surface); color: var(--ink);
     padding: 4px 10px; cursor: pointer;
   }
-  .mb-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px; flex-wrap: wrap; }
-  .mb-btns { display: inline-flex; gap: 8px; margin-left: auto; }
   .pill.danger { color: var(--st-late-fg); border-color: var(--st-late-bg); background: var(--st-late-bg); }
   .pill.danger:hover:not(:disabled) { border-color: var(--st-late-fg); }
-  .mb-note { margin: 0; font-size: 11.5px; color: var(--ink-3); }
-  .mb-note.warn { color: var(--st-late-fg); font-weight: 600; }
-
-  .chip.ghost {
-    background: transparent !important;
-    color: var(--ink) !important;
-    border: 1.5px dashed var(--ink-3);
-    font-style: italic;
-  }
-  .chip.ghost .rd { background: transparent; }
 
   /* ---------- create item modal ---------- */
   .pill.create { display: inline-flex; align-items: center; gap: 6px; }
@@ -785,6 +755,14 @@
   }
   .f-row input[type="text"]:focus, .f-row select:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 2px var(--line-soft); }
   .f-row input.invalid { border-color: var(--st-late-fg); }
+  /* the project is fixed once an item exists: it sets the ID prefix */
+  .f-row select:disabled {
+    background: var(--surface-sub);
+    color: var(--ink-3);
+    border-style: dashed;
+    cursor: not-allowed;
+    opacity: 1;                       /* Safari dims disabled selects on its own */
+  }
   .f-row .date-clear[hidden] { display: none; }
   .ci-msg { margin: 0 0 6px; font-size: 11.5px; color: var(--ink-3); }
   .ci-msg.error { color: var(--st-late-fg); font-weight: 600; }
@@ -796,6 +774,99 @@
   }
   #ciPick { position: static; width: auto; margin: -2px 0 0; box-shadow: none; }
   .modal-body { max-height: calc(100vh - 150px); overflow-y: auto; }
+
+  /* ---------- per-item action menu ---------- */
+  button.row-menu {
+    font: inherit;
+    flex: none;
+    width: 24px;
+    height: 24px;
+    display: inline-grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--ink-3);
+    cursor: pointer;
+  }
+  button.row-menu svg { width: 15px; height: 15px; }
+  button.row-menu:hover { background: var(--line-soft); color: var(--ink); border-color: var(--line); }
+  button.row-menu[aria-expanded="true"] { background: var(--line-soft); color: var(--ink); box-shadow: 0 0 0 2px var(--ink); }
+  .item-menu { min-width: 176px; }
+  .item-menu button .lbl { flex: 1; text-align: left; }
+  .item-menu button.danger-item { color: var(--st-late-fg); }
+  .item-menu .mi-note { display: block; padding: 2px 8px 6px; font-size: 11px; color: var(--ink-3); }
+
+  /* ---------- item notes ---------- */
+  button.note-btn {
+    font: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    flex: none;
+    padding: 3px 7px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: var(--surface);
+    color: var(--ink-3);
+    cursor: pointer;
+  }
+  button.note-btn svg { width: 11px; height: 11px; }
+  button.note-btn.icon { padding: 4px 6px; gap: 0; }
+  button.note-btn.icon svg { width: 13px; height: 13px; }
+  button.note-btn:hover { border-color: var(--ink-3); color: var(--ink); }
+  button.note-btn.has { background: var(--st-wip-bg); border-color: transparent; color: var(--st-wip-fg); }
+  button.note-btn[aria-expanded="true"] { box-shadow: 0 0 0 2px var(--ink); }
+
+  .note-pop {
+    position: fixed;
+    z-index: 96;
+    width: min(340px, calc(100vw - 24px));
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+  }
+  .note-pop[hidden] { display: none; }
+  .note-pop .np-head {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 8px;
+  }
+  .note-pop ul { margin: 0; padding-left: 18px; display: grid; gap: 5px; }
+  .note-pop ul ul { margin-top: 5px; padding-left: 16px; }
+  .note-pop li { font-size: 12.5px; line-height: 1.45; color: var(--ink); }
+  .note-pop li::marker { color: var(--ink-3); }
+  .note-pop .np-empty { margin: 0; font-size: 12.5px; color: var(--ink-3); }
+
+  .note-modal .modal-body { gap: 8px; }
+  .note-for { margin: 0; font-size: 12.5px; font-weight: 600; color: var(--ink-2); }
+  #noteText {
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+    width: 100%;
+    resize: vertical;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    tab-size: 2;
+  }
+  #noteText:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 2px var(--line-soft); }
+  .modal-actions #noteClear { margin-right: auto; }
 
   /* ---------- unscheduled tray ---------- */
   .tray {
@@ -1271,7 +1342,7 @@
     .page.view-list .lr,
     .page.view-list .lr-head {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 96px 130px 120px 84px 104px;
+      grid-template-columns: minmax(0, 1fr) 96px 130px 120px 84px 104px 34px;
       column-gap: 14px;
       align-items: center;
     }
@@ -1526,6 +1597,32 @@
 
 <div id="printDoc" aria-hidden="true"></div>
 
+<div class="status-menu item-menu" id="itemMenu" role="menu" hidden></div>
+
+<div class="note-pop" id="notePop" role="dialog" aria-label="Item notes" hidden></div>
+
+<div class="modal-back" id="noteModal" hidden>
+  <div class="modal note-modal" role="dialog" aria-modal="true" aria-labelledby="noteTitle">
+    <div class="modal-head">
+      <h2 id="noteTitle">Notes</h2>
+      <button type="button" class="drawer-close" id="noteClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="note-for" id="noteFor"></p>
+      <textarea id="noteText" rows="9" spellcheck="true"
+        placeholder="One detail per line, for example:&#10;Search bar redesign&#10;Results page layout&#10;  Empty state copy&#10;**Blocked** waiting on client assets"></textarea>
+      <p class="ci-msg">One line per bullet. Indent two spaces for a sub-bullet. <b>**bold**</b> and <i>*italic*</i> work.</p>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="pill danger" id="noteClear">Clear</button>
+      <button type="button" class="pill" id="noteCancel">Cancel</button>
+      <button type="button" class="pill primary" id="noteSave">Save notes</button>
+    </div>
+  </div>
+</div>
+
 <div class="status-menu" id="statusMenu" role="menu" hidden></div>
 
 <div class="snackbar" id="snackbar" role="status" aria-live="polite"></div>
@@ -1623,7 +1720,8 @@ const FIELD_ALIASES = {
   live: "live", prodlive: "live", deployed: "live", prodstatus: "live", prodlivestatus: "live",
   staging: "staging", stagingdate: "staging",
   prod: "prod", production: "prod", proddate: "prod",
-  pic: "pic", pcpic: "pic", owner: "pic"
+  pic: "pic", pcpic: "pic", owner: "pic",
+  notes: "notes", note: "notes", itemdetails: "notes"
 };
 function normalizeRow(raw) {
   const row = { extra: {} };
@@ -1704,6 +1802,7 @@ function buildData(rows) {
       stag: stag,
       live: parseLive(row.live),
       pic: String(row.pic || "").trim(),
+      notes: String(row.notes || "").replace(/\r\n/g, "\n").trim(),
       staging: s.iso,
       prod: p.iso
     });
@@ -1860,16 +1959,6 @@ function chipHTML(ev) {
          '</button>';
 }
 
-function ghostHTML(iso) {
-  if (!preview) return "";
-  return ["staging", "prod"].map(env => {
-    if (preview[env] !== iso) return "";
-    return '<span class="chip ghost ' + preview.proj.key + ' ' + env + '">' +
-      '<span class="chip-label">' + esc(preview.proj.short + " " + ENVS[env].label) + '</span>' +
-      '<span class="rd">' + preview.count + '</span></span>';
-  }).join("");
-}
-
 function render() {
   const year = view.getFullYear(), month = view.getMonth();
   document.getElementById("monthTitle").textContent = MONTHS[month] + " " + year;
@@ -1903,7 +1992,6 @@ function render() {
             (iso === todayKey ? " today" : "") + '" data-iso="' + iso + '">' +
             '<div class="dnum">' + d.getDate() + '</div>' +
             evs.map(chipHTML).join("") +
-            ghostHTML(iso) +
             '</div>';
   }
   grid.innerHTML = html;
@@ -1975,7 +2063,7 @@ function listHeadHTML(ev) {
   const other = ev.env === "staging" ? "prod" : "staging";
   return '<li class="lr-head" aria-hidden="true"><span>Item</span><span>Dev</span><span>Stag</span>' +
     '<span>' + (ev.env === "prod" ? 'Prod' : '') + '</span>' +
-    '<span>PIC</span><span>' + esc(ENVS[other].label) + ' date</span></li>';
+    '<span>PIC</span><span>' + esc(ENVS[other].label) + ' date</span><span></span></li>';
 }
 function listRowHTML(ev, it) {
   const b = itemBadges(ev, it);
@@ -1987,7 +2075,8 @@ function listRowHTML(ev, it) {
   return '<li class="lr"><span class="nm">' + (it.id ? '<span class="rid">' + esc(it.id) + '</span>' : '') + esc(it.item) + '</span>' +
     cell("dev", b.dev) + cell("stag", b.stag) +
     (ev.env === "prod" ? cell("prod", b.prod) : '<span class="c spacer" aria-hidden="true"></span>') +
-    cell("pic", esc(it.pic)) + cell("date", date) + '</li>';
+    cell("pic", esc(it.pic)) + cell("date", date) +
+    '<span class="c note">' + noteBtnHTML(it, true) + itemMenuHTML(it, ev.env) + '</span></li>';
 }
 /* status options offered by the dropdown, per field */
 const STATUS_OPTIONS = {
@@ -2033,7 +2122,7 @@ function itemMetaHTML(it) {
 function itemRowHTML(ev, it) {
   const b = itemBadges(ev, it);
   const html = editMode ? editableBadges(ev, it) : designBadgeHTML(it) + b.dev + b.stag + b.prod;
-  return '<span class="tip-row">' + html +
+  return '<span class="tip-row">' + html + noteBtnHTML(it) + itemMenuHTML(it, ev.env) +
     '<span>' + esc(it.pic) + '</span>' +
     '<span class="other">' + otherEnvText(ev.env, it) + '</span>' +
     '</span>';
@@ -2079,327 +2168,12 @@ function fillDrawer(ev) {
       '<button type="button" class="drawer-close" aria-label="Close panel">' + CLOSE_ICON + '</button>' +
     '</div>' +
     '<ul class="tip-list">' + ev.items.map(it =>
-      '<li' + (editMode ? ' class="pickable' + (selected.has(it.idx) ? ' picked' : '') + '"' : '') + '>' +
-      (editMode
-        ? '<input type="checkbox" class="pick" data-idx="' + it.idx + '"' + (selected.has(it.idx) ? ' checked' : '') +
-          ' aria-label="Select ' + esc(it.item) + '">'
-        : '') +
+      '<li>' +
       '<span class="tip-item">' + (it.id ? '<span class="rid">' + esc(it.id) + '</span>' : '') + esc(it.item) + '</span>' +
       (it.description ? '<span class="tip-desc">' + esc(it.description) + '</span>' : '') +
       itemRowHTML(ev, it) + itemMetaHTML(it) + '</li>').join("") +
     '</ul>' +
-    '<div class="tip-foot">' + esc(rule) + ' At risk = not ready with ' + RISK_DAYS + ' working days or less to go.</div>' +
-    (editMode ? moveBarHTML(ev) : '');
-
-  if (editMode) wireMoveBar(ev);
-}
-
-/* ---- move / split form (edit mode only) ---- */
-function moveBarHTML(ev) {
-  const all = ev.items.length && ev.items.every(it => selected.has(it.idx));
-  return '<div class="movebar">' +
-    '<div class="mb-top">' +
-      '<label class="mb-all"><input type="checkbox" class="pick" id="mbAll"' + (all ? ' checked' : '') + '>Select all</label>' +
-      '<span id="mbCount">' + selected.size + ' of ' + ev.items.length + ' selected</span>' +
-    '</div>' +
-    dateFieldHTML("staging", "mbStag", "Stag Date") +
-    dateFieldHTML("prod", "mbProd", "Prod Date") +
-    '<div class="dpick" id="dpick" hidden></div>' +
-    '<div class="mb-actions">' +
-      '<p class="mb-note" id="mbNote"></p>' +
-      '<span class="mb-btns">' +
-        '<button type="button" class="pill danger" id="mbClear" disabled>Unschedule</button>' +
-        '<button type="button" class="pill primary" id="mbConfirm" disabled>Confirm</button>' +
-      '</span>' +
-    '</div>' +
-  '</div>';
-}
-
-function dateFieldHTML(field, id, label) {
-  const iso = moveDates[field];
-  return '<div class="mb-row"><label for="' + id + '">' + esc(label) + '</label>' +
-    '<button type="button" class="date-field' + (iso ? '' : ' blank') + '" id="' + id + '" ' +
-      'data-field="' + field + '" aria-haspopup="dialog" aria-expanded="false">' +
-      (iso ? esc(shortDate(iso)) : 'Select date') + '</button>' +
-    (iso ? '<button type="button" class="date-clear" data-clear="' + field + '" aria-label="Clear ' + esc(label) + '">×</button>' : '') +
-    '</div>';
-}
-
-/* ---- date picker popover ---- */
-let dpField = null, dpView = null;
-
-function openPicker(field, ev) {
-  dpField = field;
-  const iso = moveDates[field] || (ev ? ev.iso : todayKey);
-  const d = fromKey(iso);
-  dpView = new Date(d.getFullYear(), d.getMonth(), 1);
-  drawPicker(ev);
-}
-function closePicker() {
-  dpField = null;
-  const box = drawer.querySelector("#dpick");
-  if (box) box.hidden = true;
-  drawer.querySelectorAll(".date-field").forEach(b => b.setAttribute("aria-expanded", "false"));
-}
-function drawPicker(ev) {
-  const box = drawer.querySelector("#dpick");
-  if (!box || !dpField) return;
-  const year = dpView.getFullYear(), month = dpView.getMonth();
-  const offset = (new Date(year, month, 1).getDay() + 6) % 7;
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const cells = Math.ceil((offset + daysInMonth) / 7) * 7;
-  const sel = moveDates[dpField];
-
-  let days = "";
-  for (let i = 0; i < cells; i++) {
-    const d = new Date(year, month, 1 - offset + i);
-    const iso = toKey(d);
-    days += '<button type="button" class="dp-day' +
-      (d.getMonth() === month ? '' : ' adj') +
-      (iso === todayKey ? ' today' : '') +
-      (iso === sel ? ' sel' : '') +
-      '" data-iso="' + iso + '">' + d.getDate() + '</button>';
-  }
-
-  box.innerHTML =
-    '<div class="dp-head">' +
-      '<button type="button" class="dp-nav" data-step="-1" aria-label="Previous month">&#8249;</button>' +
-      '<span class="m">' + MONTHS[month] + ' ' + year + '</span>' +
-      '<button type="button" class="dp-nav" data-step="1" aria-label="Next month">&#8250;</button>' +
-    '</div>' +
-    '<div class="dp-grid">' +
-      ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map(w => '<span class="dw">' + w + '</span>').join("") +
-      days +
-    '</div>' +
-    '<div class="dp-foot"><span>' + (sel ? esc(shortDate(sel)) : "No date picked") + '</span>' +
-      '<button type="button" data-pick-today="1">Today</button></div>';
-  box.hidden = false;
-
-  // clicks inside the popover must not reach the outside-click handler: re-rendering
-  // detaches the clicked node, so the handler can no longer tell it came from in here
-  box.querySelectorAll(".dp-nav").forEach(b => b.addEventListener("click", e => {
-    e.stopPropagation();
-    dpView = new Date(dpView.getFullYear(), dpView.getMonth() + Number(b.dataset.step), 1);
-    drawPicker(ev);
-  }));
-  box.querySelectorAll(".dp-day").forEach(b => b.addEventListener("click", e => {
-    e.stopPropagation();
-    pickDate(b.dataset.iso, ev);
-  }));
-  box.querySelector("[data-pick-today]").addEventListener("click", e => {
-    e.stopPropagation();
-    pickDate(todayKey, ev);
-  });
-
-  const field = drawer.querySelector('.date-field[data-field="' + dpField + '"]');
-  if (field) field.setAttribute("aria-expanded", "true");
-}
-/* one listener for the whole page: close the popover on a click outside it */
-document.addEventListener("click", e => {
-  if (!dpField) return;
-  const path = typeof e.composedPath === "function" ? e.composedPath() : [];
-  const box = drawer.querySelector("#dpick");
-  const inside = (box && (path.includes(box) || box.contains(e.target))) ||
-                 (e.target.closest && e.target.closest(".date-field"));
-  if (!inside) closePicker();
-});
-
-function pickDate(iso, ev) {
-  const field = dpField;
-  moveDates[field] = iso;
-  const d = fromKey(iso);                       // main calendar follows the picked date
-  view = new Date(d.getFullYear(), d.getMonth(), 1);
-  fillDrawer(ev);                               // rebuilds the fields (and empties the popover)
-  dpField = field;                              // the popover stays open until a click outside it
-  dpView = new Date(d.getFullYear(), d.getMonth(), 1);
-  drawPicker(ev);
-  updatePreview(ev);
-}
-
-function wireMoveBar(ev) {
-  const allBox = drawer.querySelector("#mbAll");
-
-  drawer.querySelectorAll(".tip-list .pick").forEach(box => {
-    box.addEventListener("change", () => {
-      const idx = Number(box.dataset.idx);
-      if (box.checked) selected.add(idx); else selected.delete(idx);
-      box.closest("li").classList.toggle("picked", box.checked);
-      syncMoveBar(ev);
-    });
-  });
-  allBox.addEventListener("change", () => {
-    ev.items.forEach(it => { if (allBox.checked) selected.add(it.idx); else selected.delete(it.idx); });
-    fillDrawer(ev);
-    updatePreview(ev);
-  });
-  drawer.querySelectorAll(".date-field").forEach(btn => {
-    btn.addEventListener("click", e => {
-      e.stopPropagation();
-      if (dpField === btn.dataset.field) closePicker();
-      else openPicker(btn.dataset.field, ev);
-    });
-  });
-  drawer.querySelectorAll(".date-clear").forEach(btn => {
-    btn.addEventListener("click", e => {
-      e.stopPropagation();
-      const field = dpField;
-      moveDates[btn.dataset.clear] = "";
-      fillDrawer(ev);
-      if (field) { dpField = field; drawPicker(ev); }   // keep the popover open if it was
-      updatePreview(ev);
-    });
-  });
-
-  drawer.querySelector("#mbConfirm").addEventListener("click", () => applyMove(ev));
-  drawer.querySelector("#mbClear").addEventListener("click", () => clearDates(ev));
-  syncMoveBar(ev);
-}
-
-function syncMoveBar(ev) {
-  const note = drawer.querySelector("#mbNote");
-  const confirm = drawer.querySelector("#mbConfirm");
-  const countEl = drawer.querySelector("#mbCount");
-  if (!note || !confirm) return;
-  countEl.textContent = selected.size + " of " + ev.items.length + " selected";
-  const hasDate = !!(moveDates.staging || moveDates.prod);
-  const clearBtn = drawer.querySelector("#mbClear");
-  confirm.disabled = !selected.size || !hasDate;
-  if (clearBtn) clearBtn.disabled = !selected.size;
-
-  // clearing a staging date takes the production date with it, because
-  // production is only reachable through staging
-  const cascade = ev.env === "staging" &&
-    ev.items.some(it => selected.has(it.idx) && it.prod);
-
-  note.className = "mb-note" + (cascade ? " warn" : "");
-  note.textContent = !selected.size
-    ? "Tick the items to move or unschedule."
-    : (cascade
-        ? "Unscheduling clears the production date too."
-        : (!hasDate
-            ? "Pick a date to move them to, or unschedule them."
-            : "Moving " + selected.size + (selected.size === 1 ? " item" : " items") +
-              " out of this deployment."));
-}
-
-function updatePreview(ev) {
-  preview = selected.size && (moveDates.staging || moveDates.prod)
-    ? { proj: ev.proj, staging: moveDates.staging, prod: moveDates.prod, count: selected.size }
-    : null;
-  render();
-  syncMoveBar(ev);
-}
-
-function applyMove(ev) {
-  const stagIso = moveDates.staging, prodIso = moveDates.prod;
-  const idxs = ev.items.filter(it => selected.has(it.idx)).map(it => it.idx);
-  if (!idxs.length || (!stagIso && !prodIso)) return;
-
-  for (const idx of idxs) {                                   // staging must not land after prod
-    const row = ROWS[idx];
-    const newStag = stagIso || row.staging;
-    const newProd = prodIso || row.prod;
-    if (newProd && !newStag) {
-      snack('Cannot move: "' + row.item + '" would have a production date with no staging date. Give it a staging date first.', "error");
-      return;
-    }
-    if (newStag && newProd && newStag > newProd) {
-      snack('Cannot move: "' + row.item + '" would be on staging (' + shortDate(newStag) +
-            ') after its production date (' + shortDate(newProd) + '). Nothing changed.', "error");
-      return;
-    }
-  }
-
-  let merged = false;
-  const undo = [];
-  idxs.forEach(idx => {
-    [["staging", stagIso], ["prod", prodIso]].forEach(([field, iso]) => {
-      if (!iso || ROWS[idx][field] === iso) return;
-      if (events.has(iso + "|" + ev.proj.key + "|" + field)) merged = true;
-      undo.push({ idx: idx, field: field, from: ROWS[idx][field] });
-      ROWS[idx][field] = iso;
-    });
-  });
-
-  if (!undo.length) {
-    snack("Those items are already on that date. Nothing changed.");
-    return;
-  }
-
-  const parts = [];
-  if (stagIso) parts.push("Staging &rarr; <b>" + esc(shortDate(stagIso)) + "</b>");
-  if (prodIso) parts.push("Prod &rarr; <b>" + esc(shortDate(prodIso)) + "</b>");
-  changes.push({
-    desc: '<b>' + esc(ev.proj.short) + '</b> ' + idxs.length + ' of ' + ev.items.length +
-          ' items · ' + parts.join(", "),
-    merged: merged,
-    undo: undo
-  });
-
-  clearMoveState();
-  rebuildEvents();
-  closeDrawer(false);
-  render();
-  snack(idxs.length + (idxs.length === 1 ? " item" : " items") + " moved" +
-    (merged ? " and merged into an existing deployment." : "."), merged ? "ok" : null);
-}
-
-/* Remove the ticked items from this deployment by clearing its date. Clearing a
-   staging date also clears the production date, so the data can never hold a
-   production date with no staging date. */
-function clearDates(ev) {
-  const idxs = ev.items.filter(it => selected.has(it.idx)).map(it => it.idx);
-  if (!idxs.length) return;
-
-  const undo = [];
-  let cascaded = 0;
-  idxs.forEach(idx => {
-    const row = ROWS[idx];
-    if (row[ev.env]) {
-      undo.push({ idx: idx, field: ev.env, from: row[ev.env] });
-      row[ev.env] = "";
-    }
-    if (ev.env === "staging" && row.prod) {
-      undo.push({ idx: idx, field: "prod", from: row.prod });
-      row.prod = "";
-      cascaded++;
-    }
-    // nothing can be live without a production date
-    if (!row.prod && row.live) {
-      undo.push({ idx: idx, field: "live", from: true });
-      row.live = false;
-    }
-  });
-
-  if (!undo.length) {
-    snack("Those items have no date to clear.");
-    return;
-  }
-
-  const label = ev.proj.short + " " + ENVS[ev.env].label;
-  changes.push({
-    desc: 'Unscheduled <b>' + esc(label) + '</b> ' + esc(shortDate(ev.iso)) +
-          ' (' + idxs.length + (idxs.length === 1 ? " item" : " items") + ')' +
-          (cascaded ? ' <span class="merged">(prod date cleared too)</span>' : ''),
-    merged: false,
-    undo: undo
-  });
-
-  clearMoveState();
-  rebuildEvents();
-  closeDrawer(false);
-  render();
-  snack(idxs.length + (idxs.length === 1 ? " item" : " items") + " unscheduled" +
-    (cascaded ? ", production date cleared as well." : ".") +
-    " They are in the Unscheduled tray.", "ok");
-}
-
-function clearMoveState() {
-  dpField = null;
-  selected.clear();
-  moveDates.staging = "";
-  moveDates.prod = "";
-  preview = null;
+    '<div class="tip-foot">' + esc(rule) + ' At risk = not ready with ' + RISK_DAYS + ' working days or less to go.</div>';
 }
 
 function markChips() {
@@ -2424,7 +2198,6 @@ function openDrawer(chip) {
 function closeDrawer(restoreFocus) {
   if (!openKey) return;
   openKey = null;
-  if (typeof clearMoveState === "function") clearMoveState();
   if (typeof closeStatusMenu === "function") closeStatusMenu();
   drawer.classList.remove("open");
   document.body.classList.remove("drawer-open");
@@ -2445,15 +2218,20 @@ drawer.addEventListener("click", e => {
 });
 document.addEventListener("keydown", e => {
   if (e.key !== "Escape") return;
-  if (dpField) { closePicker(); return; }
   if (openKey) closeDrawer(true);
 });
+// popovers and modals the panel opens: they sit at the end of <body>, not inside the panel
+const DRAWER_OVERLAYS = ["itemMenu", "noteModal", "notePop", "createModal", "statusMenu"]
+  .map(id => document.getElementById(id));
+
 document.addEventListener("click", e => {
   if (!openKey) return;
   // use the dispatch path: re-rendering can detach the clicked node before this runs
   const path = typeof e.composedPath === "function" ? e.composedPath() : [];
   if (path.includes(drawer) || drawer.contains(e.target)) return;
   if (e.target.closest && e.target.closest(".chip")) return;
+  // the panel's own overlays live outside it in the DOM — clicking them is not "outside"
+  if (DRAWER_OVERLAYS.some(el => el && (path.includes(el) || el.contains(e.target)))) return;
   closeDrawer(false);
 });
 
@@ -2592,9 +2370,6 @@ function snack(message, kind) {
 
 /* ---- edit mode: drag a chip to another day to move that date ---- */
 let editMode = false;
-const selected = new Set();                       // item row indexes ticked in the panel
-const moveDates = { staging: "", prod: "" };      // values of the two date fields
-let preview = null;                               // ghost chips for the picked dates
 const changes = [];   // { desc, merged, undo: [{ idx, field, from }] }
 const editbar = document.getElementById("changesPanel");   // edit tools live at the bottom
 const changelist = document.getElementById("changelist");
@@ -2606,7 +2381,7 @@ const editBtn = document.getElementById("editBtn");
 function setEditMode(on) {
   editMode = on;
   closeStatusMenu();
-  clearMoveState();
+  closeItemMenu();
   if (openKey) { const ev = events.get(openKey); if (ev) fillDrawer(ev); }
   document.body.classList.toggle("edit-on", on);
   editBtn.setAttribute("aria-pressed", on ? "true" : "false");
@@ -2665,7 +2440,6 @@ function moveEvent(ev, toIso) {
 undoBtn.addEventListener("click", () => {
   const last = changes.pop();
   if (!last) return;
-  clearMoveState();
   last.undo.forEach(u => { ROWS[u.idx][u.field] = u.from; });
   if (last.created !== undefined) ROWS.splice(last.created, 1);   // created rows are always last
   rebuildEvents();
@@ -2678,7 +2452,6 @@ undoBtn.addEventListener("click", () => {
 resetBtn.addEventListener("click", () => {
   ROWS = ORIGINAL.map(r => Object.assign({}, r));
   changes.length = 0;
-  clearMoveState();
   rebuildEvents();
   render();
   { const ev = openKey && events.get(openKey); if (ev) fillDrawer(ev); }
@@ -2705,7 +2478,8 @@ function exportText() {
       "Staging Status": r.stag ? STATUS_LABEL[r.stag].toUpperCase() : "",
       "Prod Deployment Date": r.prod,
       "Prod Status": r.live,
-      "PIC": r.pic
+      "PIC": r.pic,
+      "Notes": r.notes
     }, r.extra || {}))
   };
   return JSON.stringify(data, null, 2);
@@ -2865,6 +2639,286 @@ try {
     trayEl.dataset.open = "false";
   }
 } catch (e) {}
+
+/* ---- item notes: a bullet list of what sits inside this item ----
+   Stored as plain text, one bullet per line. Two leading spaces make a
+   sub-bullet; **bold** and *italic* are supported inline. */
+const NOTE_ICON =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
+  'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+  '<line x1="8" y1="7" x2="18" y2="7"></line><line x1="8" y1="12" x2="18" y2="12"></line>' +
+  '<line x1="8" y1="17" x2="14" y2="17"></line><circle cx="4" cy="7" r="1"></circle>' +
+  '<circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="17" r="1"></circle></svg>';
+
+function inlineMarks(text) {
+  // escape first, then allow a small, fixed set of marks
+  return esc(text)
+    .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
+    .replace(/\*([^*]+)\*/g, "<i>$1</i>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>");
+}
+
+function noteListHTML(notes) {
+  const lines = String(notes || "").split("\n").filter(l => l.trim());
+  if (!lines.length) return '<p class="np-empty">No notes yet.</p>';
+  let html = "", open = false;
+  lines.forEach(line => {
+    const nested = /^(\s{2,}|\t)/.test(line);
+    const text = inlineMarks(line.replace(/^[\s\t]*(?:[-\u2022]|\*(?=\s))?\s*/, ""));
+    if (nested && !open) { html += "<ul>"; open = true; }
+    if (!nested && open) { html += "</ul>"; open = false; }
+    html += "<li>" + text + "</li>";
+  });
+  if (open) html += "</ul>";
+  return "<ul>" + html + "</ul>";
+}
+
+function noteBtnHTML(it, compact) {
+  const has = !!String(it.notes || "").trim();
+  if (editMode) return "";                          // edit mode reaches notes through the ⋮ menu
+  if (!has) return "";                              // nothing to read
+  return '<button type="button" class="note-btn' + (has ? ' has' : '') + (compact ? ' icon' : '') +
+    '" data-note="' + it.idx + '" aria-haspopup="dialog" aria-expanded="false" ' +
+    'title="' + (has ? 'Show notes' : 'Add notes') + '"' +
+    (compact ? ' aria-label="' + (has ? 'Show notes' : 'Add notes') + '"' : '') + '>' +
+    NOTE_ICON + (compact ? '' : (has ? 'Note' : 'Add note')) + '</button>';
+}
+
+/* read-only popover */
+const notePop = document.getElementById("notePop");
+let notePopFor = null;
+
+function closeNotePop() {
+  if (!notePopFor) return;
+  document.querySelectorAll('.note-btn[aria-expanded="true"]')
+    .forEach(b => b.setAttribute("aria-expanded", "false"));
+  notePopFor = null;
+  notePop.hidden = true;
+}
+
+/* Keep the popover pinned to its button. Closing on any scroll looks right
+   until the click itself scrolls the button into view — that scroll lands
+   after the click and would shut the popover the click just opened. */
+function placeNotePop() {
+  if (!notePopFor) return;
+  if (!document.contains(notePopFor)) { closeNotePop(); return; }
+  const rect = notePopFor.getBoundingClientRect();
+  if (rect.bottom < 0 || rect.top > window.innerHeight) { closeNotePop(); return; }
+
+  const pw = notePop.offsetWidth, ph = notePop.offsetHeight;
+  let left = Math.min(rect.left, window.innerWidth - pw - 10);
+  let top = rect.bottom + 6;
+  if (top + ph > window.innerHeight - 10) top = Math.max(10, rect.top - ph - 6);
+  notePop.style.left = Math.max(10, left) + "px";
+  notePop.style.top = top + "px";
+}
+
+function openNotePop(btn, idx) {
+  closeNotePop();
+  const r = ROWS[idx];
+  if (!r) return;
+  notePopFor = btn;
+  notePop.innerHTML = '<p class="np-head">' + esc(r.id ? r.id + " — " : "") + esc(r.item) + '</p>' +
+    noteListHTML(r.notes);
+  notePop.hidden = false;
+  placeNotePop();
+  btn.setAttribute("aria-expanded", "true");
+}
+
+/* editor */
+const noteModal = document.getElementById("noteModal");
+const noteText = document.getElementById("noteText");
+let noteEditIdx = null;
+
+function openNoteEditor(idx) {
+  const r = ROWS[idx];
+  if (!r) return;
+  noteEditIdx = idx;
+  document.getElementById("noteFor").textContent = (r.id ? r.id + " — " : "") + r.item;
+  noteText.value = r.notes || "";
+  noteModal.hidden = false;
+  noteText.focus();
+}
+function closeNoteEditor() {
+  noteEditIdx = null;
+  noteModal.hidden = true;
+}
+function saveNote(value) {
+  if (noteEditIdx === null) return;
+  const idx = noteEditIdx;
+  const r = ROWS[idx];
+  const next = String(value || "").replace(/\r\n/g, "\n").trim();
+  if (next === (r.notes || "")) { closeNoteEditor(); return; }
+
+  const count = next ? next.split("\n").filter(l => l.trim()).length : 0;
+  changes.push({
+    desc: '<b>' + esc(PROJECTS[r.projLookup] ? PROJECTS[r.projLookup].short : r.project) + '</b> "' +
+          esc(r.item) + '" · Notes ' + (count ? '&rarr; <b>' + count + (count === 1 ? ' line' : ' lines') + '</b>' : '&rarr; <b>cleared</b>'),
+    merged: false,
+    undo: [{ idx: idx, field: "notes", from: r.notes || "" }]
+  });
+  r.notes = next;
+
+  closeNoteEditor();
+  rebuildEvents();
+  render();
+  const ev = openKey && events.get(openKey);
+  if (ev) fillDrawer(ev);
+  snack(count ? "Notes saved for \"" + r.item + "\"." : "Notes cleared for \"" + r.item + "\".", "ok");
+}
+
+document.getElementById("noteSave").addEventListener("click", () => saveNote(noteText.value));
+document.getElementById("noteCancel").addEventListener("click", closeNoteEditor);
+document.getElementById("noteClose").addEventListener("click", closeNoteEditor);
+document.getElementById("noteClear").addEventListener("click", () => saveNote(""));
+noteModal.addEventListener("click", e => { if (e.target === noteModal) closeNoteEditor(); });
+
+// one delegated handler: the buttons live in several places and are re-rendered often
+document.addEventListener("click", e => {
+  const btn = e.target.closest && e.target.closest(".note-btn");
+  if (btn) {
+    e.stopPropagation();
+    const idx = Number(btn.dataset.note);
+    if (editMode) openNoteEditor(idx);
+    else if (notePopFor === btn) closeNotePop();
+    else openNotePop(btn, idx);
+    return;
+  }
+  const path = typeof e.composedPath === "function" ? e.composedPath() : [];
+  if (notePopFor && !path.includes(notePop) && !notePop.contains(e.target)) closeNotePop();
+});
+document.addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  if (!noteModal.hidden) { closeNoteEditor(); e.stopImmediatePropagation(); return; }
+  if (notePopFor) { closeNotePop(); e.stopImmediatePropagation(); }
+}, true);
+window.addEventListener("resize", placeNotePop);
+window.addEventListener("scroll", placeNotePop, true);
+
+/* ---- per-item action menu (edit mode): one place for the slow actions ---- */
+const MENU_ICON =
+  '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+  '<circle cx="12" cy="5" r="1.8"></circle><circle cx="12" cy="12" r="1.8"></circle>' +
+  '<circle cx="12" cy="19" r="1.8"></circle></svg>';
+
+function itemMenuHTML(it, env) {
+  if (!editMode) return "";
+  return '<button type="button" class="row-menu" data-menu="' + it.idx + '"' +
+    (env ? ' data-env="' + env + '"' : '') +
+    ' aria-haspopup="menu" aria-expanded="false" aria-label="Actions for ' + esc(it.item) + '">' +
+    MENU_ICON + '</button>';
+}
+
+const itemMenu = document.getElementById("itemMenu");
+let itemMenuFor = null;
+
+function closeItemMenu() {
+  if (!itemMenuFor) return;
+  if (document.contains(itemMenuFor)) itemMenuFor.setAttribute("aria-expanded", "false");
+  itemMenuFor = null;
+  itemMenu.hidden = true;
+}
+
+function openItemMenu(btn) {
+  closeItemMenu();
+  const idx = Number(btn.dataset.menu);
+  const env = btn.dataset.env || "";
+  const r = ROWS[idx];
+  if (!r) return;
+  itemMenuFor = btn;
+
+  const hasNotes = !!String(r.notes || "").trim();
+  const canUnschedule = env && !!r[env];
+  const cascades = env === "staging" && !!r.prod;
+
+  itemMenu.innerHTML =
+    '<div class="sm-title">' + esc(r.id || r.item) + '</div>' +
+    '<button type="button" role="menuitem" data-act="edit"><span class="lbl">Edit epic</span></button>' +
+    '<button type="button" role="menuitem" data-act="notes"><span class="lbl">' +
+      (hasNotes ? 'Edit notes' : 'Add notes') + '</span></button>' +
+    (canUnschedule
+      ? '<button type="button" role="menuitem" class="danger-item" data-act="unschedule">' +
+        '<span class="lbl">Unschedule ' + esc(ENVS[env].label) + '</span></button>' +
+        (cascades ? '<span class="mi-note">Also clears the production date.</span>' : '')
+      : '');
+  itemMenu.hidden = false;
+
+  const rect = btn.getBoundingClientRect();
+  const mw = itemMenu.offsetWidth, mh = itemMenu.offsetHeight;
+  let left = Math.min(rect.left, window.innerWidth - mw - 10);
+  let top = rect.bottom + 6;
+  if (top + mh > window.innerHeight - 10) top = Math.max(10, rect.top - mh - 6);
+  itemMenu.style.left = Math.max(10, left) + "px";
+  itemMenu.style.top = Math.round(top) + "px";
+  btn.setAttribute("aria-expanded", "true");
+
+  itemMenu.querySelectorAll("button[data-act]").forEach(b => b.addEventListener("click", e => {
+    e.stopPropagation();
+    const act = b.dataset.act;
+    closeItemMenu();
+    if (act === "edit") openEditEpic(idx);
+    else if (act === "notes") openNoteEditor(idx);
+    else if (act === "unschedule") unscheduleItem(idx, env);
+  }));
+  const first = itemMenu.querySelector("button[data-act]");
+  if (first) first.focus({ preventScroll: true });
+}
+
+document.addEventListener("click", e => {
+  const btn = e.target.closest && e.target.closest(".row-menu");
+  if (btn) {
+    e.stopPropagation();
+    if (itemMenuFor === btn) closeItemMenu(); else openItemMenu(btn);
+    return;
+  }
+  const path = typeof e.composedPath === "function" ? e.composedPath() : [];
+  if (itemMenuFor && !path.includes(itemMenu) && !itemMenu.contains(e.target)) closeItemMenu();
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && itemMenuFor) {
+    const btn = itemMenuFor;
+    closeItemMenu();
+    if (btn && document.contains(btn)) btn.focus();
+    e.stopImmediatePropagation();
+  }
+}, true);
+window.addEventListener("resize", closeItemMenu);
+window.addEventListener("scroll", closeItemMenu, true);
+
+/* unschedule one item from the environment whose row the menu was opened on */
+function unscheduleItem(idx, env) {
+  const row = ROWS[idx];
+  if (!row || !env || !row[env]) return;
+
+  const undo = [];
+  undo.push({ idx: idx, field: env, from: row[env] });
+  row[env] = "";
+  let cascaded = false;
+  if (env === "staging" && row.prod) {
+    undo.push({ idx: idx, field: "prod", from: row.prod });
+    row.prod = "";
+    cascaded = true;
+  }
+  if (!row.prod && row.live) {
+    undo.push({ idx: idx, field: "live", from: true });
+    row.live = false;
+  }
+
+  const meta = PROJECTS[row.projLookup];
+  changes.push({
+    desc: 'Unscheduled <b>' + esc(meta ? meta.short : row.project) + '</b> "' + esc(row.item) + '" · ' +
+          esc(ENVS[env].label) + (cascaded ? ' <span class="merged">(prod date cleared too)</span>' : ''),
+    merged: false,
+    undo: undo
+  });
+
+  rebuildEvents();
+  render();
+  const ev = openKey && events.get(openKey);
+  if (ev) fillDrawer(ev); else closeDrawer(false);
+  snack('"' + row.item + '" unscheduled' +
+    (cascaded ? ", production date cleared as well." : ".") + " It is in the Unscheduled tray.", "ok");
+}
 
 /* ---- status dropdown on panel badges (edit mode) ---- */
 const statusMenu = document.getElementById("statusMenu");
@@ -3073,6 +3127,7 @@ function renderTray() {
               ? '<span class="tray-when">' + esc(shortDate(r.staging)) + '</span>' : '') +
             (sec.key === "broken"
               ? '<span class="tray-tag chase">' + esc(brokenTag(r)) + '</span>' : '') +
+            noteBtnHTML(r, true) + itemMenuHTML(r, "") +
             '</span>';
         }).join("") +
         '</div></div>';
@@ -3232,7 +3287,9 @@ const ciMsg = document.getElementById("ciMsg");
 const ciPick = document.getElementById("ciPick");
 const ciDates = { staging: "", prod: "" };
 let ciField = null, ciView = null;
-const CI_HINT = "Leave both dates empty to park it in the backlog. Statuses are set afterwards in Edit mode.";
+let ciEditIdx = null;   // null = creating, otherwise the row index being edited
+const CI_HINT_NEW = "Leave both dates empty to park it in the backlog. Statuses are set afterwards in Edit mode.";
+const CI_HINT_EDIT = "Clearing a date sends that environment back to the Unscheduled tray. The project and the ID stay as they are.";
 
 function nextItemId(lookup) {
   const meta = PROJECTS[lookup];
@@ -3329,13 +3386,41 @@ function ciValidate(showAll) {
   } else if (showAll && !name) {
     error = "Enter an item name.";
   }
-  ciMsg.textContent = error || CI_HINT;
+  ciMsg.textContent = error || (ciEditIdx === null ? CI_HINT_NEW : CI_HINT_EDIT);
   ciMsg.className = "ci-msg" + (error ? " error" : "");
   ciName.classList.toggle("invalid", !!(showAll && !name));
   return !error;
 }
 
+
+function applyCiMode() {
+  const editing = ciEditIdx !== null;
+  document.getElementById("ciTitle").textContent = editing ? "Edit epic" : "Create item";
+  document.getElementById("ciCreate").textContent = editing ? "Save changes" : "Create item";
+  // the project decides the ID prefix, so it is fixed once the item exists
+  ciProject.disabled = editing;
+  ciProject.title = editing ? "The project cannot be changed — it sets the ID prefix." : "";
+}
+
+function openEditEpic(idx) {
+  const r = ROWS[idx];
+  if (!r) return;
+  ciEditIdx = idx;
+  ciName.value = r.item;
+  ciProject.value = r.projLookup;
+  ciSetField("staging", r.staging || "");
+  ciSetField("prod", r.prod || "");
+  ciClosePicker();
+  applyCiMode();
+  ciValidate();
+  ciModal.hidden = false;
+  ciName.focus();
+  ciName.select();
+}
+
 function openCreate() {
+  ciEditIdx = null;
+  applyCiMode();
   ciName.value = "";
   ciProject.value = "GCBC";
   ciSetField("staging", "");
@@ -3347,8 +3432,61 @@ function openCreate() {
 }
 function closeCreate() {
   ciClosePicker();
+  ciEditIdx = null;
   ciModal.hidden = true;
 }
+
+function saveEpic() {
+  const idx = ciEditIdx;
+  const row = ROWS[idx];
+  const name = ciName.value.trim();
+  if (!row || !ciValidate(true)) return;
+
+  const next = { item: name, staging: ciDates.staging, prod: ciDates.prod };
+  const undo = [];
+  Object.keys(next).forEach(f => {
+    if (row[f] !== next[f]) undo.push({ idx: idx, field: f, from: row[f] });
+  });
+  // nothing can be live without a production date
+  if (!next.prod && row.live) undo.push({ idx: idx, field: "live", from: true });
+
+  if (!undo.length) { closeCreate(); return; }
+
+  const before = { item: row.item, staging: row.staging, prod: row.prod };
+  Object.keys(next).forEach(f => { row[f] = next[f]; });
+  if (!row.prod) row.live = false;
+
+  const bits = [];
+  if (before.item !== row.item) bits.push('renamed to "' + esc(row.item) + '"');
+  ["staging", "prod"].forEach(f => {
+    if (before[f] === row[f]) return;
+    const label = f === "staging" ? "Staging" : "Prod";
+    bits.push(row[f]
+      ? label + " &rarr; <b>" + esc(shortDate(row[f])) + "</b>"
+      : label + " <b>cleared</b>");
+  });
+  const meta = PROJECTS[row.projLookup];
+  changes.push({
+    desc: 'Edited <b>' + esc(meta ? meta.short : row.project) + '</b> "' + esc(before.item) + '" · ' + bits.join(", "),
+    merged: false,
+    undo: undo
+  });
+
+  closeCreate();
+  const focusIso = row.staging || row.prod || "";
+  if (focusIso) {
+    const d = fromKey(focusIso);
+    view = new Date(d.getFullYear(), d.getMonth(), 1);
+  }
+  rebuildEvents();
+  render();
+  const ev = openKey && events.get(openKey);
+  if (ev) fillDrawer(ev); else closeDrawer(false);
+  snack('"' + row.item + '" updated' +
+    (scheduleState(row) === "backlog" ? " — now in the backlog, no dates." : ".") , "ok");
+}
+
+function submitCi() { if (ciEditIdx === null) createItem(); else saveEpic(); }
 
 function createItem() {
   const name = ciName.value.trim();
@@ -3404,9 +3542,9 @@ function createItem() {
 document.getElementById("createBtn").addEventListener("click", openCreate);
 document.getElementById("ciCancel").addEventListener("click", closeCreate);
 document.getElementById("ciClose").addEventListener("click", closeCreate);
-document.getElementById("ciCreate").addEventListener("click", createItem);
+document.getElementById("ciCreate").addEventListener("click", submitCi);
 ciName.addEventListener("input", () => ciValidate());
-ciName.addEventListener("keydown", e => { if (e.key === "Enter") createItem(); });
+ciName.addEventListener("keydown", e => { if (e.key === "Enter") submitCi(); });
 ciModal.addEventListener("click", e => {
   if (e.target === ciModal) { closeCreate(); return; }
   const path = typeof e.composedPath === "function" ? e.composedPath() : [];
@@ -3433,9 +3571,9 @@ document.querySelectorAll("#createModal [data-ciclear]").forEach(btn => {
 });
 document.addEventListener("keydown", e => {
   if (e.key !== "Escape" || ciModal.hidden) return;
+  e.stopImmediatePropagation();                 // never let Escape reach the panel behind the modal
   if (ciField) { ciClosePicker(); return; }
   closeCreate();
-  e.stopImmediatePropagation();
 }, true);
 
 /* ---- view toggle (calendar / list / env), remembered per browser ---- */
